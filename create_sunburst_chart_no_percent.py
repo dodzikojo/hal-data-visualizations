@@ -38,8 +38,8 @@ def create_sunburst_chart_no_percent(excel_file_path):
         values='count',
         title="Sunburst Chart of Roles Distribution (No Percentages)"
     )
-    # Modified textinfo to remove percentages
-    fig.update_traces(textinfo="label")
+    # Modified textinfo and orientation
+    fig.update_traces(textinfo="label", insidetextorientation='horizontal')
     fig.update_layout(margin=dict(t=50, l=25, r=25, b=25))
 
     # --- Saving ---
@@ -47,10 +47,10 @@ def create_sunburst_chart_no_percent(excel_file_path):
     os.makedirs(output_dir, exist_ok=True)
     base_filename = os.path.splitext(os.path.basename(excel_file_path))[0]
     # New filename for the modified chart
-    chart_filename = os.path.join(output_dir, f'{base_filename}_sunburst_no_percent.html')
+    chart_filename = os.path.join(output_dir, f'{base_filename}_sunburst_fulltext.html')
 
     fig.write_html(chart_filename)
-    print(f"Sunburst chart without percentages saved as '{chart_filename}'")
+    print(f"Sunburst chart with horizontal text saved as '{chart_filename}'")
 
 if __name__ == "__main__":
     excel_filename = "HAL - ACC Roles - Consenting - Generated Roles.xlsx"
