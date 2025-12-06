@@ -412,6 +412,9 @@
             }
         }
 
+        // Store the previous clicked ID to detect when we click the same item again (going back)
+        let previousClickedId = null;
+
         function getSelectedRoles() {
             try {
                 const iframe = document.querySelector('.chart-iframe');
@@ -434,21 +437,22 @@
                     const lastClicked = plotlyDiv._lastClicked;
                     if (lastClicked && lastClicked.points && lastClicked.points.length > 0) {
                         const clickedId = lastClicked.points[0].id;
-                        const clickedLabel = lastClicked.points[0].label;
-                        const clickedParent = lastClicked.points[0].parent;
                         
-                        // If clicked on root/center (no parent), return null to show all roles
-                        if (!clickedParent || clickedParent === '') {
+                        // If we clicked the same ID twice, we're going back - show all roles
+                        if (previousClickedId === clickedId) {
+                            // console.log('Same ID clicked again - going back to show all roles');
+                            previousClickedId = null; // Reset for next navigation
                             return null;
                         }
                         
-                        // Get all children of clicked segment (outer ring)
+                        previousClickedId = clickedId;
+                        
+                        // Get all descendants of the clicked segment that are outer ring roles
                         const selectedRoles = [];
                         for (let i = 0; i < chartData.ids.length; i++) {
-                            const parent = chartData.parents[i];
-                            // Check if this node's parent chain includes the clicked segment
+                            // Check if this node is a descendant of the clicked segment
                             if (isDescendant(chartData.ids[i], clickedId, chartData.ids, chartData.parents)) {
-                                // Only add outer ring roles
+                                // Only add outer ring roles (roles that have a parent with a parent)
                                 const nodeParent = chartData.parents[i];
                                 if (nodeParent && nodeParent !== '') {
                                     const parentIndex = chartData.ids.indexOf(nodeParent);
@@ -459,6 +463,7 @@
                             }
                         }
                         
+                        // If no roles found for this selection, show all roles instead
                         return selectedRoles.length > 0 ? [...new Set(selectedRoles)].sort() : null;
                     }
                 }
@@ -664,6 +669,23 @@
                         plotlyDiv.on('plotly_click', function(data) {
                             // Store the clicked data for later retrieval
                             plotlyDiv._lastClicked = data;
+                            
+                            // Debug logging
+                            // console.log('Clicked ID:', data.points[0].id);
+                            // console.log('Clicked Label:', data.points[0].label);
+                            // console.log('Clicked Parent:', data.points[0].parent);
+                            
+                            // Update roles list if Roles tab is active
+                            const rolesTab = document.getElementById('Roles');
+                            if (rolesTab && rolesTab.style.display !== 'none') {
+                                updateRolesList();
+                            }
+                        });
+                        
+                        // Also listen for double-click events (which navigate back)
+                        plotlyDiv.on('plotly_doubleclick', function(data) {
+                            // console.log('Double clicked - resetting to root');
+                            plotlyDiv._lastClicked = null;
                             
                             // Update roles list if Roles tab is active
                             const rolesTab = document.getElementById('Roles');
