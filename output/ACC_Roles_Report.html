@@ -89,6 +89,157 @@
             text-align: left; padding: 12px; border-bottom: 1px solid var(--border-color);
         }
         th { background-color: #f2f2f2; }
+        
+        .roles-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex: 1;
+            overflow-y: auto;
+            min-height: 0;
+        }
+        .role-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 12px;
+            margin-bottom: 8px;
+            background-color: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+        }
+        .role-item:hover {
+            background-color: #f8f9fa;
+        }
+        .role-name {
+            flex: 1;
+            font-size: 0.95rem;
+            color: var(--text-color);
+            word-break: break-word;
+        }
+        .copy-btn {
+            padding: 8px;
+            margin-left: 10px;
+            background-color: var(--tab-active-border);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+        }
+        .copy-btn:hover {
+            background-color: #2980b9;
+        }
+        .copy-btn:active {
+            background-color: #21618c;
+        }
+        .copy-btn.copied {
+            background-color: #27ae60;
+        }
+        .copy-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+        .roles-count {
+            margin-bottom: 1rem;
+            font-weight: 600;
+            color: var(--header-color);
+        }
+        .no-roles {
+            text-align: center;
+            color: #999;
+            padding: 2rem;
+            font-style: italic;
+        }
+        .roles-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+        .roles-header h2 {
+            margin: 0;
+        }
+        .copy-all-btn {
+            padding: 8px 16px;
+            background-color: var(--tab-active-border);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background-color 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .copy-all-btn:hover {
+            background-color: #2980b9;
+        }
+        .copy-all-btn:active {
+            background-color: #21618c;
+        }
+        .copy-all-btn.copied {
+            background-color: #27ae60;
+        }
+        .copy-all-btn svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+        .search-container {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+        .search-box {
+            width: 100%;
+            padding: 10px 40px 10px 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 0.95rem;
+            transition: border-color 0.2s ease;
+        }
+        .search-box:focus {
+            outline: none;
+            border-color: var(--tab-active-border);
+        }
+        .search-box::placeholder {
+            color: #999;
+        }
+        .clear-search-btn {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            transition: color 0.2s ease;
+        }
+        .clear-search-btn:hover {
+            color: #333;
+        }
+        .clear-search-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+        .clear-search-btn.visible {
+            display: flex;
+        }
 
         @media (min-width: 1200px) {
             .main-container { flex-direction: row; }
@@ -117,6 +268,7 @@
                 <button class="tab-link" onclick="openTab(event, 'Exceptions')">Exceptions</button>
                 <button class="tab-link" onclick="openTab(event, 'Governance')">Governance</button>
                 <button class="tab-link" onclick="openTab(event, 'Automation')">Automation</button>
+                <button class="tab-link" onclick="openTab(event, 'Roles')">Roles</button>
             </div>
             <div class="tab-content-container">
                 <div id="About" class="tab-content active">
@@ -131,6 +283,8 @@
                     </ul>
                     <h3>3. Why It's Useful</h3>
                     <p>This tool helps answer critical questions about project governance, resource allocation, and security by turning a complex role list into an intuitive map.</p>
+                    <h3>4. Viewing & Copying Roles</h3>
+                    <p>You can view all outer ring roles in a searchable list by visiting the <a href="#" onclick="event.preventDefault(); document.querySelector('.tab-link:last-child').click();" style="color: var(--tab-active-border); text-decoration: underline; cursor: pointer;">Roles tab</a>. The list updates dynamically based on your chart selection and includes a copy-to-clipboard button for each role.</p>
                     <p>For further information about this chart and underlying roles, reach out to <strong>Dodzi Agbenorku, Digital Asset Information Lead, Long term Growth, Heathrow Airport Limited.</strong></p>
                 </div>
                 <div id="Introduction" class="tab-content">
@@ -155,6 +309,29 @@
                 <div id="Exceptions" class="tab-content"><h2>Handling Exceptions: The "All" Discipline</h2><p>The "All" discipline is reserved for programme-level or project-wide functions.</p></div>
                 <div id="Governance" class="tab-content"><h2>Governance and Adherence</h2><p>The long-term success of this strategy depends on strict governance and consistent application.</p></div>
                 <div id="Automation" class="tab-content"><h2>Automation and Future State</h2><p>This highly structured naming convention is designed to enable automation via the Autodesk Platform Services (APS) API.</p></div>
+                <div id="Roles" class="tab-content">
+                    <div class="roles-header">
+                        <h2>Role List</h2>
+                        <button class="copy-all-btn" id="copyAllBtn" onclick="copyAllRoles()" title="Copy all displayed roles">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                            </svg>
+                            Copy All
+                        </button>
+                    </div>
+                    <div class="search-container">
+                        <input type="text" class="search-box" id="roleSearch" placeholder="Search roles..." oninput="filterRoles()">
+                        <button class="clear-search-btn" id="clearSearchBtn" onclick="clearSearch()" title="Clear search">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <p class="roles-count" id="rolesCount">Loading roles...</p>
+                    <ul class="roles-list" id="rolesList">
+                        <li class="no-roles">Select a segment in the chart to view roles</li>
+                    </ul>
+                </div>
             </div>
         </aside>
     </main>
@@ -172,10 +349,342 @@
             }
             document.getElementById(tabName).style.display = "block";
             evt.currentTarget.className += " active";
+            
+            // If Roles tab is opened, update the roles list
+            if (tabName === 'Roles') {
+                updateRolesList();
+            }
         }
+
+        function copyToClipboard(text, button) {
+            navigator.clipboard.writeText(text).then(function() {
+                const originalIcon = button.innerHTML;
+                button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>';
+                button.classList.add('copied');
+                setTimeout(function() {
+                    button.innerHTML = originalIcon;
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(function(err) {
+                console.error('Failed to copy text: ', err);
+                alert('Failed to copy to clipboard');
+            });
+        }
+
+        function extractOuterRingRoles() {
+            try {
+                const iframe = document.querySelector('.chart-iframe');
+                if (!iframe || !iframe.contentWindow) {
+                    return [];
+                }
+
+                const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                const plotlyDiv = iframeDoc.querySelector('.plotly-graph-div');
+                
+                if (!plotlyDiv || !plotlyDiv.data || !plotlyDiv.data[0]) {
+                    return [];
+                }
+
+                const chartData = plotlyDiv.data[0];
+                const labels = chartData.labels;
+                const ids = chartData.ids;
+                const parents = chartData.parents;
+
+                // Find outer ring roles (those with parents that are not empty and have grandparents)
+                const outerRoles = [];
+                for (let i = 0; i < labels.length; i++) {
+                    const id = ids[i];
+                    const parent = parents[i];
+                    
+                    // Check if this is an outer ring (has a parent and that parent has a parent)
+                    if (parent && parent !== '') {
+                        const parentIndex = ids.indexOf(parent);
+                        if (parentIndex !== -1 && parents[parentIndex] && parents[parentIndex] !== '') {
+                            outerRoles.push(labels[i]);
+                        }
+                    }
+                }
+
+                return [...new Set(outerRoles)].sort();
+            } catch (error) {
+                console.error('Error extracting roles:', error);
+                return [];
+            }
+        }
+
+        function getSelectedRoles() {
+            try {
+                const iframe = document.querySelector('.chart-iframe');
+                if (!iframe || !iframe.contentWindow) {
+                    return null;
+                }
+
+                const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                const plotlyDiv = iframeDoc.querySelector('.plotly-graph-div');
+                
+                if (!plotlyDiv || !plotlyDiv.data || !plotlyDiv.data[0]) {
+                    return null;
+                }
+
+                const chartData = plotlyDiv.data[0];
+                
+                // Check if there's a clicked point
+                if (plotlyDiv._fullLayout && plotlyDiv._fullLayout.clickmode) {
+                    // Get the last clicked point data
+                    const lastClicked = plotlyDiv._lastClicked;
+                    if (lastClicked && lastClicked.points && lastClicked.points.length > 0) {
+                        const clickedId = lastClicked.points[0].id;
+                        const clickedLabel = lastClicked.points[0].label;
+                        const clickedParent = lastClicked.points[0].parent;
+                        
+                        // If clicked on root/center (no parent), return null to show all roles
+                        if (!clickedParent || clickedParent === '') {
+                            return null;
+                        }
+                        
+                        // Get all children of clicked segment (outer ring)
+                        const selectedRoles = [];
+                        for (let i = 0; i < chartData.ids.length; i++) {
+                            const parent = chartData.parents[i];
+                            // Check if this node's parent chain includes the clicked segment
+                            if (isDescendant(chartData.ids[i], clickedId, chartData.ids, chartData.parents)) {
+                                // Only add outer ring roles
+                                const nodeParent = chartData.parents[i];
+                                if (nodeParent && nodeParent !== '') {
+                                    const parentIndex = chartData.ids.indexOf(nodeParent);
+                                    if (parentIndex !== -1 && chartData.parents[parentIndex] && chartData.parents[parentIndex] !== '') {
+                                        selectedRoles.push(chartData.labels[i]);
+                                    }
+                                }
+                            }
+                        }
+                        
+                        return selectedRoles.length > 0 ? [...new Set(selectedRoles)].sort() : null;
+                    }
+                }
+                
+                return null;
+            } catch (error) {
+                console.error('Error getting selected roles:', error);
+                return null;
+            }
+        }
+
+        function isDescendant(nodeId, ancestorId, ids, parents) {
+            if (nodeId === ancestorId) return true;
+            
+            let currentId = nodeId;
+            const visited = new Set();
+            
+            while (currentId && currentId !== '' && !visited.has(currentId)) {
+                visited.add(currentId);
+                const index = ids.indexOf(currentId);
+                if (index === -1) break;
+                
+                const parent = parents[index];
+                if (parent === ancestorId) return true;
+                currentId = parent;
+            }
+            
+            return false;
+        }
+
+        // Store the current roles list globally for search filtering
+        let currentRolesList = [];
+        let currentlyDisplayedRoles = [];
+        let isCurrentlyFiltered = false;
+
+        function updateRolesList() {
+            const rolesList = document.getElementById('rolesList');
+            const rolesCount = document.getElementById('rolesCount');
+            const searchBox = document.getElementById('roleSearch');
+            
+            // Try to get selected roles first, if none, get all roles
+            let roles = getSelectedRoles();
+            isCurrentlyFiltered = roles !== null;
+            
+            if (!roles) {
+                roles = extractOuterRingRoles();
+            }
+
+            if (roles.length === 0) {
+                rolesList.innerHTML = '<li class="no-roles">No roles found. Please wait for chart to load.</li>';
+                rolesCount.textContent = 'No roles available';
+                currentRolesList = [];
+                return;
+            }
+
+            // Store the full list for search filtering
+            currentRolesList = roles;
+            
+            // Clear search box when updating the base list
+            if (searchBox) {
+                searchBox.value = '';
+            }
+            
+            // Display the roles
+            displayRoles(roles, isCurrentlyFiltered);
+        }
+
+        function displayRoles(roles, isFiltered) {
+            const rolesList = document.getElementById('rolesList');
+            const rolesCount = document.getElementById('rolesCount');
+            
+            // Store currently displayed roles for copy all functionality
+            currentlyDisplayedRoles = roles;
+            
+            const countText = isFiltered 
+                ? `Showing ${roles.length} role${roles.length !== 1 ? 's' : ''} (filtered by selection)`
+                : `Showing all ${roles.length} role${roles.length !== 1 ? 's' : ''}`;
+            rolesCount.textContent = countText;
+
+            rolesList.innerHTML = roles.map(role => `
+                <li class="role-item">
+                    <span class="role-name">${role}</span>
+                    <button class="copy-btn" onclick="copyToClipboard('${role.replace(/'/g, "\\'")}', this)" title="Copy to clipboard">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                        </svg>
+                    </button>
+                </li>
+            `).join('');
+        }
+
+        function filterRoles() {
+            const searchBox = document.getElementById('roleSearch');
+            const rolesList = document.getElementById('rolesList');
+            const rolesCount = document.getElementById('rolesCount');
+            const clearBtn = document.getElementById('clearSearchBtn');
+            const searchTerm = searchBox.value.toLowerCase().trim();
+            
+            // Show/hide clear button based on search box content
+            if (searchBox.value.length > 0) {
+                clearBtn.classList.add('visible');
+            } else {
+                clearBtn.classList.remove('visible');
+            }
+            
+            if (currentRolesList.length === 0) {
+                return;
+            }
+            
+            if (searchTerm === '') {
+                // Show all current roles when search is empty
+                displayRoles(currentRolesList, isCurrentlyFiltered);
+                return;
+            }
+            
+            // Filter roles based on search term
+            const filteredRoles = currentRolesList.filter(role => 
+                role.toLowerCase().includes(searchTerm)
+            );
+            
+            // Store currently displayed roles for copy all functionality
+            currentlyDisplayedRoles = filteredRoles;
+            
+            if (filteredRoles.length === 0) {
+                rolesList.innerHTML = '<li class="no-roles">No roles match your search</li>';
+                rolesCount.textContent = 'No matches found';
+                return;
+            }
+            
+            // Display filtered roles with updated count
+            const baseText = isCurrentlyFiltered ? '(filtered by selection)' : '';
+            rolesCount.textContent = `Showing ${filteredRoles.length} of ${currentRolesList.length} role${currentRolesList.length !== 1 ? 's' : ''} ${baseText}`.trim();
+            
+            rolesList.innerHTML = filteredRoles.map(role => {
+                // Highlight the search term in the role name
+                const regex = new RegExp(`(${searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+                const highlightedRole = role.replace(regex, '<mark>$1</mark>');
+                
+                return `
+                    <li class="role-item">
+                        <span class="role-name">${highlightedRole}</span>
+                        <button class="copy-btn" onclick="copyToClipboard('${role.replace(/'/g, "\\'")}', this)" title="Copy to clipboard">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                            </svg>
+                        </button>
+                    </li>
+                `;
+            }).join('');
+        }
+
+        function clearSearch() {
+            const searchBox = document.getElementById('roleSearch');
+            const clearBtn = document.getElementById('clearSearchBtn');
+            searchBox.value = '';
+            clearBtn.classList.remove('visible');
+            filterRoles();
+            searchBox.focus();
+        }
+
+        function copyAllRoles() {
+            const copyAllBtn = document.getElementById('copyAllBtn');
+            
+            if (currentlyDisplayedRoles.length === 0) {
+                alert('No roles to copy');
+                return;
+            }
+            
+            // Join all roles with newline character
+            const allRolesText = currentlyDisplayedRoles.join('\n');
+            
+            navigator.clipboard.writeText(allRolesText).then(function() {
+                const originalHTML = copyAllBtn.innerHTML;
+                copyAllBtn.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+                    </svg>
+                    Copied!
+                `;
+                copyAllBtn.classList.add('copied');
+                setTimeout(function() {
+                    copyAllBtn.innerHTML = originalHTML;
+                    copyAllBtn.classList.remove('copied');
+                }, 2000);
+            }).catch(function(err) {
+                console.error('Failed to copy all roles: ', err);
+                alert('Failed to copy to clipboard');
+            });
+        }
+
+        // Listen for chart clicks
+        function setupChartListener() {
+            const iframe = document.querySelector('.chart-iframe');
+            if (!iframe) return;
+
+            iframe.addEventListener('load', function() {
+                try {
+                    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                    const plotlyDiv = iframeDoc.querySelector('.plotly-graph-div');
+                    
+                    if (plotlyDiv) {
+                        // Listen for plotly click events
+                        plotlyDiv.on('plotly_click', function(data) {
+                            // Store the clicked data for later retrieval
+                            plotlyDiv._lastClicked = data;
+                            
+                            // Update roles list if Roles tab is active
+                            const rolesTab = document.getElementById('Roles');
+                            if (rolesTab && rolesTab.style.display !== 'none') {
+                                updateRolesList();
+                            }
+                        });
+                        
+                        // Initial load of roles list
+                        updateRolesList();
+                    }
+                } catch (error) {
+                    console.error('Error setting up chart listener:', error);
+                }
+            });
+        }
+
         // Ensure the first tab is opened on load
         document.addEventListener("DOMContentLoaded", function() {
             document.querySelector(".tab-link").click();
+            setupChartListener();
         });
     </script>
 </body>
