@@ -437,21 +437,34 @@
                     const lastClicked = plotlyDiv._lastClicked;
                     if (lastClicked && lastClicked.points && lastClicked.points.length > 0) {
                         const clickedId = lastClicked.points[0].id;
+                        const clickedParent = lastClicked.points[0].parent;
                         
-                        // If we clicked the same ID twice, we're going back - show all roles
+                        let targetFilterId = clickedId;
+
+                        // If we clicked the same ID twice, we're going back
                         if (previousClickedId === clickedId) {
-                            // console.log('Same ID clicked again - going back to show all roles');
-                            previousClickedId = null; // Reset for next navigation
-                            return null;
+                            // console.log('Same ID clicked again - going back');
+                            
+                            if (clickedParent && clickedParent !== '') {
+                                // If there is a parent, we are going back to the parent level
+                                // console.log('Going back to parent:', clickedParent);
+                                targetFilterId = clickedParent;
+                                previousClickedId = clickedParent;
+                            } else {
+                                // No parent, going back to root
+                                // console.log('No parent - going back to root');
+                                previousClickedId = null;
+                                return null;
+                            }
+                        } else {
+                            previousClickedId = clickedId;
                         }
-                        
-                        previousClickedId = clickedId;
                         
                         // Get all descendants of the clicked segment that are outer ring roles
                         const selectedRoles = [];
                         for (let i = 0; i < chartData.ids.length; i++) {
-                            // Check if this node is a descendant of the clicked segment
-                            if (isDescendant(chartData.ids[i], clickedId, chartData.ids, chartData.parents)) {
+                            // Check if this node is a descendant of the target segment
+                            if (isDescendant(chartData.ids[i], targetFilterId, chartData.ids, chartData.parents)) {
                                 // Only add outer ring roles (roles that have a parent with a parent)
                                 const nodeParent = chartData.parents[i];
                                 if (nodeParent && nodeParent !== '') {
