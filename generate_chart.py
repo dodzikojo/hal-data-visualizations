@@ -1,6 +1,7 @@
 import pandas as pd
 import plotly.express as px
 import os
+from datetime import datetime
 
 def generate_chart_html(excel_file_path):
     """
@@ -41,6 +42,33 @@ def generate_chart_html(excel_file_path):
         # --- HTML Generation ---
         fig.write_html(chart_only_filepath, full_html=True, include_plotlyjs='cdn')
         print(f"Successfully generated chart file at: '{chart_only_filepath}'")
+        
+        # --- Update ACC_Roles_Report.html with generation timestamp ---
+        report_filepath = os.path.join(output_dir, "ACC_Roles_Report.html")
+        if os.path.exists(report_filepath):
+            try:
+                with open(report_filepath, 'r', encoding='utf-8') as f:
+                    report_html = f.read()
+                
+                # Generate timestamp
+                generation_time = datetime.now().strftime("%B %d, %Y at %I:%M %p")
+                
+                # Replace the date in the span with id="chartGeneratedDate"
+                import re
+                updated_html = re.sub(
+                    r'<span id="chartGeneratedDate">.*?</span>',
+                    f'<span id="chartGeneratedDate">{generation_time}</span>',
+                    report_html
+                )
+                
+                with open(report_filepath, 'w', encoding='utf-8') as f:
+                    f.write(updated_html)
+                
+                print(f"Updated generation timestamp in '{report_filepath}' to: {generation_time}")
+            except Exception as e:
+                print(f"Warning: Could not update timestamp in report: {e}")
+        else:
+            print(f"Warning: Report file not found at '{report_filepath}'")
 
     except FileNotFoundError:
         print(f"Error: Input file not found at '{excel_file_path}'")
