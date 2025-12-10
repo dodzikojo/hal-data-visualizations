@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,14 +14,24 @@
             --border-color: #dee2e6;
             --tab-active-border: #3498db;
         }
-        * { box-sizing: border-box; }
-        body {
-            font-family: var(--primary-font); margin: 0; background-color: var(--background-color);
-            color: var(--text-color); line-height: 1.7; font-size: 16px;
+
+        * {
+            box-sizing: border-box;
         }
+
+        body {
+            font-family: var(--primary-font);
+            margin: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
         .main-container {
             display: flex;
-            flex-direction: column; /* Mobile-first */
+            flex-direction: column;
+            /* Mobile-first */
             width: 100%;
             min-height: 100vh;
         }
@@ -36,60 +47,84 @@
             min-height: 600px;
             background-color: #fff;
         }
+
         .chart-iframe {
             width: 100%;
             height: 100%;
             border: none;
         }
+
         .explanation-container {
             padding: 2rem;
-            background-color: #f0f0f0; /* Light grey background */
-            display: flex; /* Make it a flex container for tabs */
+            background-color: #f0f0f0;
+            /* Light grey background */
+            display: flex;
+            /* Make it a flex container for tabs */
             flex-direction: column;
         }
+
         .tab-nav {
             display: flex;
             flex-wrap: wrap;
             border-bottom: 2px solid var(--border-color);
             margin-bottom: 1.5rem;
         }
+
         .tab-link {
             padding: 10px 20px;
             cursor: pointer;
             border: none;
             background: none;
             font-size: 1rem;
-            margin-bottom: -2px; /* Overlap the container's border */
+            margin-bottom: -2px;
+            /* Overlap the container's border */
             border-bottom: 2px solid transparent;
             transition: border-color 0.3s ease;
         }
+
         .tab-link:hover {
             color: var(--header-color);
         }
+
         .tab-link.active {
             border-bottom-color: var(--tab-active-border);
             color: var(--header-color);
             font-weight: 600;
         }
+
         .tab-content-container {
             /* padding-top: 1.5rem; */
-            flex: 1; /* Allow tab content to grow */
-            overflow-y: auto; /* Enable scrolling for tab content */
+            flex: 1;
+            /* Allow tab content to grow */
+            overflow-y: auto;
+            /* Enable scrolling for tab content */
         }
+
         .tab-content {
             display: none;
         }
+
         .tab-content.active {
             display: block;
         }
+
         table {
-            width: 100%; border-collapse: collapse; margin-top: 1rem;
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
         }
-        th, td {
-            text-align: left; padding: 12px; border-bottom: 1px solid var(--border-color);
+
+        th,
+        td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid var(--border-color);
         }
-        th { background-color: #f2f2f2; }
-        
+
+        th {
+            background-color: #f2f2f2;
+        }
+
         .roles-list {
             list-style: none;
             padding: 0;
@@ -98,6 +133,7 @@
             overflow-y: auto;
             min-height: 0;
         }
+
         .role-item {
             display: flex;
             justify-content: space-between;
@@ -109,15 +145,18 @@
             border-radius: 4px;
             transition: background-color 0.2s ease;
         }
+
         .role-item:hover {
             background-color: #f8f9fa;
         }
+
         .role-name {
             flex: 1;
             font-size: 0.95rem;
             color: var(--text-color);
             word-break: break-word;
         }
+
         .copy-btn {
             padding: 8px;
             margin-left: 10px;
@@ -134,40 +173,49 @@
             width: 36px;
             height: 36px;
         }
+
         .copy-btn:hover {
             background-color: #2980b9;
         }
+
         .copy-btn:active {
             background-color: #21618c;
         }
+
         .copy-btn.copied {
             background-color: #27ae60;
         }
+
         .copy-btn svg {
             width: 18px;
             height: 18px;
             fill: currentColor;
         }
+
         .roles-count {
             margin-bottom: 1rem;
             font-weight: 600;
             color: var(--header-color);
         }
+
         .no-roles {
             text-align: center;
             color: #999;
             padding: 2rem;
             font-style: italic;
         }
+
         .roles-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
             margin-bottom: 1rem;
         }
+
         .roles-header h2 {
             margin: 0;
         }
+
         .copy-all-btn {
             padding: 8px 16px;
             background-color: var(--tab-active-border);
@@ -181,24 +229,30 @@
             align-items: center;
             gap: 6px;
         }
+
         .copy-all-btn:hover {
             background-color: #2980b9;
         }
+
         .copy-all-btn:active {
             background-color: #21618c;
         }
+
         .copy-all-btn.copied {
             background-color: #27ae60;
         }
+
         .copy-all-btn svg {
             width: 16px;
             height: 16px;
             fill: currentColor;
         }
+
         .search-container {
             position: relative;
             margin-bottom: 1rem;
         }
+
         .search-box {
             width: 100%;
             padding: 10px 40px 10px 12px;
@@ -207,13 +261,16 @@
             font-size: 0.95rem;
             transition: border-color 0.2s ease;
         }
+
         .search-box:focus {
             outline: none;
             border-color: var(--tab-active-border);
         }
+
         .search-box::placeholder {
             color: #999;
         }
+
         .clear-search-btn {
             position: absolute;
             right: 8px;
@@ -229,31 +286,40 @@
             color: #999;
             transition: color 0.2s ease;
         }
+
         .clear-search-btn:hover {
             color: #333;
         }
+
         .clear-search-btn svg {
             width: 20px;
             height: 20px;
             fill: currentColor;
         }
+
         .clear-search-btn.visible {
             display: flex;
         }
 
         @media (min-width: 1200px) {
-            .main-container { flex-direction: row; }
-            .chart-container { 
+            .main-container {
+                flex-direction: row;
+            }
+
+            .chart-container {
                 flex-basis: 65%;
             }
+
             .explanation-container {
                 flex-basis: 35%;
                 border-left: 1px solid var(--border-color);
-                max-height: 100vh; /* Constrain height to viewport */
+                max-height: 100vh;
+                /* Constrain height to viewport */
             }
         }
     </style>
 </head>
+
 <body>
     <main class="main-container">
         <section class="chart-container">
@@ -273,58 +339,119 @@
             <div class="tab-content-container">
                 <div id="About" class="tab-content active">
                     <h2>About This Chart</h2>
-                    <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5rem;"><strong>Last Generated:</strong> <span id="chartGeneratedDate">December 10, 2025 at 05:55 PM</span></p>
+                    <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5rem;"><strong>Last Generated:</strong>
+                        <span id="chartGeneratedDate">December 10, 2025 at 05:55 PM</span>
+                    </p>
                     <h3>1. What It Is: "The Big Picture"</h3>
-                    <p>This sunburst chart is an interactive, hierarchical map of every role in Autodesk Construction Cloud (ACC) created for the Development Consent Order (DCO). It visualises the relationships between parties, their functions, and their specific roles.</p>
+                    <p>This sunburst chart is an interactive, hierarchical map of every role in Autodesk Construction
+                        Cloud (ACC) created for the Development Consent Order (DCO). It visualises the relationships
+                        between parties, their functions, and their specific roles.</p>
                     <h3>2. How to Read It</h3>
                     <ul>
-                        <li><strong>Inner Ring (The "Who"):</strong> Represents the various contractual parties, including the client (HAL)</li>
-                        <li><strong>Middle Ring (The "What"):</strong> Shows the functional roles within each contractual party.</li>
-                        <li><strong>Outer Ring (The Full Role):</strong> The exact ACC scope/ discipline related to the contractual party.</li>
+                        <li><strong>Inner Ring (The "Who"):</strong> Represents the various contractual parties,
+                            including the client (HAL)</li>
+                        <li><strong>Middle Ring (The "What"):</strong> Shows the functional roles within each
+                            contractual party.</li>
+                        <li><strong>Outer Ring (The Full Role):</strong> The exact ACC scope/ discipline related to the
+                            contractual party.</li>
                     </ul>
                     <h3>3. Why It's Useful</h3>
-                    <p>This tool helps answer critical questions about project governance, resource allocation, and security by turning a complex role list into an intuitive map.</p>
+                    <p>This tool helps answer critical questions about project governance, resource allocation, and
+                        security by turning a complex role list into an intuitive map.</p>
                     <h3>4. Viewing & Copying Roles</h3>
-                    <p>You can view all outer ring roles in a searchable list by visiting the <a href="#" onclick="event.preventDefault(); document.querySelector('.tab-link:last-child').click();" style="color: var(--tab-active-border); text-decoration: underline; cursor: pointer;">Roles tab</a>. The list updates dynamically based on your chart selection and includes a copy-to-clipboard button for each role.</p>
-                    <p>For further information about this chart and underlying roles, reach out to <strong>Dodzi Agbenorku, Digital Asset Information Lead, Long term Growth, Heathrow Airport Limited.</strong></p>
+                    <p>You can view all outer ring roles in a searchable list by visiting the <a href="#"
+                            onclick="event.preventDefault(); document.querySelector('.tab-link:last-child').click();"
+                            style="color: var(--tab-active-border); text-decoration: underline; cursor: pointer;">Roles
+                            tab</a>. The list updates dynamically based on your chart selection and includes a
+                        copy-to-clipboard button for each role.</p>
+                    <p>For further information about this chart and underlying roles, reach out to <strong>Dodzi
+                            Agbenorku, Digital Asset Information Lead, Long term Growth, Heathrow Airport
+                            Limited.</strong></p>
                 </div>
                 <div id="Introduction" class="tab-content">
                     <h2>Introduction & Core Logic</h2>
-                    <p>A primary driver for this new approach is the strategic goal to expand the use of ACC to incorporate HAL's delivery partners, having them work directly within our environment. This creates a single, unified Common Data Environment (CDE) for the Long-Term Growth Programme.</p>
-                    <p>To enable this, the primary objective is to establish a robust, scalable, and secure Role-Based Access Control (RBAC) framework that aligns with the principles of the ISO 19650 series of standards. The core principle is the decoupling of permissions from specific individuals or company names. Instead, roles are defined based on a logical, three-level hierarchy. This approach is fundamental to ensuring the security, efficiency, and clarity required for a multi-party, integrated programme.</p>
+                    <p>A primary driver for this new approach is the strategic goal to expand the use of ACC to
+                        incorporate HAL's delivery partners, having them work directly within our environment. This
+                        creates a single, unified Common Data Environment (CDE) for the Long-Term Growth Programme.</p>
+                    <p>To enable this, the primary objective is to establish a robust, scalable, and secure Role-Based
+                        Access Control (RBAC) framework that aligns with the principles of the ISO 19650 series of
+                        standards. The core principle is the decoupling of permissions from specific individuals or
+                        company names. Instead, roles are defined based on a logical, three-level hierarchy. This
+                        approach is fundamental to ensuring the security, efficiency, and clarity required for a
+                        multi-party, integrated programme.</p>
                 </div>
                 <div id="Examples" class="tab-content">
                     <h2>Examples in Practice</h2>
-                    <p>The table below illustrates how the three levels combine to form clear, logical roles for various project participants.</p>
-                    <table><thead><tr><th>Scenario</th><th>Level 1 (Party)</th><th>Level 2 (Function)</th><th>Level 3 (Discipline)</th><th>Resulting ACC Role</th></tr></thead>
-                    <tbody>
-                        <!-- <tr><td>Structural engineer from contractor reviewing designs</td><td>Contractor</td><td>Approver</td><td>Structure</td><td>Contractor - Approver - Structure</td></tr> -->
-                        <tr><td>Architect from lead design firm uploading drawings</td><td>Lead Designer</td><td>General</td><td>Architecture</td><td>Lead Designer - General - Architecture</td></tr>
-                        <tr><td>HAL's central document control team</td><td>HAL</td><td>Document Controller</td><td>All</td><td>HAL - Document Controller - All</td></tr>
-                    </tbody></table>
+                    <p>The table below illustrates how the three levels combine to form clear, logical roles for various
+                        project participants.</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Scenario</th>
+                                <th>Level 1 (Party)</th>
+                                <th>Level 2 (Function)</th>
+                                <th>Level 3 (Discipline)</th>
+                                <th>Resulting ACC Role</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- <tr><td>Structural engineer from contractor reviewing designs</td><td>Contractor</td><td>Approver</td><td>Structure</td><td>Contractor - Approver - Structure</td></tr> -->
+                            <tr>
+                                <td>Architect from lead design firm uploading drawings</td>
+                                <td>Lead Designer</td>
+                                <td>General</td>
+                                <td>Architecture</td>
+                                <td>Lead Designer - General - Architecture</td>
+                            </tr>
+                            <tr>
+                                <td>HAL's central document control team</td>
+                                <td>HAL</td>
+                                <td>Document Controller</td>
+                                <td>All</td>
+                                <td>HAL - Document Controller - All</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
                 <div id="Advantages" class="tab-content">
                     <h2>Reasoning & Key Advantages</h2>
-                    <p>Adopting this structured approach provides significant, measurable benefits for a programme of this scale and duration.</p>
+                    <p>Adopting this structured approach provides significant, measurable benefits for a programme of
+                        this scale and duration.</p>
                 </div>
-                <div id="Exceptions" class="tab-content"><h2>Handling Exceptions: The "All" Discipline</h2><p>The "All" discipline is reserved for programme-level or project-wide functions.</p></div>
-                <div id="Governance" class="tab-content"><h2>Governance and Adherence</h2><p>The long-term success of this strategy depends on strict governance and consistent application.</p></div>
-                <div id="Automation" class="tab-content"><h2>Automation and Future State</h2><p>This highly structured naming convention is designed to enable automation via the Autodesk Platform Services (APS) API.</p></div>
+                <div id="Exceptions" class="tab-content">
+                    <h2>Handling Exceptions: The "All" Discipline</h2>
+                    <p>The "All" discipline is reserved for programme-level or project-wide functions.</p>
+                </div>
+                <div id="Governance" class="tab-content">
+                    <h2>Governance and Adherence</h2>
+                    <p>The long-term success of this strategy depends on strict governance and consistent application.
+                    </p>
+                </div>
+                <div id="Automation" class="tab-content">
+                    <h2>Automation and Future State</h2>
+                    <p>This highly structured naming convention is designed to enable automation via the Autodesk
+                        Platform Services (APS) API.</p>
+                </div>
                 <div id="Roles" class="tab-content">
                     <div class="roles-header">
                         <h2>Role List</h2>
-                        <button class="copy-all-btn" id="copyAllBtn" onclick="copyAllRoles()" title="Copy all displayed roles">
+                        <button class="copy-all-btn" id="copyAllBtn" onclick="copyAllRoles()"
+                            title="Copy all displayed roles">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                                <path
+                                    d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
                             </svg>
                             Copy All
                         </button>
                     </div>
                     <div class="search-container">
-                        <input type="text" class="search-box" id="roleSearch" placeholder="Search roles..." oninput="filterRoles()">
-                        <button class="clear-search-btn" id="clearSearchBtn" onclick="clearSearch()" title="Clear search">
+                        <input type="text" class="search-box" id="roleSearch" placeholder="Search roles..."
+                            oninput="filterRoles()">
+                        <button class="clear-search-btn" id="clearSearchBtn" onclick="clearSearch()"
+                            title="Clear search">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/>
+                                <path
+                                    d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" />
                             </svg>
                         </button>
                     </div>
@@ -350,7 +477,14 @@
             }
             document.getElementById(tabName).style.display = "block";
             evt.currentTarget.className += " active";
-            
+
+            // Update URL hash without scrolling
+            if (history.pushState) {
+                history.pushState(null, null, '#' + tabName);
+            } else {
+                location.hash = tabName;
+            }
+
             // If Roles tab is opened, update the roles list
             if (tabName === 'Roles') {
                 updateRolesList();
@@ -358,15 +492,15 @@
         }
 
         function copyToClipboard(text, button) {
-            navigator.clipboard.writeText(text).then(function() {
+            navigator.clipboard.writeText(text).then(function () {
                 const originalIcon = button.innerHTML;
                 button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>';
                 button.classList.add('copied');
-                setTimeout(function() {
+                setTimeout(function () {
                     button.innerHTML = originalIcon;
                     button.classList.remove('copied');
                 }, 2000);
-            }).catch(function(err) {
+            }).catch(function (err) {
                 console.error('Failed to copy text: ', err);
                 alert('Failed to copy to clipboard');
             });
@@ -381,7 +515,7 @@
 
                 const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
                 const plotlyDiv = iframeDoc.querySelector('.plotly-graph-div');
-                
+
                 if (!plotlyDiv || !plotlyDiv.data || !plotlyDiv.data[0]) {
                     return [];
                 }
@@ -396,7 +530,7 @@
                 for (let i = 0; i < labels.length; i++) {
                     const id = ids[i];
                     const parent = parents[i];
-                    
+
                     // Check if this is an outer ring (has a parent and that parent has a parent)
                     if (parent && parent !== '') {
                         const parentIndex = ids.indexOf(parent);
@@ -425,13 +559,13 @@
 
                 const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
                 const plotlyDiv = iframeDoc.querySelector('.plotly-graph-div');
-                
+
                 if (!plotlyDiv || !plotlyDiv.data || !plotlyDiv.data[0]) {
                     return null;
                 }
 
                 const chartData = plotlyDiv.data[0];
-                
+
                 // Check if there's a clicked point
                 if (plotlyDiv._fullLayout && plotlyDiv._fullLayout.clickmode) {
                     // Get the last clicked point data
@@ -439,13 +573,13 @@
                     if (lastClicked && lastClicked.points && lastClicked.points.length > 0) {
                         const clickedId = lastClicked.points[0].id;
                         const clickedParent = lastClicked.points[0].parent;
-                        
+
                         let targetFilterId = clickedId;
 
                         // If we clicked the same ID twice, we're going back
                         if (previousClickedId === clickedId) {
                             // console.log('Same ID clicked again - going back');
-                            
+
                             if (clickedParent && clickedParent !== '') {
                                 // If there is a parent, we are going back to the parent level
                                 // console.log('Going back to parent:', clickedParent);
@@ -460,7 +594,7 @@
                         } else {
                             previousClickedId = clickedId;
                         }
-                        
+
                         // Get all descendants of the clicked segment that are outer ring roles
                         const selectedRoles = [];
                         for (let i = 0; i < chartData.ids.length; i++) {
@@ -476,12 +610,12 @@
                                 }
                             }
                         }
-                        
+
                         // If no roles found for this selection, show all roles instead
                         return selectedRoles.length > 0 ? [...new Set(selectedRoles)].sort() : null;
                     }
                 }
-                
+
                 return null;
             } catch (error) {
                 console.error('Error getting selected roles:', error);
@@ -491,20 +625,20 @@
 
         function isDescendant(nodeId, ancestorId, ids, parents) {
             if (nodeId === ancestorId) return true;
-            
+
             let currentId = nodeId;
             const visited = new Set();
-            
+
             while (currentId && currentId !== '' && !visited.has(currentId)) {
                 visited.add(currentId);
                 const index = ids.indexOf(currentId);
                 if (index === -1) break;
-                
+
                 const parent = parents[index];
                 if (parent === ancestorId) return true;
                 currentId = parent;
             }
-            
+
             return false;
         }
 
@@ -517,11 +651,11 @@
             const rolesList = document.getElementById('rolesList');
             const rolesCount = document.getElementById('rolesCount');
             const searchBox = document.getElementById('roleSearch');
-            
+
             // Try to get selected roles first, if none, get all roles
             let roles = getSelectedRoles();
             isCurrentlyFiltered = roles !== null;
-            
+
             if (!roles) {
                 roles = extractOuterRingRoles();
             }
@@ -535,24 +669,24 @@
 
             // Store the full list for search filtering
             currentRolesList = roles;
-            
-            // Clear search box when updating the base list
-            if (searchBox) {
-                searchBox.value = '';
+
+            // If there is a search value (e.g. from URL), apply filter
+            if (searchBox && searchBox.value.trim() !== '') {
+                filterRoles();
+            } else {
+                // Display the roles
+                displayRoles(roles, isCurrentlyFiltered);
             }
-            
-            // Display the roles
-            displayRoles(roles, isCurrentlyFiltered);
         }
 
         function displayRoles(roles, isFiltered) {
             const rolesList = document.getElementById('rolesList');
             const rolesCount = document.getElementById('rolesCount');
-            
+
             // Store currently displayed roles for copy all functionality
             currentlyDisplayedRoles = roles;
-            
-            const countText = isFiltered 
+
+            const countText = isFiltered
                 ? `Showing ${roles.length} role${roles.length !== 1 ? 's' : ''} (filtered by selection)`
                 : `Showing all ${roles.length} role${roles.length !== 1 ? 's' : ''}`;
             rolesCount.textContent = countText;
@@ -575,47 +709,57 @@
             const rolesCount = document.getElementById('rolesCount');
             const clearBtn = document.getElementById('clearSearchBtn');
             const searchTerm = searchBox.value.toLowerCase().trim();
-            
+
             // Show/hide clear button based on search box content
             if (searchBox.value.length > 0) {
                 clearBtn.classList.add('visible');
             } else {
                 clearBtn.classList.remove('visible');
             }
-            
+
             if (currentRolesList.length === 0) {
                 return;
             }
-            
+
             if (searchTerm === '') {
                 // Show all current roles when search is empty
                 displayRoles(currentRolesList, isCurrentlyFiltered);
                 return;
             }
-            
+
             // Filter roles based on search term
-            const filteredRoles = currentRolesList.filter(role => 
+            const filteredRoles = currentRolesList.filter(role =>
                 role.toLowerCase().includes(searchTerm)
             );
-            
+
+            // Update URL search param
+            const url = new URL(window.location);
+            if (searchTerm) {
+                url.searchParams.set('search', searchTerm);
+            } else {
+                url.searchParams.delete('search');
+            }
+            // Use replaceState to not flood history
+            history.replaceState(null, '', url);
+
             // Store currently displayed roles for copy all functionality
             currentlyDisplayedRoles = filteredRoles;
-            
+
             if (filteredRoles.length === 0) {
                 rolesList.innerHTML = '<li class="no-roles">No roles match your search</li>';
                 rolesCount.textContent = 'No matches found';
                 return;
             }
-            
+
             // Display filtered roles with updated count
             const baseText = isCurrentlyFiltered ? '(filtered by selection)' : '';
             rolesCount.textContent = `Showing ${filteredRoles.length} of ${currentRolesList.length} role${currentRolesList.length !== 1 ? 's' : ''} ${baseText}`.trim();
-            
+
             rolesList.innerHTML = filteredRoles.map(role => {
                 // Highlight the search term in the role name
                 const regex = new RegExp(`(${searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
                 const highlightedRole = role.replace(regex, '<mark>$1</mark>');
-                
+
                 return `
                     <li class="role-item">
                         <span class="role-name">${highlightedRole}</span>
@@ -640,16 +784,16 @@
 
         function copyAllRoles() {
             const copyAllBtn = document.getElementById('copyAllBtn');
-            
+
             if (currentlyDisplayedRoles.length === 0) {
                 alert('No roles to copy');
                 return;
             }
-            
+
             // Join all roles with newline character
             const allRolesText = currentlyDisplayedRoles.join('\n');
-            
-            navigator.clipboard.writeText(allRolesText).then(function() {
+
+            navigator.clipboard.writeText(allRolesText).then(function () {
                 const originalHTML = copyAllBtn.innerHTML;
                 copyAllBtn.innerHTML = `
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -658,11 +802,11 @@
                     Copied!
                 `;
                 copyAllBtn.classList.add('copied');
-                setTimeout(function() {
+                setTimeout(function () {
                     copyAllBtn.innerHTML = originalHTML;
                     copyAllBtn.classList.remove('copied');
                 }, 2000);
-            }).catch(function(err) {
+            }).catch(function (err) {
                 console.error('Failed to copy all roles: ', err);
                 alert('Failed to copy to clipboard');
             });
@@ -673,41 +817,41 @@
             const iframe = document.querySelector('.chart-iframe');
             if (!iframe) return;
 
-            iframe.addEventListener('load', function() {
+            iframe.addEventListener('load', function () {
                 try {
                     const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
                     const plotlyDiv = iframeDoc.querySelector('.plotly-graph-div');
-                    
+
                     if (plotlyDiv) {
                         // Listen for plotly click events
-                        plotlyDiv.on('plotly_click', function(data) {
+                        plotlyDiv.on('plotly_click', function (data) {
                             // Store the clicked data for later retrieval
                             plotlyDiv._lastClicked = data;
-                            
+
                             // Debug logging
                             // console.log('Clicked ID:', data.points[0].id);
                             // console.log('Clicked Label:', data.points[0].label);
                             // console.log('Clicked Parent:', data.points[0].parent);
-                            
+
                             // Update roles list if Roles tab is active
                             const rolesTab = document.getElementById('Roles');
                             if (rolesTab && rolesTab.style.display !== 'none') {
                                 updateRolesList();
                             }
                         });
-                        
+
                         // Also listen for double-click events (which navigate back)
-                        plotlyDiv.on('plotly_doubleclick', function(data) {
+                        plotlyDiv.on('plotly_doubleclick', function (data) {
                             // console.log('Double clicked - resetting to root');
                             plotlyDiv._lastClicked = null;
-                            
+
                             // Update roles list if Roles tab is active
                             const rolesTab = document.getElementById('Roles');
                             if (rolesTab && rolesTab.style.display !== 'none') {
                                 updateRolesList();
                             }
                         });
-                        
+
                         // Initial load of roles list
                         updateRolesList();
                     }
@@ -717,11 +861,58 @@
             });
         }
 
-        // Ensure the first tab is opened on load
-        document.addEventListener("DOMContentLoaded", function() {
-            document.querySelector(".tab-link").click();
+        // Ensure the first tab is opened on load or based on URL
+        document.addEventListener("DOMContentLoaded", function () {
             setupChartListener();
+
+            // Handle Search Param
+            const urlParams = new URLSearchParams(window.location.search);
+            const searchParam = urlParams.get('search');
+            let searchHasRoleTarget = false;
+
+            if (searchParam) {
+                const searchBox = document.getElementById('roleSearch');
+                if (searchBox) {
+                    searchBox.value = searchParam;
+                    // Ensure the clear button handles visibility correctly if needed, 
+                    // though filterRoles() calls it, filterRoles needs currentRolesList which might not be ready.
+                    // Actual filtering will trigger when updateRolesList is called by chart load or tab click.
+                }
+                searchHasRoleTarget = true;
+            }
+
+            // Handle Tab Hash
+            const hash = window.location.hash.substring(1);
+            const tabLinks = document.getElementsByClassName("tab-link");
+            let tabToOpen = tabLinks[0]; // Default to first
+
+            // If hash is present, try to find matching tab
+            if (hash) {
+                for (let i = 0; i < tabLinks.length; i++) {
+                    // Extract tab name from onclick attribute: openTab(event, 'TabName')
+                    const onclickAttr = tabLinks[i].getAttribute('onclick');
+                    if (onclickAttr && onclickAttr.includes(`'${hash}'`)) {
+                        tabToOpen = tabLinks[i];
+                        break;
+                    }
+                }
+            } else if (searchHasRoleTarget) {
+                // If no hash but we have search, default to Roles tab
+                for (let i = 0; i < tabLinks.length; i++) {
+                    const onclickAttr = tabLinks[i].getAttribute('onclick');
+                    if (onclickAttr && onclickAttr.includes(`'Roles'`)) {
+                        tabToOpen = tabLinks[i];
+                        break;
+                    }
+                }
+            }
+
+            // Click the determined tab
+            if (tabToOpen) {
+                tabToOpen.click();
+            }
         });
     </script>
 </body>
+
 </html>
