@@ -67,6 +67,57 @@ def generate_chart_html(excel_file_path):
         
         # --- HTML Generation ---
         fig.write_html(chart_only_filepath, full_html=True, include_plotlyjs='cdn')
+        
+        # --- Inject Custom Script for Interactivity ---
+        # We need to add a script to sends click events to the parent window
+        custom_script = """
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                var checkPlotly = setInterval(function() {
+                    var plotDiv = document.getElementsByClassName('plotly-graph-div')[0];
+                    if (plotDiv && plotDiv.data && plotDiv.data.length > 0) {
+                        clearInterval(checkPlotly);
+                        
+                        // Send initial data to parent
+                        var data = plotDiv.data[0];
+                        window.parent.postMessage({
+                            type: 'chartData',
+                            data: {
+                                ids: data.ids,
+                                labels: data.labels,
+                                parents: data.parents
+                            }
+                        }, '*');
+
+                        // Handle Clicks
+                        plotDiv.on('plotly_click', function(data) {
+                            var point = data.points[0];
+                            window.parent.postMessage({
+                                type: 'chartClick',
+                                data: {
+                                    id: point.id,
+                                    label: point.label,
+                                    parent: point.parent,
+                                    value: point.value
+                                }
+                            }, '*');
+                        });
+
+                        // Handle Double Clicks (Reset)
+                        plotDiv.on('plotly_doubleclick', function() {
+                            window.parent.postMessage({
+                                type: 'chartDoubleClick'
+                            }, '*');
+                        });
+                    }
+                }, 500);
+            });
+        </script>
+        """
+        
+        with open(chart_only_filepath, 'a', encoding='utf-8') as f:
+            f.write(custom_script)
+
         print(f"Successfully generated chart file at: '{chart_only_filepath}'")
         
         # --- Update ACC_Roles_Report.html ---
