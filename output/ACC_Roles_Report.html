@@ -628,14 +628,8 @@
         <aside class="explanation-container">
             <div class="tab-nav">
                 <button class="tab-link active" onclick="openTab(event, 'About')">About This Chart</button>
-                <button class="tab-link" onclick="openTab(event, 'Introduction')">Intro & Logic</button>
-                <button class="tab-link" onclick="openTab(event, 'Examples')">Examples</button>
-                <button class="tab-link" onclick="openTab(event, 'Advantages')">Advantages</button>
-                <button class="tab-link" onclick="openTab(event, 'Exceptions')">Exceptions</button>
-                <button class="tab-link" onclick="openTab(event, 'Governance')">Governance</button>
-                <button class="tab-link" onclick="openTab(event, 'Automation')">Automation</button>
-                <button class="tab-link" onclick="openTab(event, 'Roles')">Roles</button>
                 <button class="tab-link" onclick="openTab(event, 'RoleBuilder')">Role Builder</button>
+                <button class="tab-link" onclick="openTab(event, 'Roles')">Roles</button>
             </div>
             <div class="tab-content-container">
                 <div id="About" class="tab-content active">
@@ -643,10 +637,12 @@
                     <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5rem;"><strong>Last Generated:</strong>
                         <span id="chartGeneratedDate">January 08, 2026 at 04:09 PM</span>
                     </p>
+
                     <h3>1. What It Is: "The Big Picture"</h3>
                     <p>This sunburst chart is an interactive, hierarchical map of every role in Autodesk Construction
                         Cloud (ACC) created for the Development Consent Order (DCO). It visualises the relationships
                         between parties, their functions, and their specific roles.</p>
+
                     <h3>2. How to Read It</h3>
                     <ul>
                         <li><strong>Inner Ring (The "Who"):</strong> Represents the various contractual parties,
@@ -656,33 +652,35 @@
                         <li><strong>Outer Ring (The Full Role):</strong> The exact ACC scope/ discipline related to the
                             contractual party.</li>
                     </ul>
-                    <h3>3. Why It's Useful</h3>
+
+                    <h3>3. How to Use Role Builder</h3>
+                    <p>Use the <a href="#" onclick="openTab(event, 'RoleBuilder')"
+                            style="color: var(--tab-active-border); text-decoration: underline; cursor: pointer;">Role
+                            Builder tab</a> to dynamically explore valid role combinations.</p>
+                    <ul>
+                        <li><strong>Select a Party (Level 1):</strong> Choose the contractual party (e.g., "Lead
+                            Designer"). Use the toggle to switch between single and multi-select modes.</li>
+                        <li><strong>Select a Function (Level 2):</strong> Filter available functions based on your Level
+                            1 selection.</li>
+                        <li><strong>Select a Discipline (Level 3):</strong> See the specific disciplines available for
+                            the selected Party and Function.</li>
+                        <li><strong>Generate Roles:</strong> Click "Generate Role List" to see the full list of ACC
+                            roles matching your criteria.</li>
+                    </ul>
+
+                    <h3>4. Why It's Useful</h3>
                     <p>This tool helps answer critical questions about project governance, resource allocation, and
                         security by turning a complex role list into an intuitive map.</p>
-                    <h3>4. Viewing & Copying Roles</h3>
+
+                    <h3>5. Viewing & Copying Roles</h3>
                     <p>You can view all outer ring roles in a searchable list by visiting the <a href="#"
-                            onclick="event.preventDefault(); document.querySelector('.tab-link:last-child').click();"
+                            onclick="openTab(event, 'Roles')"
                             style="color: var(--tab-active-border); text-decoration: underline; cursor: pointer;">Roles
                             tab</a>. The list updates dynamically based on your chart selection and includes a
                         copy-to-clipboard button for each role.</p>
-                    <p>For further information about this chart and underlying roles, reach out to <strong>Dodzi
-                            Agbenorku, Digital Asset Information Lead, Long term Growth, Heathrow Airport
-                            Limited.</strong></p>
-                </div>
-                <div id="Introduction" class="tab-content">
-                    <h2>Introduction & Core Logic</h2>
-                    <p>A primary driver for this new approach is the strategic goal to expand the use of ACC to
-                        incorporate HAL's delivery partners, having them work directly within our environment. This
-                        creates a single, unified Common Data Environment (CDE) for the Long-Term Growth Programme.</p>
-                    <p>To enable this, the primary objective is to establish a robust, scalable, and secure Role-Based
-                        Access Control (RBAC) framework that aligns with the principles of the ISO 19650 series of
-                        standards. The core principle is the decoupling of permissions from specific individuals or
-                        company names. Instead, roles are defined based on a logical, three-level hierarchy. This
-                        approach is fundamental to ensuring the security, efficiency, and clarity required for a
-                        multi-party, integrated programme.</p>
-                </div>
-                <div id="Examples" class="tab-content">
-                    <h2>Examples in Practice</h2>
+
+                    <h2 style="margin-top: 2rem; border-top: 1px solid #eee; padding-top: 1rem;">Examples in Practice
+                    </h2>
                     <p>The table below illustrates how the three levels combine to form clear, logical roles for various
                         project participants.</p>
                     <table>
@@ -696,7 +694,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- <tr><td>Structural engineer from contractor reviewing designs</td><td>Contractor</td><td>Approver</td><td>Structure</td><td>Contractor - Approver - Structure</td></tr> -->
                             <tr>
                                 <td>Architect from lead design firm uploading drawings</td>
                                 <td>Lead Designer</td>
@@ -713,25 +710,26 @@
                             </tr>
                         </tbody>
                     </table>
-                </div>
-                <div id="Advantages" class="tab-content">
+
                     <h2>Reasoning & Key Advantages</h2>
                     <p>Adopting this structured approach provides significant, measurable benefits for a programme of
                         this scale and duration.</p>
-                </div>
-                <div id="Exceptions" class="tab-content">
+
                     <h2>Handling Exceptions: The "All" Discipline</h2>
                     <p>The "All" discipline is reserved for programme-level or project-wide functions.</p>
-                </div>
-                <div id="Governance" class="tab-content">
+
                     <h2>Governance and Adherence</h2>
                     <p>The long-term success of this strategy depends on strict governance and consistent application.
                     </p>
-                </div>
-                <div id="Automation" class="tab-content">
+
                     <h2>Automation and Future State</h2>
                     <p>This highly structured naming convention is designed to enable automation via the Autodesk
                         Platform Services (APS) API.</p>
+
+                    <p style="margin-top: 2rem; border-top: 1px solid #eee; padding-top: 1rem;">For further information
+                        about this chart and underlying roles, reach out to <strong>Dodzi
+                            Agbenorku, Digital Asset Information Lead, Long Term Growth, Heathrow Airport
+                            Limited.</strong></p>
                 </div>
                 <div id="Roles" class="tab-content">
                     <div class="roles-header">
@@ -908,752 +906,752 @@
         // Role hierarchy data - auto-generated by generate_chart.py
         // Maps Level 1 -> Level 2 -> [Level 3 values]
         const roleHierarchy = {
-        "AP1": {
+            "AP1": {
                 "Approver": [
-                        "Railhead"
+                    "Railhead"
                 ],
                 "BIM Lead/Information Manager": [
-                        "Railhead"
+                    "Railhead"
                 ],
                 "Checker": [
-                        "Railhead"
+                    "Railhead"
                 ],
                 "Design/Project Manager": [
-                        "Railhead"
+                    "Railhead"
                 ],
                 "Document Controller": [
-                        "Railhead"
+                    "Railhead"
                 ],
                 "General": [
-                        "All",
-                        "Railhead"
+                    "All",
+                    "Railhead"
                 ]
-        },
-        "Consent": {
+            },
+            "Consent": {
                 "Approver": [
-                        "All"
+                    "All"
                 ],
                 "Checker": [
-                        "All"
+                    "All"
                 ],
                 "Document Controller": [
-                        "All"
+                    "All"
                 ],
                 "General": [
-                        "All"
+                    "All"
                 ]
-        },
-        "Delivery Planning": {
+            },
+            "Delivery Planning": {
                 "Approver": [
-                        "Active Travel",
-                        "Airfield Systems",
-                        "Airport Related Development (ARD)",
-                        "Airport Support Facilities",
-                        "Airside Roads",
-                        "Aprons",
-                        "Baggage",
-                        "Bus and Coach",
-                        "Communication Networks",
-                        "Compliance",
-                        "Connectivity (Airside PTS)",
-                        "Connectivity (Landside PTS)",
-                        "Consent Support",
-                        "Decants & Relocations",
-                        "Displacements",
-                        "Earthworks",
-                        "Fuel Networks",
-                        "Green Loop",
-                        "Heathrow Interface",
-                        "Land Use",
-                        "Landscaping",
-                        "Landside Roads (LHR Owned)",
-                        "Landside Terminal Zone",
-                        "Logistics",
-                        "Maintenance Repair Overhaul",
-                        "Motorways",
-                        "Open Space",
-                        "PAX Buildings Architecture",
-                        "PAX Buildings Structure",
-                        "Parking",
-                        "Power Networks",
-                        "Rail",
-                        "Railhead",
-                        "Roads",
-                        "Roads LTZ",
-                        "Runways",
-                        "Runways & Taxiways",
-                        "Scheme Integration",
-                        "Southern Rail",
-                        "Systems",
-                        "Taxiways",
-                        "Utilities Diversions",
-                        "Water Networks",
-                        "Water Systems",
-                        "Western Rail"
+                    "Active Travel",
+                    "Airfield Systems",
+                    "Airport Related Development (ARD)",
+                    "Airport Support Facilities",
+                    "Airside Roads",
+                    "Aprons",
+                    "Baggage",
+                    "Bus and Coach",
+                    "Communication Networks",
+                    "Compliance",
+                    "Connectivity (Airside PTS)",
+                    "Connectivity (Landside PTS)",
+                    "Consent Support",
+                    "Decants & Relocations",
+                    "Displacements",
+                    "Earthworks",
+                    "Fuel Networks",
+                    "Green Loop",
+                    "Heathrow Interface",
+                    "Land Use",
+                    "Landscaping",
+                    "Landside Roads (LHR Owned)",
+                    "Landside Terminal Zone",
+                    "Logistics",
+                    "Maintenance Repair Overhaul",
+                    "Motorways",
+                    "Open Space",
+                    "PAX Buildings Architecture",
+                    "PAX Buildings Structure",
+                    "Parking",
+                    "Power Networks",
+                    "Rail",
+                    "Railhead",
+                    "Roads",
+                    "Roads LTZ",
+                    "Runways",
+                    "Runways & Taxiways",
+                    "Scheme Integration",
+                    "Southern Rail",
+                    "Systems",
+                    "Taxiways",
+                    "Utilities Diversions",
+                    "Water Networks",
+                    "Water Systems",
+                    "Western Rail"
                 ],
                 "BIM Lead/Information Manager": [
-                        "Active Travel",
-                        "Airfield Systems",
-                        "Airport Related Development (ARD)",
-                        "Airport Support Facilities",
-                        "Airside Roads",
-                        "Aprons",
-                        "Baggage",
-                        "Bus and Coach",
-                        "Communication Networks",
-                        "Compliance",
-                        "Connectivity (Airside PTS)",
-                        "Connectivity (Landside PTS)",
-                        "Consent Support",
-                        "Decants & Relocations",
-                        "Displacements",
-                        "Earthworks",
-                        "Fuel Networks",
-                        "Green Loop",
-                        "Heathrow Interface",
-                        "Land Use",
-                        "Landscaping",
-                        "Landside Roads (LHR Owned)",
-                        "Landside Terminal Zone",
-                        "Logistics",
-                        "Maintenance Repair Overhaul",
-                        "Motorways",
-                        "Open Space",
-                        "PAX Buildings Architecture",
-                        "PAX Buildings Structure",
-                        "Parking",
-                        "Power Networks",
-                        "Rail",
-                        "Railhead",
-                        "Roads",
-                        "Roads LTZ",
-                        "Runways",
-                        "Runways & Taxiways",
-                        "Scheme Integration",
-                        "Southern Rail",
-                        "Systems",
-                        "Taxiways",
-                        "Utilities Diversions",
-                        "Water Networks",
-                        "Water Systems",
-                        "Western Rail"
+                    "Active Travel",
+                    "Airfield Systems",
+                    "Airport Related Development (ARD)",
+                    "Airport Support Facilities",
+                    "Airside Roads",
+                    "Aprons",
+                    "Baggage",
+                    "Bus and Coach",
+                    "Communication Networks",
+                    "Compliance",
+                    "Connectivity (Airside PTS)",
+                    "Connectivity (Landside PTS)",
+                    "Consent Support",
+                    "Decants & Relocations",
+                    "Displacements",
+                    "Earthworks",
+                    "Fuel Networks",
+                    "Green Loop",
+                    "Heathrow Interface",
+                    "Land Use",
+                    "Landscaping",
+                    "Landside Roads (LHR Owned)",
+                    "Landside Terminal Zone",
+                    "Logistics",
+                    "Maintenance Repair Overhaul",
+                    "Motorways",
+                    "Open Space",
+                    "PAX Buildings Architecture",
+                    "PAX Buildings Structure",
+                    "Parking",
+                    "Power Networks",
+                    "Rail",
+                    "Railhead",
+                    "Roads",
+                    "Roads LTZ",
+                    "Runways",
+                    "Runways & Taxiways",
+                    "Scheme Integration",
+                    "Southern Rail",
+                    "Systems",
+                    "Taxiways",
+                    "Utilities Diversions",
+                    "Water Networks",
+                    "Water Systems",
+                    "Western Rail"
                 ],
                 "Checker": [
-                        "Active Travel",
-                        "Airfield Systems",
-                        "Airport Related Development (ARD)",
-                        "Airport Support Facilities",
-                        "Airside Roads",
-                        "Aprons",
-                        "Baggage",
-                        "Bus and Coach",
-                        "Communication Networks",
-                        "Compliance",
-                        "Connectivity (Airside PTS)",
-                        "Connectivity (Landside PTS)",
-                        "Consent Support",
-                        "Decants & Relocations",
-                        "Displacements",
-                        "Earthworks",
-                        "Fuel Networks",
-                        "Green Loop",
-                        "Heathrow Interface",
-                        "Land Use",
-                        "Landscaping",
-                        "Landside Roads (LHR Owned)",
-                        "Landside Terminal Zone",
-                        "Logistics",
-                        "Maintenance Repair Overhaul",
-                        "Motorways",
-                        "Open Space",
-                        "PAX Buildings Architecture",
-                        "PAX Buildings Structure",
-                        "Parking",
-                        "Power Networks",
-                        "Rail",
-                        "Railhead",
-                        "Roads",
-                        "Roads LTZ",
-                        "Runways",
-                        "Runways & Taxiways",
-                        "Scheme Integration",
-                        "Southern Rail",
-                        "Systems",
-                        "Taxiways",
-                        "Utilities Diversions",
-                        "Water Networks",
-                        "Water Systems",
-                        "Western Rail"
+                    "Active Travel",
+                    "Airfield Systems",
+                    "Airport Related Development (ARD)",
+                    "Airport Support Facilities",
+                    "Airside Roads",
+                    "Aprons",
+                    "Baggage",
+                    "Bus and Coach",
+                    "Communication Networks",
+                    "Compliance",
+                    "Connectivity (Airside PTS)",
+                    "Connectivity (Landside PTS)",
+                    "Consent Support",
+                    "Decants & Relocations",
+                    "Displacements",
+                    "Earthworks",
+                    "Fuel Networks",
+                    "Green Loop",
+                    "Heathrow Interface",
+                    "Land Use",
+                    "Landscaping",
+                    "Landside Roads (LHR Owned)",
+                    "Landside Terminal Zone",
+                    "Logistics",
+                    "Maintenance Repair Overhaul",
+                    "Motorways",
+                    "Open Space",
+                    "PAX Buildings Architecture",
+                    "PAX Buildings Structure",
+                    "Parking",
+                    "Power Networks",
+                    "Rail",
+                    "Railhead",
+                    "Roads",
+                    "Roads LTZ",
+                    "Runways",
+                    "Runways & Taxiways",
+                    "Scheme Integration",
+                    "Southern Rail",
+                    "Systems",
+                    "Taxiways",
+                    "Utilities Diversions",
+                    "Water Networks",
+                    "Water Systems",
+                    "Western Rail"
                 ],
                 "Design/Project Manager": [
-                        "Active Travel",
-                        "Airfield Systems",
-                        "Airport Related Development (ARD)",
-                        "Airport Support Facilities",
-                        "Airside Roads",
-                        "Aprons",
-                        "Baggage",
-                        "Bus and Coach",
-                        "Communication Networks",
-                        "Compliance",
-                        "Connectivity (Airside PTS)",
-                        "Connectivity (Landside PTS)",
-                        "Consent Support",
-                        "Decants & Relocations",
-                        "Displacements",
-                        "Earthworks",
-                        "Fuel Networks",
-                        "Green Loop",
-                        "Heathrow Interface",
-                        "Land Use",
-                        "Landscaping",
-                        "Landside Roads (LHR Owned)",
-                        "Landside Terminal Zone",
-                        "Logistics",
-                        "Maintenance Repair Overhaul",
-                        "Motorways",
-                        "Open Space",
-                        "PAX Buildings Architecture",
-                        "PAX Buildings Structure",
-                        "Parking",
-                        "Power Networks",
-                        "Rail",
-                        "Railhead",
-                        "Roads",
-                        "Roads LTZ",
-                        "Runways",
-                        "Runways & Taxiways",
-                        "Scheme Integration",
-                        "Southern Rail",
-                        "Systems",
-                        "Taxiways",
-                        "Utilities Diversions",
-                        "Water Networks",
-                        "Water Systems",
-                        "Western Rail"
+                    "Active Travel",
+                    "Airfield Systems",
+                    "Airport Related Development (ARD)",
+                    "Airport Support Facilities",
+                    "Airside Roads",
+                    "Aprons",
+                    "Baggage",
+                    "Bus and Coach",
+                    "Communication Networks",
+                    "Compliance",
+                    "Connectivity (Airside PTS)",
+                    "Connectivity (Landside PTS)",
+                    "Consent Support",
+                    "Decants & Relocations",
+                    "Displacements",
+                    "Earthworks",
+                    "Fuel Networks",
+                    "Green Loop",
+                    "Heathrow Interface",
+                    "Land Use",
+                    "Landscaping",
+                    "Landside Roads (LHR Owned)",
+                    "Landside Terminal Zone",
+                    "Logistics",
+                    "Maintenance Repair Overhaul",
+                    "Motorways",
+                    "Open Space",
+                    "PAX Buildings Architecture",
+                    "PAX Buildings Structure",
+                    "Parking",
+                    "Power Networks",
+                    "Rail",
+                    "Railhead",
+                    "Roads",
+                    "Roads LTZ",
+                    "Runways",
+                    "Runways & Taxiways",
+                    "Scheme Integration",
+                    "Southern Rail",
+                    "Systems",
+                    "Taxiways",
+                    "Utilities Diversions",
+                    "Water Networks",
+                    "Water Systems",
+                    "Western Rail"
                 ],
                 "Document Controller": [
-                        "Active Travel",
-                        "Airfield Systems",
-                        "Airport Related Development (ARD)",
-                        "Airport Support Facilities",
-                        "Airside Roads",
-                        "Aprons",
-                        "Baggage",
-                        "Bus and Coach",
-                        "Communication Networks",
-                        "Compliance",
-                        "Connectivity (Airside PTS)",
-                        "Connectivity (Landside PTS)",
-                        "Consent Support",
-                        "Decants & Relocations",
-                        "Displacements",
-                        "Earthworks",
-                        "Fuel Networks",
-                        "Green Loop",
-                        "Heathrow Interface",
-                        "Land Use",
-                        "Landscaping",
-                        "Landside Roads (LHR Owned)",
-                        "Landside Terminal Zone",
-                        "Logistics",
-                        "Maintenance Repair Overhaul",
-                        "Motorways",
-                        "Open Space",
-                        "PAX Buildings Architecture",
-                        "PAX Buildings Structure",
-                        "Parking",
-                        "Power Networks",
-                        "Rail",
-                        "Railhead",
-                        "Roads",
-                        "Roads LTZ",
-                        "Runways",
-                        "Runways & Taxiways",
-                        "Scheme Integration",
-                        "Southern Rail",
-                        "Systems",
-                        "Taxiways",
-                        "Utilities Diversions",
-                        "Water Networks",
-                        "Water Systems",
-                        "Western Rail"
+                    "Active Travel",
+                    "Airfield Systems",
+                    "Airport Related Development (ARD)",
+                    "Airport Support Facilities",
+                    "Airside Roads",
+                    "Aprons",
+                    "Baggage",
+                    "Bus and Coach",
+                    "Communication Networks",
+                    "Compliance",
+                    "Connectivity (Airside PTS)",
+                    "Connectivity (Landside PTS)",
+                    "Consent Support",
+                    "Decants & Relocations",
+                    "Displacements",
+                    "Earthworks",
+                    "Fuel Networks",
+                    "Green Loop",
+                    "Heathrow Interface",
+                    "Land Use",
+                    "Landscaping",
+                    "Landside Roads (LHR Owned)",
+                    "Landside Terminal Zone",
+                    "Logistics",
+                    "Maintenance Repair Overhaul",
+                    "Motorways",
+                    "Open Space",
+                    "PAX Buildings Architecture",
+                    "PAX Buildings Structure",
+                    "Parking",
+                    "Power Networks",
+                    "Rail",
+                    "Railhead",
+                    "Roads",
+                    "Roads LTZ",
+                    "Runways",
+                    "Runways & Taxiways",
+                    "Scheme Integration",
+                    "Southern Rail",
+                    "Systems",
+                    "Taxiways",
+                    "Utilities Diversions",
+                    "Water Networks",
+                    "Water Systems",
+                    "Western Rail"
                 ],
                 "General": [
-                        "Active Travel",
-                        "Airfield Systems",
-                        "Airport Related Development (ARD)",
-                        "Airport Support Facilities",
-                        "Airside Roads",
-                        "All",
-                        "Aprons",
-                        "Baggage",
-                        "Bus and Coach",
-                        "Communication Networks",
-                        "Compliance",
-                        "Connectivity (Airside PTS)",
-                        "Connectivity (Landside PTS)",
-                        "Consent Support",
-                        "Decants & Relocations",
-                        "Displacements",
-                        "Earthworks",
-                        "Fuel Networks",
-                        "Green Loop",
-                        "Heathrow Interface",
-                        "Land Use",
-                        "Landscaping",
-                        "Landside Roads (LHR Owned)",
-                        "Landside Terminal Zone",
-                        "Logistics",
-                        "Maintenance Repair Overhaul",
-                        "Motorways",
-                        "Open Space",
-                        "PAX Buildings Architecture",
-                        "PAX Buildings Structure",
-                        "Parking",
-                        "Power Networks",
-                        "Rail",
-                        "Railhead",
-                        "Roads",
-                        "Roads LTZ",
-                        "Runways",
-                        "Runways & Taxiways",
-                        "Scheme Integration",
-                        "Southern Rail",
-                        "Systems",
-                        "Taxiways",
-                        "Utilities Diversions",
-                        "Water Networks",
-                        "Water Systems",
-                        "Western Rail"
+                    "Active Travel",
+                    "Airfield Systems",
+                    "Airport Related Development (ARD)",
+                    "Airport Support Facilities",
+                    "Airside Roads",
+                    "All",
+                    "Aprons",
+                    "Baggage",
+                    "Bus and Coach",
+                    "Communication Networks",
+                    "Compliance",
+                    "Connectivity (Airside PTS)",
+                    "Connectivity (Landside PTS)",
+                    "Consent Support",
+                    "Decants & Relocations",
+                    "Displacements",
+                    "Earthworks",
+                    "Fuel Networks",
+                    "Green Loop",
+                    "Heathrow Interface",
+                    "Land Use",
+                    "Landscaping",
+                    "Landside Roads (LHR Owned)",
+                    "Landside Terminal Zone",
+                    "Logistics",
+                    "Maintenance Repair Overhaul",
+                    "Motorways",
+                    "Open Space",
+                    "PAX Buildings Architecture",
+                    "PAX Buildings Structure",
+                    "Parking",
+                    "Power Networks",
+                    "Rail",
+                    "Railhead",
+                    "Roads",
+                    "Roads LTZ",
+                    "Runways",
+                    "Runways & Taxiways",
+                    "Scheme Integration",
+                    "Southern Rail",
+                    "Systems",
+                    "Taxiways",
+                    "Utilities Diversions",
+                    "Water Networks",
+                    "Water Systems",
+                    "Western Rail"
                 ]
-        },
-        "Environment": {
+            },
+            "Environment": {
                 "Approver": [
-                        "All"
+                    "All"
                 ],
                 "BIM Lead/Information Manager": [
-                        "All"
+                    "All"
                 ],
                 "Checker": [
-                        "All"
+                    "All"
                 ],
                 "Design/Project Manager": [
-                        "All"
+                    "All"
                 ],
                 "Document Controller": [
-                        "All"
+                    "All"
                 ],
                 "General": [
-                        "All"
+                    "All"
                 ]
-        },
-        "HAL": {
+            },
+            "HAL": {
                 "Approver": [
-                        "Consent",
-                        "Delivery Planning",
-                        "Design and Engineering",
-                        "Environment",
-                        "Land and Property",
-                        "Legal and Advisory",
-                        "Masterplanning",
-                        "Programme Management",
-                        "Surface Access"
+                    "Consent",
+                    "Delivery Planning",
+                    "Design and Engineering",
+                    "Environment",
+                    "Land and Property",
+                    "Legal and Advisory",
+                    "Masterplanning",
+                    "Programme Management",
+                    "Surface Access"
                 ],
                 "BIM Lead/Information Manager": [
-                        "Consent",
-                        "Delivery Planning",
-                        "Design and Engineering",
-                        "Environment",
-                        "Land and Property",
-                        "Legal and Advisory",
-                        "Masterplanning",
-                        "Programme Management",
-                        "Surface Access"
+                    "Consent",
+                    "Delivery Planning",
+                    "Design and Engineering",
+                    "Environment",
+                    "Land and Property",
+                    "Legal and Advisory",
+                    "Masterplanning",
+                    "Programme Management",
+                    "Surface Access"
                 ],
                 "Checker": [
-                        "Consent",
-                        "Delivery Planning",
-                        "Design and Engineering",
-                        "Environment",
-                        "Land and Property",
-                        "Legal and Advisory",
-                        "Masterplanning",
-                        "Programme Management",
-                        "Surface Access"
+                    "Consent",
+                    "Delivery Planning",
+                    "Design and Engineering",
+                    "Environment",
+                    "Land and Property",
+                    "Legal and Advisory",
+                    "Masterplanning",
+                    "Programme Management",
+                    "Surface Access"
                 ],
                 "Design/Project Manager": [
-                        "Consent",
-                        "Delivery Planning",
-                        "Design and Engineering",
-                        "Environment",
-                        "Land and Property",
-                        "Legal and Advisory",
-                        "Masterplanning",
-                        "Programme Management",
-                        "Surface Access"
+                    "Consent",
+                    "Delivery Planning",
+                    "Design and Engineering",
+                    "Environment",
+                    "Land and Property",
+                    "Legal and Advisory",
+                    "Masterplanning",
+                    "Programme Management",
+                    "Surface Access"
                 ],
                 "Document Controller": [
-                        "Consent",
-                        "Delivery Planning",
-                        "Design and Engineering",
-                        "Environment",
-                        "Land and Property",
-                        "Legal and Advisory",
-                        "Masterplanning",
-                        "Programme Management",
-                        "Surface Access"
+                    "Consent",
+                    "Delivery Planning",
+                    "Design and Engineering",
+                    "Environment",
+                    "Land and Property",
+                    "Legal and Advisory",
+                    "Masterplanning",
+                    "Programme Management",
+                    "Surface Access"
                 ],
                 "General": [
-                        "All",
-                        "Consent",
-                        "Delivery Planning",
-                        "Design and Engineering",
-                        "Environment",
-                        "Land and Property",
-                        "Legal and Advisory",
-                        "Masterplanning",
-                        "Programme Management",
-                        "Surface Access"
+                    "All",
+                    "Consent",
+                    "Delivery Planning",
+                    "Design and Engineering",
+                    "Environment",
+                    "Land and Property",
+                    "Legal and Advisory",
+                    "Masterplanning",
+                    "Programme Management",
+                    "Surface Access"
                 ]
-        },
-        "Land and Property": {
+            },
+            "Land and Property": {
                 "Approver": [
-                        "All"
+                    "All"
                 ],
                 "BIM Lead/Information Manager": [
-                        "All"
+                    "All"
                 ],
                 "Checker": [
-                        "All"
+                    "All"
                 ],
                 "Design/Project Manager": [
-                        "All"
+                    "All"
                 ],
                 "Document Controller": [
-                        "All"
+                    "All"
                 ],
                 "General": [
-                        "All"
+                    "All"
                 ]
-        },
-        "Lead Designer": {
+            },
+            "Lead Designer": {
                 "Approver": [
-                        "Active Travel",
-                        "Airfield Systems",
-                        "Airport Related Development (ARD)",
-                        "Airport Support Facilities",
-                        "Airside Roads",
-                        "Aprons",
-                        "Baggage",
-                        "Bus and Coach",
-                        "Communication Networks",
-                        "Compliance",
-                        "Connectivity (Airside PTS)",
-                        "Connectivity (Landside PTS)",
-                        "Consent Support",
-                        "Decants & Relocations",
-                        "Displacements",
-                        "Earthworks",
-                        "Fuel Networks",
-                        "Green Loop",
-                        "Heathrow Interface",
-                        "Land Use",
-                        "Landscaping",
-                        "Landside Roads (LHR Owned)",
-                        "Landside Terminal Zone",
-                        "Logistics",
-                        "Maintenance Repair Overhaul",
-                        "Motorways",
-                        "Open Space",
-                        "PAX Buildings Architecture",
-                        "PAX Buildings Structure",
-                        "Parking",
-                        "Power Networks",
-                        "Rail",
-                        "Railhead",
-                        "Roads",
-                        "Roads LTZ",
-                        "Runways",
-                        "Runways & Taxiways",
-                        "Scheme Integration",
-                        "Southern Rail",
-                        "Systems",
-                        "Taxiways",
-                        "Utilities Diversions",
-                        "Water Networks",
-                        "Water Systems",
-                        "Western Rail"
+                    "Active Travel",
+                    "Airfield Systems",
+                    "Airport Related Development (ARD)",
+                    "Airport Support Facilities",
+                    "Airside Roads",
+                    "Aprons",
+                    "Baggage",
+                    "Bus and Coach",
+                    "Communication Networks",
+                    "Compliance",
+                    "Connectivity (Airside PTS)",
+                    "Connectivity (Landside PTS)",
+                    "Consent Support",
+                    "Decants & Relocations",
+                    "Displacements",
+                    "Earthworks",
+                    "Fuel Networks",
+                    "Green Loop",
+                    "Heathrow Interface",
+                    "Land Use",
+                    "Landscaping",
+                    "Landside Roads (LHR Owned)",
+                    "Landside Terminal Zone",
+                    "Logistics",
+                    "Maintenance Repair Overhaul",
+                    "Motorways",
+                    "Open Space",
+                    "PAX Buildings Architecture",
+                    "PAX Buildings Structure",
+                    "Parking",
+                    "Power Networks",
+                    "Rail",
+                    "Railhead",
+                    "Roads",
+                    "Roads LTZ",
+                    "Runways",
+                    "Runways & Taxiways",
+                    "Scheme Integration",
+                    "Southern Rail",
+                    "Systems",
+                    "Taxiways",
+                    "Utilities Diversions",
+                    "Water Networks",
+                    "Water Systems",
+                    "Western Rail"
                 ],
                 "BIM Lead/Information Manager": [
-                        "Active Travel",
-                        "Airfield Systems",
-                        "Airport Related Development (ARD)",
-                        "Airport Support Facilities",
-                        "Airside Roads",
-                        "Aprons",
-                        "Baggage",
-                        "Bus and Coach",
-                        "Communication Networks",
-                        "Compliance",
-                        "Connectivity (Airside PTS)",
-                        "Connectivity (Landside PTS)",
-                        "Consent Support",
-                        "Decants & Relocations",
-                        "Displacements",
-                        "Earthworks",
-                        "Fuel Networks",
-                        "Green Loop",
-                        "Heathrow Interface",
-                        "Land Use",
-                        "Landscaping",
-                        "Landside Roads (LHR Owned)",
-                        "Landside Terminal Zone",
-                        "Logistics",
-                        "Maintenance Repair Overhaul",
-                        "Motorways",
-                        "Open Space",
-                        "PAX Buildings Architecture",
-                        "PAX Buildings Structure",
-                        "Parking",
-                        "Power Networks",
-                        "Rail",
-                        "Railhead",
-                        "Roads",
-                        "Roads LTZ",
-                        "Runways",
-                        "Runways & Taxiways",
-                        "Scheme Integration",
-                        "Southern Rail",
-                        "Systems",
-                        "Taxiways",
-                        "Utilities Diversions",
-                        "Water Networks",
-                        "Water Systems",
-                        "Western Rail"
+                    "Active Travel",
+                    "Airfield Systems",
+                    "Airport Related Development (ARD)",
+                    "Airport Support Facilities",
+                    "Airside Roads",
+                    "Aprons",
+                    "Baggage",
+                    "Bus and Coach",
+                    "Communication Networks",
+                    "Compliance",
+                    "Connectivity (Airside PTS)",
+                    "Connectivity (Landside PTS)",
+                    "Consent Support",
+                    "Decants & Relocations",
+                    "Displacements",
+                    "Earthworks",
+                    "Fuel Networks",
+                    "Green Loop",
+                    "Heathrow Interface",
+                    "Land Use",
+                    "Landscaping",
+                    "Landside Roads (LHR Owned)",
+                    "Landside Terminal Zone",
+                    "Logistics",
+                    "Maintenance Repair Overhaul",
+                    "Motorways",
+                    "Open Space",
+                    "PAX Buildings Architecture",
+                    "PAX Buildings Structure",
+                    "Parking",
+                    "Power Networks",
+                    "Rail",
+                    "Railhead",
+                    "Roads",
+                    "Roads LTZ",
+                    "Runways",
+                    "Runways & Taxiways",
+                    "Scheme Integration",
+                    "Southern Rail",
+                    "Systems",
+                    "Taxiways",
+                    "Utilities Diversions",
+                    "Water Networks",
+                    "Water Systems",
+                    "Western Rail"
                 ],
                 "Checker": [
-                        "Active Travel",
-                        "Airfield Systems",
-                        "Airport Related Development (ARD)",
-                        "Airport Support Facilities",
-                        "Airside Roads",
-                        "Aprons",
-                        "Baggage",
-                        "Bus and Coach",
-                        "Communication Networks",
-                        "Compliance",
-                        "Connectivity (Airside PTS)",
-                        "Connectivity (Landside PTS)",
-                        "Consent Support",
-                        "Decants & Relocations",
-                        "Displacements",
-                        "Earthworks",
-                        "Fuel Networks",
-                        "Green Loop",
-                        "Heathrow Interface",
-                        "Land Use",
-                        "Landscaping",
-                        "Landside Roads (LHR Owned)",
-                        "Landside Terminal Zone",
-                        "Logistics",
-                        "Maintenance Repair Overhaul",
-                        "Motorways",
-                        "Open Space",
-                        "PAX Buildings Architecture",
-                        "PAX Buildings Structure",
-                        "Parking",
-                        "Power Networks",
-                        "Rail",
-                        "Railhead",
-                        "Roads",
-                        "Roads LTZ",
-                        "Runways",
-                        "Runways & Taxiways",
-                        "Scheme Integration",
-                        "Southern Rail",
-                        "Systems",
-                        "Taxiways",
-                        "Utilities Diversions",
-                        "Water Networks",
-                        "Water Systems",
-                        "Western Rail"
+                    "Active Travel",
+                    "Airfield Systems",
+                    "Airport Related Development (ARD)",
+                    "Airport Support Facilities",
+                    "Airside Roads",
+                    "Aprons",
+                    "Baggage",
+                    "Bus and Coach",
+                    "Communication Networks",
+                    "Compliance",
+                    "Connectivity (Airside PTS)",
+                    "Connectivity (Landside PTS)",
+                    "Consent Support",
+                    "Decants & Relocations",
+                    "Displacements",
+                    "Earthworks",
+                    "Fuel Networks",
+                    "Green Loop",
+                    "Heathrow Interface",
+                    "Land Use",
+                    "Landscaping",
+                    "Landside Roads (LHR Owned)",
+                    "Landside Terminal Zone",
+                    "Logistics",
+                    "Maintenance Repair Overhaul",
+                    "Motorways",
+                    "Open Space",
+                    "PAX Buildings Architecture",
+                    "PAX Buildings Structure",
+                    "Parking",
+                    "Power Networks",
+                    "Rail",
+                    "Railhead",
+                    "Roads",
+                    "Roads LTZ",
+                    "Runways",
+                    "Runways & Taxiways",
+                    "Scheme Integration",
+                    "Southern Rail",
+                    "Systems",
+                    "Taxiways",
+                    "Utilities Diversions",
+                    "Water Networks",
+                    "Water Systems",
+                    "Western Rail"
                 ],
                 "Design/Project Manager": [
-                        "Active Travel",
-                        "Airfield Systems",
-                        "Airport Related Development (ARD)",
-                        "Airport Support Facilities",
-                        "Airside Roads",
-                        "Aprons",
-                        "Baggage",
-                        "Bus and Coach",
-                        "Communication Networks",
-                        "Compliance",
-                        "Connectivity (Airside PTS)",
-                        "Connectivity (Landside PTS)",
-                        "Consent Support",
-                        "Decants & Relocations",
-                        "Displacements",
-                        "Earthworks",
-                        "Fuel Networks",
-                        "Green Loop",
-                        "Heathrow Interface",
-                        "Land Use",
-                        "Landscaping",
-                        "Landside Roads (LHR Owned)",
-                        "Landside Terminal Zone",
-                        "Logistics",
-                        "Maintenance Repair Overhaul",
-                        "Motorways",
-                        "Open Space",
-                        "PAX Buildings Architecture",
-                        "PAX Buildings Structure",
-                        "Parking",
-                        "Power Networks",
-                        "Rail",
-                        "Railhead",
-                        "Roads",
-                        "Roads LTZ",
-                        "Runways",
-                        "Runways & Taxiways",
-                        "Scheme Integration",
-                        "Southern Rail",
-                        "Systems",
-                        "Taxiways",
-                        "Utilities Diversions",
-                        "Water Networks",
-                        "Water Systems",
-                        "Western Rail"
+                    "Active Travel",
+                    "Airfield Systems",
+                    "Airport Related Development (ARD)",
+                    "Airport Support Facilities",
+                    "Airside Roads",
+                    "Aprons",
+                    "Baggage",
+                    "Bus and Coach",
+                    "Communication Networks",
+                    "Compliance",
+                    "Connectivity (Airside PTS)",
+                    "Connectivity (Landside PTS)",
+                    "Consent Support",
+                    "Decants & Relocations",
+                    "Displacements",
+                    "Earthworks",
+                    "Fuel Networks",
+                    "Green Loop",
+                    "Heathrow Interface",
+                    "Land Use",
+                    "Landscaping",
+                    "Landside Roads (LHR Owned)",
+                    "Landside Terminal Zone",
+                    "Logistics",
+                    "Maintenance Repair Overhaul",
+                    "Motorways",
+                    "Open Space",
+                    "PAX Buildings Architecture",
+                    "PAX Buildings Structure",
+                    "Parking",
+                    "Power Networks",
+                    "Rail",
+                    "Railhead",
+                    "Roads",
+                    "Roads LTZ",
+                    "Runways",
+                    "Runways & Taxiways",
+                    "Scheme Integration",
+                    "Southern Rail",
+                    "Systems",
+                    "Taxiways",
+                    "Utilities Diversions",
+                    "Water Networks",
+                    "Water Systems",
+                    "Western Rail"
                 ],
                 "Document Controller": [
-                        "Active Travel",
-                        "Airfield Systems",
-                        "Airport Related Development (ARD)",
-                        "Airport Support Facilities",
-                        "Airside Roads",
-                        "Aprons",
-                        "Baggage",
-                        "Bus and Coach",
-                        "Communication Networks",
-                        "Compliance",
-                        "Connectivity (Airside PTS)",
-                        "Connectivity (Landside PTS)",
-                        "Consent Support",
-                        "Decants & Relocations",
-                        "Displacements",
-                        "Earthworks",
-                        "Fuel Networks",
-                        "Green Loop",
-                        "Heathrow Interface",
-                        "Land Use",
-                        "Landscaping",
-                        "Landside Roads (LHR Owned)",
-                        "Landside Terminal Zone",
-                        "Logistics",
-                        "Maintenance Repair Overhaul",
-                        "Motorways",
-                        "Open Space",
-                        "PAX Buildings Architecture",
-                        "PAX Buildings Structure",
-                        "Parking",
-                        "Power Networks",
-                        "Rail",
-                        "Railhead",
-                        "Roads",
-                        "Roads LTZ",
-                        "Runways",
-                        "Runways & Taxiways",
-                        "Scheme Integration",
-                        "Southern Rail",
-                        "Systems",
-                        "Taxiways",
-                        "Utilities Diversions",
-                        "Water Networks",
-                        "Water Systems",
-                        "Western Rail"
+                    "Active Travel",
+                    "Airfield Systems",
+                    "Airport Related Development (ARD)",
+                    "Airport Support Facilities",
+                    "Airside Roads",
+                    "Aprons",
+                    "Baggage",
+                    "Bus and Coach",
+                    "Communication Networks",
+                    "Compliance",
+                    "Connectivity (Airside PTS)",
+                    "Connectivity (Landside PTS)",
+                    "Consent Support",
+                    "Decants & Relocations",
+                    "Displacements",
+                    "Earthworks",
+                    "Fuel Networks",
+                    "Green Loop",
+                    "Heathrow Interface",
+                    "Land Use",
+                    "Landscaping",
+                    "Landside Roads (LHR Owned)",
+                    "Landside Terminal Zone",
+                    "Logistics",
+                    "Maintenance Repair Overhaul",
+                    "Motorways",
+                    "Open Space",
+                    "PAX Buildings Architecture",
+                    "PAX Buildings Structure",
+                    "Parking",
+                    "Power Networks",
+                    "Rail",
+                    "Railhead",
+                    "Roads",
+                    "Roads LTZ",
+                    "Runways",
+                    "Runways & Taxiways",
+                    "Scheme Integration",
+                    "Southern Rail",
+                    "Systems",
+                    "Taxiways",
+                    "Utilities Diversions",
+                    "Water Networks",
+                    "Water Systems",
+                    "Western Rail"
                 ],
                 "General": [
-                        "Active Travel",
-                        "Airfield Systems",
-                        "Airport Related Development (ARD)",
-                        "Airport Support Facilities",
-                        "Airside Roads",
-                        "All",
-                        "Aprons",
-                        "Baggage",
-                        "Bus and Coach",
-                        "Communication Networks",
-                        "Compliance",
-                        "Connectivity (Airside PTS)",
-                        "Connectivity (Landside PTS)",
-                        "Consent Support",
-                        "Decants & Relocations",
-                        "Displacements",
-                        "Earthworks",
-                        "Fuel Networks",
-                        "Green Loop",
-                        "Heathrow Interface",
-                        "Land Use",
-                        "Landscaping",
-                        "Landside Roads (LHR Owned)",
-                        "Landside Terminal Zone",
-                        "Logistics",
-                        "Maintenance Repair Overhaul",
-                        "Motorways",
-                        "Open Space",
-                        "PAX Buildings Architecture",
-                        "PAX Buildings Structure",
-                        "Parking",
-                        "Power Networks",
-                        "Rail",
-                        "Railhead",
-                        "Roads",
-                        "Roads LTZ",
-                        "Runways",
-                        "Runways & Taxiways",
-                        "Scheme Integration",
-                        "Southern Rail",
-                        "Systems",
-                        "Taxiways",
-                        "Utilities Diversions",
-                        "Water Networks",
-                        "Water Systems",
-                        "Western Rail"
+                    "Active Travel",
+                    "Airfield Systems",
+                    "Airport Related Development (ARD)",
+                    "Airport Support Facilities",
+                    "Airside Roads",
+                    "All",
+                    "Aprons",
+                    "Baggage",
+                    "Bus and Coach",
+                    "Communication Networks",
+                    "Compliance",
+                    "Connectivity (Airside PTS)",
+                    "Connectivity (Landside PTS)",
+                    "Consent Support",
+                    "Decants & Relocations",
+                    "Displacements",
+                    "Earthworks",
+                    "Fuel Networks",
+                    "Green Loop",
+                    "Heathrow Interface",
+                    "Land Use",
+                    "Landscaping",
+                    "Landside Roads (LHR Owned)",
+                    "Landside Terminal Zone",
+                    "Logistics",
+                    "Maintenance Repair Overhaul",
+                    "Motorways",
+                    "Open Space",
+                    "PAX Buildings Architecture",
+                    "PAX Buildings Structure",
+                    "Parking",
+                    "Power Networks",
+                    "Rail",
+                    "Railhead",
+                    "Roads",
+                    "Roads LTZ",
+                    "Runways",
+                    "Runways & Taxiways",
+                    "Scheme Integration",
+                    "Southern Rail",
+                    "Systems",
+                    "Taxiways",
+                    "Utilities Diversions",
+                    "Water Networks",
+                    "Water Systems",
+                    "Western Rail"
                 ]
-        },
-        "Legal and Advisory": {
+            },
+            "Legal and Advisory": {
                 "Approver": [
-                        "All"
+                    "All"
                 ],
                 "Checker": [
-                        "All"
+                    "All"
                 ],
                 "General": [
-                        "All"
+                    "All"
                 ]
-        },
-        "Surface Access": {
+            },
+            "Surface Access": {
                 "Approver": [
-                        "All"
+                    "All"
                 ],
                 "BIM Lead/Information Manager": [
-                        "All"
+                    "All"
                 ],
                 "Checker": [
-                        "All"
+                    "All"
                 ],
                 "Design/Project Manager": [
-                        "All"
+                    "All"
                 ],
                 "Document Controller": [
-                        "All"
+                    "All"
                 ],
                 "General": [
-                        "All"
+                    "All"
                 ]
-        }
-}; // ROLE_HIERARCHY_PLACEHOLDER
+            }
+        }; // ROLE_HIERARCHY_PLACEHOLDER
 
         function extractOuterRingRoles() {
             try {
