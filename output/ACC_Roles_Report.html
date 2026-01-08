@@ -39,6 +39,7 @@
         h2 {
             color: var(--header-color);
             margin-top: 0;
+            margin-bottom: 0.5rem;
         }
 
         .chart-container {
@@ -307,6 +308,163 @@
             flex-direction: column;
             gap: 1rem;
         }
+
+        /* Wizard & Breadcrumb Styles */
+        .breadcrumb-nav {
+            display: flex;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 0.375rem;
+            padding: 0;
+            margin-bottom: 0rem;
+            list-style: none;
+            overflow: hidden;
+        }
+
+        .breadcrumb-item {
+            flex: 1;
+            text-align: center;
+            padding: 0.75rem 1rem;
+            color: #6c757d;
+            font-weight: 500;
+            text-decoration: none;
+            position: relative;
+            background-color: #f8f9fa;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb-item:hover:not(.active) {
+            background-color: #e9ecef;
+            color: #495057;
+        }
+
+        .breadcrumb-item.active {
+            color: #0d6efd;
+            background-color: #e9ecef;
+            /* Slightly darker than base */
+            font-weight: 700;
+        }
+
+        .breadcrumb-item.completed {
+            color: #198754;
+        }
+
+        .breadcrumb-item::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            width: 1px;
+            height: 70%;
+            background-color: #dee2e6;
+        }
+
+        .breadcrumb-item:last-child::after {
+            display: none;
+        }
+
+        /* Wizard Steps */
+        .builder-step {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .builder-step.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .step-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+
+        .nav-btn {
+            padding: 8px 16px;
+            border-radius: 4px;
+            border: 1px solid transparent;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5c636a;
+        }
+
+        .btn-primary {
+            background-color: var(--tab-active-border);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #2980b9;
+        }
+
+        .btn-success {
+            background-color: #198754;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background-color: #157347;
+        }
+
+        /* Override Lists for Wizard Mode */
+        .builder-step .level-list-container {
+            max-height: 50vh;
+            /* Much taller for wizard mode */
+            height: 400px;
+        }
+
+        /* Selection Summary Styles */
+        .selection-summary {
+            background-color: #e3f2fd;
+            border: 1px solid #90caf9;
+            border-radius: 4px;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: #1565c0;
+        }
+
+        .summary-item {
+            display: inline-block;
+            margin-right: 1.5rem;
+        }
+
+        .summary-label {
+            font-weight: 600;
+            color: #555;
+            margin-right: 4px;
+        }
+
 
         .level-selector {
             display: flex;
@@ -775,77 +933,153 @@
                 </div>
                 <div id="RoleBuilder" class="tab-content">
                     <h2>Role Builder</h2>
-                    <p style="color: #666; margin-bottom: 1rem;">Select Level 1, 2, and 3 options to generate possible
-                        role names. "General" is automatically included in Level 2.</p>
-                    <div class="role-builder-container">
-                        <div class="level-selector">
-                            <div class="level-header">
-                                <label>Level 1 (Party)</label>
-                                <div class="multi-select-toggle">
-                                    <span>Multi-select</span>
-                                    <label class="toggle-switch">
-                                        <input type="checkbox" id="level1MultiSelect" onchange="onMultiSelectToggle()">
-                                        <span class="toggle-slider"></span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="level-search-container">
-                                <input type="text" class="level-search-box" id="level1Search"
-                                    placeholder="Search parties..." oninput="filterLevelOptions(1)">
-                                <button class="level-clear-btn" id="level1ClearBtn"
-                                    onclick="clearLevelSearch(1)">✕</button>
-                            </div>
-                            <div class="level-list-container">
-                                <ul class="level-list" id="level1List">
-                                    <li class="level-no-results">Loading...</li>
-                                </ul>
-                            </div>
-                            <div class="selection-chips" id="level1Chips"></div>
+
+                    <!-- Wizard Breadcrumbs -->
+                    <div class="breadcrumb-nav">
+                        <div class="breadcrumb-item active" id="crumb1" onclick="if(canGoToStep(1)) goToStep(1)">
+                            <span>1. Pick Party</span>
                         </div>
-                        <div class="level-selector">
-                            <label>Level 2 (Function)</label>
-                            <div class="level-search-container">
-                                <input type="text" class="level-search-box" id="level2Search"
-                                    placeholder="Search functions..." oninput="filterLevelOptions(2)">
-                                <button class="level-clear-btn" id="level2ClearBtn"
-                                    onclick="clearLevelSearch(2)">✕</button>
-                            </div>
-                            <div class="level-list-container">
-                                <ul class="level-list" id="level2List">
-                                    <li class="level-no-results">Loading...</li>
-                                </ul>
-                            </div>
-                            <div class="selection-chips" id="level2Chips"></div>
+                        <div class="breadcrumb-item" id="crumb2" onclick="if(canGoToStep(2)) goToStep(2)">
+                            <span>2. Pick Function</span>
                         </div>
-                        <div class="level-selector">
-                            <label>Level 3 (Discipline)</label>
-                            <div class="level-search-container">
-                                <input type="text" class="level-search-box" id="level3Search"
-                                    placeholder="Search disciplines..." oninput="filterLevelOptions(3)">
-                                <button class="level-clear-btn" id="level3ClearBtn"
-                                    onclick="clearLevelSearch(3)">✕</button>
-                            </div>
-                            <div class="level-list-container">
-                                <ul class="level-list" id="level3List">
-                                    <li class="level-no-results">Loading...</li>
-                                </ul>
-                            </div>
-                            <div class="selection-chips" id="level3Chips"></div>
+                        <div class="breadcrumb-item" id="crumb3" onclick="if(canGoToStep(3)) goToStep(3)">
+                            <span>3. Pick Discipline</span>
+                        </div>
+                        <div class="breadcrumb-item" id="crumb4" onclick="if(canGoToStep(4)) goToStep(4)">
+                            <span>4. Results</span>
                         </div>
                     </div>
-                    <div class="generated-roles-section" id="generatedRolesSection" style="display: none;">
-                        <div class="roles-header">
-                            <h3 id="generatedRolesCount">Generated Roles</h3>
-                            <button class="copy-all-btn" onclick="copyAllGeneratedRoles()"
-                                title="Copy all generated roles">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                    <path
-                                        d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
-                                </svg>
-                                Copy All
-                            </button>
+
+                    <div class="role-builder-container">
+
+                        <!-- STEP 1: PARTY -->
+                        <div class="builder-step active" id="step1">
+                            <h3>Step 1: Select Party</h3>
+                            <p style="color: #666; margin-bottom: 0.5rem; font-size: 0.9em;">Who is the contractual
+                                party? (e.g., Lead Designer, Contractor)</p>
+
+                            <div class="level-selector">
+                                <div class="level-header">
+                                    <label>Level 1 (Party)</label>
+                                    <div class="multi-select-toggle">
+                                        <span>Multi-select</span>
+                                        <label class="toggle-switch">
+                                            <input type="checkbox" id="level1MultiSelect"
+                                                onchange="onMultiSelectToggle()">
+                                            <span class="toggle-slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="level-search-container">
+                                    <input type="text" class="level-search-box" id="level1Search"
+                                        placeholder="Search parties..." oninput="filterLevelOptions(1)">
+                                    <button class="level-clear-btn" id="level1ClearBtn"
+                                        onclick="clearLevelSearch(1)">✕</button>
+                                </div>
+                                <div class="level-list-container">
+                                    <ul class="level-list" id="level1List">
+                                        <li class="level-no-results">Loading...</li>
+                                    </ul>
+                                </div>
+                                <div class="selection-chips" id="level1Chips"></div>
+                            </div>
+
+                            <div class="step-navigation" style="justify-content: flex-end;">
+                                <button class="nav-btn btn-primary" onclick="goToStep(2)">Next: Select Function
+                                    &rarr;</button>
+                            </div>
                         </div>
-                        <ul class="roles-list" id="generatedRolesList"></ul>
+
+                        <!-- STEP 2: FUNCTION -->
+                        <div class="builder-step" id="step2">
+                            <h3>Step 2: Select Function</h3>
+                            <div id="step2Summary" class="selection-summary" style="display:none;"></div>
+                            <p style="color: #666; margin-bottom: 0.5rem; font-size: 0.9em;">What is the role's
+                                function? (e.g., Checker, Approver)</p>
+
+                            <div class="level-selector">
+                                <label>Level 2 (Function)</label>
+                                <div class="level-search-container">
+                                    <input type="text" class="level-search-box" id="level2Search"
+                                        placeholder="Search functions..." oninput="filterLevelOptions(2)">
+                                    <button class="level-clear-btn" id="level2ClearBtn"
+                                        onclick="clearLevelSearch(2)">✕</button>
+                                </div>
+                                <div class="level-list-container">
+                                    <ul class="level-list" id="level2List">
+                                        <li class="level-no-results">Select Level 1 first</li>
+                                    </ul>
+                                </div>
+                                <div class="selection-chips" id="level2Chips"></div>
+                            </div>
+
+                            <div class="step-navigation">
+                                <button class="nav-btn btn-secondary" onclick="goToStep(1)">&larr; Back</button>
+                                <button class="nav-btn btn-primary" onclick="goToStep(3)">Next: Select Discipline
+                                    &rarr;</button>
+                            </div>
+                        </div>
+
+                        <!-- STEP 3: DISCIPLINE -->
+                        <div class="builder-step" id="step3">
+                            <h3>Step 3: Select Discipline</h3>
+                            <div id="step3Summary" class="selection-summary" style="display:none;"></div>
+                            <p style="color: #666; margin-bottom: 0.5rem; font-size: 0.9em;">What is the specific
+                                discipline? (e.g., Architecture, Fire)</p>
+
+                            <div class="level-selector">
+                                <label>Level 3 (Discipline)</label>
+                                <div class="level-search-container">
+                                    <input type="text" class="level-search-box" id="level3Search"
+                                        placeholder="Search disciplines..." oninput="filterLevelOptions(3)">
+                                    <button class="level-clear-btn" id="level3ClearBtn"
+                                        onclick="clearLevelSearch(3)">✕</button>
+                                </div>
+                                <div class="level-list-container">
+                                    <ul class="level-list" id="level3List">
+                                        <li class="level-no-results">Select Level 2 first</li>
+                                    </ul>
+                                </div>
+                                <div class="selection-chips" id="level3Chips"></div>
+                            </div>
+
+                            <div class="step-navigation">
+                                <button class="nav-btn btn-secondary" onclick="goToStep(2)">&larr; Back</button>
+                                <button class="nav-btn btn-success" onclick="generateRolesWizard()">Generate Role List
+                                    &rarr;</button>
+                            </div>
+                        </div>
+
+                        <!-- STEP 4: RESULTS -->
+                        <div class="builder-step" id="step4">
+                            <h3>Step 4: Generated Roles</h3>
+                            <div id="step4Summary" class="selection-summary" style="display:none;"></div>
+                            <p style="color: #666; margin-bottom: 0.5rem; font-size: 0.9em;">Here are the roles that
+                                match your selections.</p>
+
+                            <div class="generated-roles-section" id="generatedRolesSection"
+                                style="display: block; border-top: none; margin-top: 0;">
+                                <div class="roles-header">
+                                    <h3 id="generatedRolesCount">Generated Roles</h3>
+                                    <button class="copy-all-btn" onclick="copyAllGeneratedRoles()"
+                                        title="Copy all generated roles">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                            <path
+                                                d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
+                                        </svg>
+                                        Copy All
+                                    </button>
+                                </div>
+                                <ul class="roles-list" id="generatedRolesList" style="max-height: 50vh;"></ul>
+                            </div>
+
+                            <div class="step-navigation">
+                                <button class="nav-btn btn-secondary" onclick="goToStep(3)">&larr; Back to
+                                    Disciplines</button>
+                                <button class="nav-btn btn-primary" onclick="resetWizard()">Start Over ↺</button>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -2095,13 +2329,15 @@
 
         // Auto-update generated roles based on current selections
         function updateGeneratedRoles() {
+            // In wizard mode, we just update the data if valid, visibility is handled by steps
             if (hasValidSelections()) {
                 generateRoles();
             } else {
-                // Hide the generated section when selections are incomplete
-                const section = document.getElementById('generatedRolesSection');
-                section.style.display = 'none';
                 generatedRolesList = [];
+                const listEl = document.getElementById('generatedRolesList');
+                if (listEl) listEl.innerHTML = '';
+                const countEl = document.getElementById('generatedRolesCount');
+                if (countEl) countEl.textContent = 'Generated Roles';
             }
         }
 
@@ -2471,6 +2707,110 @@
                 tabToOpen.click();
             }
         });
+
+        // ========== WIZARD LOGIC ==========
+        let currentStep = 1;
+
+        function updateStepSummaries(step) {
+            const summaryEl = document.getElementById(`step${step}Summary`);
+            if (!summaryEl) return;
+
+            let html = '';
+
+            // For Step 2, show Level 1 selection
+            if (step >= 2) {
+                const l1 = Array.from(levelSelections[1]).join(', ');
+                if (l1) html += `<span class="summary-item"><span class="summary-label">Party:</span> ${l1}</span>`;
+            }
+
+            // For Step 3, show Level 1 & 2
+            if (step >= 3) {
+                const l2 = Array.from(levelSelections[2]).join(', ');
+                if (l2) html += `<span class="summary-item"><span class="summary-label">Function:</span> ${l2}</span>`;
+            }
+
+            // For Step 4, show Level 1, 2 & 3
+            if (step >= 4) {
+                const l3 = Array.from(levelSelections[3]).join(', ');
+                if (l3) html += `<span class="summary-item"><span class="summary-label">Discipline:</span> ${l3}</span>`;
+            }
+
+            summaryEl.innerHTML = html;
+            summaryEl.style.display = html ? 'block' : 'none';
+        }
+
+        function goToStep(step) {
+            // Validate before moving forward
+            if (step > 1 && levelSelections[1].size === 0) {
+                alert("Please select a Party (Level 1) first.");
+                return;
+            }
+            if (step > 2 && levelSelections[2].size === 0) {
+                alert("Please select a Function (Level 2) first.");
+                return;
+            }
+
+            // Update Step UI
+            document.querySelectorAll('.builder-step').forEach(el => el.classList.remove('active'));
+            document.getElementById(`step${step}`).classList.add('active');
+
+            // Update Summary for this step
+            updateStepSummaries(step);
+
+            // Update Breadcrumbs
+            currentStep = step;
+            for (let i = 1; i <= 4; i++) {
+                const crumb = document.getElementById(`crumb${i}`);
+                if (crumb) {
+                    crumb.classList.remove('active', 'completed');
+                    if (i === step) {
+                        crumb.classList.add('active');
+                    } else if (i < step) {
+                        crumb.classList.add('completed');
+                    }
+                }
+            }
+
+            // Refresh lists in the new step to ensure sizing is correct and focus is set
+            if (step <= 3) {
+                setTimeout(() => {
+                    renderLevelList(step, step === 1 ? getAvailableLevel1() : (step === 2 ? getAvailableLevel2() : getAvailableLevel3()));
+                }, 50);
+            }
+        }
+
+        function canGoToStep(step) {
+            if (step === 1) return true;
+            if (step === 2) return levelSelections[1].size > 0;
+            if (step === 3) return levelSelections[1].size > 0 && levelSelections[2].size > 0;
+            if (step === 4) return hasValidSelections();
+            return false;
+        }
+
+        function generateRolesWizard() {
+            if (!hasValidSelections()) {
+                alert("Please make selections in all 3 levels.");
+                return;
+            }
+            generateRoles();
+            goToStep(4);
+        }
+
+        function resetWizard() {
+            levelSelections[1].clear();
+            levelSelections[2].clear();
+            levelSelections[3].clear();
+
+            renderLevelList(1, getAvailableLevel1());
+            renderLevelList(2, getAvailableLevel2());
+            renderLevelList(3, getAvailableLevel3());
+
+            updateSelectionChips(1);
+            updateSelectionChips(2);
+            updateSelectionChips(3);
+
+            goToStep(1);
+        }
     </script>
 </body>
 

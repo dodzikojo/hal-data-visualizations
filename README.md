@@ -2,6 +2,8 @@
 
 This tool generates an interactive Sunburst chart and Role Builder report based on Excel data for Autodesk Construction Cloud (ACC) roles.
 
+Access the live page [here](https://dodzikojo.github.io/hal-data-visualizations/output/ACC_Roles_Report.html#About).
+
 ## Overview
 
 The application takes a spreadsheet of roles (`HAL - ACC Roles - Consenting - Generated Roles.xlsx`), processes the hierarchical relationships (Who/Party -> What/Function -> Where/Location), and outputs a static HTML report.
