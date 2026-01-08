@@ -22,10 +22,36 @@ def generate_chart_html(excel_file_path):
             parts = [p.strip() for p in role_string.split(' - ')]
             who = parts[0] if len(parts) > 0 else None
             what = parts[1] if len(parts) > 1 else None
-            return who, what
-        df[['Who', 'What']] = df['Created Roles'].apply(lambda x: pd.Series(parse_role(x)))
+            where = parts[2] if len(parts) > 2 else None
+            return who, what, where
+        
+        df[['Who', 'What', 'Where']] = df['Created Roles'].apply(lambda x: pd.Series(parse_role(x)))
         df.dropna(subset=['Who', 'What', 'Created Roles'], inplace=True)
         df['count'] = 1
+        
+        # --- Extract Role Hierarchy ---
+        # Build nested dictionary: {Level1: {Level2: [Level3 values]}}
+        role_hierarchy = {}
+        for _, row in df.iterrows():
+            level1 = row['Who']
+            level2 = row['What']
+            level3 = row['Where'] if pd.notna(row['Where']) else 'All'
+            
+            if level1 not in role_hierarchy:
+                role_hierarchy[level1] = {}
+            if level2 not in role_hierarchy[level1]:
+                role_hierarchy[level1][level2] = set()
+            role_hierarchy[level1][level2].add(level3)
+        
+        # Convert sets to sorted lists for JSON serialization
+        for level1 in role_hierarchy:
+            for level2 in role_hierarchy[level1]:
+                role_hierarchy[level1][level2] = sorted(list(role_hierarchy[level1][level2]))
+        
+        # Generate JavaScript object string
+        import json
+        hierarchy_json = json.dumps(role_hierarchy, indent=8, ensure_ascii=False)
+        hierarchy_js = f"const roleHierarchy = {hierarchy_json}; // ROLE_HIERARCHY_PLACEHOLDER"
         
         # --- Figure Creation ---
         fig = px.sunburst(df, path=['Who', 'What', 'Created Roles'], values='count')
@@ -43,7 +69,7 @@ def generate_chart_html(excel_file_path):
         fig.write_html(chart_only_filepath, full_html=True, include_plotlyjs='cdn')
         print(f"Successfully generated chart file at: '{chart_only_filepath}'")
         
-        # --- Update ACC_Roles_Report.html with generation timestamp ---
+        # --- Update ACC_Roles_Report.html ---
         report_filepath = os.path.join(output_dir, "ACC_Roles_Report.html")
         if os.path.exists(report_filepath):
             try:
@@ -61,12 +87,21 @@ def generate_chart_html(excel_file_path):
                     report_html
                 )
                 
+                # Replace the role hierarchy placeholder
+                updated_html = re.sub(
+                    r'const roleHierarchy = .*?; // ROLE_HIERARCHY_PLACEHOLDER',
+                    hierarchy_js,
+                    updated_html,
+                    flags=re.DOTALL
+                )
+                
                 with open(report_filepath, 'w', encoding='utf-8') as f:
                     f.write(updated_html)
                 
                 print(f"Updated generation timestamp in '{report_filepath}' to: {generation_time}")
+                print(f"Embedded role hierarchy with {len(role_hierarchy)} Level 1 entries")
             except Exception as e:
-                print(f"Warning: Could not update timestamp in report: {e}")
+                print(f"Warning: Could not update report: {e}")
         else:
             print(f"Warning: Report file not found at '{report_filepath}'")
 

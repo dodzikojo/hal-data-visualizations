@@ -301,6 +301,306 @@
             display: flex;
         }
 
+        /* Role Builder Styles */
+        .role-builder-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .level-selector {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .level-selector label {
+            font-weight: 600;
+            color: var(--header-color);
+            font-size: 0.9rem;
+        }
+
+        .level-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .multi-select-toggle {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.75rem;
+            color: #666;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 36px;
+            height: 20px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: 0.3s;
+            border-radius: 20px;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 14px;
+            width: 14px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.3s;
+            border-radius: 50%;
+        }
+
+        .toggle-switch input:checked+.toggle-slider {
+            background-color: #2196F3;
+        }
+
+        .toggle-switch input:checked+.toggle-slider:before {
+            transform: translateX(16px);
+        }
+
+        .level-search-container {
+            position: relative;
+        }
+
+        .level-search-box {
+            width: 100%;
+            padding: 8px 32px 8px 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px 4px 0 0;
+            font-size: 0.9rem;
+            background-color: #fff;
+        }
+
+        .level-search-box:focus {
+            outline: none;
+            border-color: var(--tab-active-border);
+        }
+
+        .level-clear-btn {
+            position: absolute;
+            right: 6px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 2px;
+            display: none;
+            color: #999;
+        }
+
+        .level-clear-btn.visible {
+            display: block;
+        }
+
+        .level-clear-btn:hover {
+            color: #333;
+        }
+
+        .level-list-container {
+            max-height: 150px;
+            overflow-y: auto;
+            border: 1px solid var(--border-color);
+            border-top: none;
+            border-radius: 0 0 4px 4px;
+            background-color: #fff;
+        }
+
+        .level-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .level-list-item {
+            padding: 8px 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            border-bottom: 1px solid #eee;
+            transition: background-color 0.15s ease;
+        }
+
+        .level-list-item:last-child {
+            border-bottom: none;
+        }
+
+        .level-list-item:hover {
+            background-color: #f5f5f5;
+        }
+
+        .level-list-item.selected {
+            background-color: #e3f2fd;
+        }
+
+        .level-list-item.hidden {
+            display: none;
+        }
+
+        .level-checkbox {
+            width: 16px;
+            height: 16px;
+            accent-color: var(--tab-active-border);
+            pointer-events: none;
+        }
+
+        .level-no-results {
+            padding: 12px;
+            color: #999;
+            font-style: italic;
+            text-align: center;
+            font-size: 0.85rem;
+        }
+
+        .selection-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-top: 0.5rem;
+            min-height: 24px;
+        }
+
+        .selection-chip {
+            background-color: #e3f2fd;
+            color: #1565c0;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .selection-chip .remove-chip {
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.85rem;
+            line-height: 1;
+        }
+
+        .selection-chip .remove-chip:hover {
+            color: #c62828;
+        }
+
+        .generate-btn {
+            padding: 12px 24px;
+            background-color: var(--tab-active-border);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: background-color 0.2s ease;
+            margin-top: 0.5rem;
+        }
+
+        .generate-btn:hover {
+            background-color: #2980b9;
+        }
+
+        .generate-btn:active {
+            background-color: #21618c;
+        }
+
+        .generated-roles-section {
+            margin-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 1rem;
+        }
+
+        .generated-roles-section .roles-list {
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        .generated-roles-section .roles-list li {
+            padding: 8px 12px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .generated-roles-section .roles-list li:last-child {
+            border-bottom: none;
+        }
+
+        .generated-roles-section .roles-list li:hover {
+            background-color: #f8f9fa;
+        }
+
+        /* Role Table Styles */
+        .roles-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+        .roles-table th,
+        .roles-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .roles-table th {
+            background-color: #f2f2f2;
+            font-weight: 600;
+            color: var(--header-color);
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+
+        .roles-table tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .roles-table .level-cell {
+            color: #666;
+            font-size: 0.8rem;
+        }
+
+        .roles-table .role-cell {
+            font-weight: 500;
+        }
+
+        .roles-table-container {
+            max-height: 600px;
+            overflow-y: auto;
+            border: 1px solid var(--border-color);
+            background-color: white;
+            border-radius: 4px;
+        }
+
         @media (min-width: 1200px) {
             .main-container {
                 flex-direction: row;
@@ -335,12 +635,13 @@
                 <button class="tab-link" onclick="openTab(event, 'Governance')">Governance</button>
                 <button class="tab-link" onclick="openTab(event, 'Automation')">Automation</button>
                 <button class="tab-link" onclick="openTab(event, 'Roles')">Roles</button>
+                <button class="tab-link" onclick="openTab(event, 'RoleBuilder')">Role Builder</button>
             </div>
             <div class="tab-content-container">
                 <div id="About" class="tab-content active">
                     <h2>About This Chart</h2>
                     <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5rem;"><strong>Last Generated:</strong>
-                        <span id="chartGeneratedDate">December 10, 2025 at 05:55 PM</span>
+                        <span id="chartGeneratedDate">January 08, 2026 at 03:26 PM</span>
                     </p>
                     <h3>1. What It Is: "The Big Picture"</h3>
                     <p>This sunburst chart is an interactive, hierarchical map of every role in Autodesk Construction
@@ -456,9 +757,98 @@
                         </button>
                     </div>
                     <p class="roles-count" id="rolesCount">Loading roles...</p>
-                    <ul class="roles-list" id="rolesList">
-                        <li class="no-roles">Select a segment in the chart to view roles</li>
-                    </ul>
+                    <div class="roles-table-container">
+                        <table class="roles-table" id="rolesTable">
+                            <thead>
+                                <tr>
+                                    <th>Level 1 (Party)</th>
+                                    <th>Level 2 (Function)</th>
+                                    <th>Level 3 (Discipline)</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="rolesTableBody">
+                                <tr>
+                                    <td colspan="4" class="no-roles">Select a segment in the chart to view roles</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="RoleBuilder" class="tab-content">
+                    <h2>Role Builder</h2>
+                    <p style="color: #666; margin-bottom: 1rem;">Select Level 1, 2, and 3 options to generate possible
+                        role names. "General" is automatically included in Level 2.</p>
+                    <div class="role-builder-container">
+                        <div class="level-selector">
+                            <div class="level-header">
+                                <label>Level 1 (Party)</label>
+                                <div class="multi-select-toggle">
+                                    <span>Multi-select</span>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" id="level1MultiSelect" onchange="onMultiSelectToggle()">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="level-search-container">
+                                <input type="text" class="level-search-box" id="level1Search"
+                                    placeholder="Search parties..." oninput="filterLevelOptions(1)">
+                                <button class="level-clear-btn" id="level1ClearBtn"
+                                    onclick="clearLevelSearch(1)">✕</button>
+                            </div>
+                            <div class="level-list-container">
+                                <ul class="level-list" id="level1List">
+                                    <li class="level-no-results">Loading...</li>
+                                </ul>
+                            </div>
+                            <div class="selection-chips" id="level1Chips"></div>
+                        </div>
+                        <div class="level-selector">
+                            <label>Level 2 (Function)</label>
+                            <div class="level-search-container">
+                                <input type="text" class="level-search-box" id="level2Search"
+                                    placeholder="Search functions..." oninput="filterLevelOptions(2)">
+                                <button class="level-clear-btn" id="level2ClearBtn"
+                                    onclick="clearLevelSearch(2)">✕</button>
+                            </div>
+                            <div class="level-list-container">
+                                <ul class="level-list" id="level2List">
+                                    <li class="level-no-results">Loading...</li>
+                                </ul>
+                            </div>
+                            <div class="selection-chips" id="level2Chips"></div>
+                        </div>
+                        <div class="level-selector">
+                            <label>Level 3 (Discipline)</label>
+                            <div class="level-search-container">
+                                <input type="text" class="level-search-box" id="level3Search"
+                                    placeholder="Search disciplines..." oninput="filterLevelOptions(3)">
+                                <button class="level-clear-btn" id="level3ClearBtn"
+                                    onclick="clearLevelSearch(3)">✕</button>
+                            </div>
+                            <div class="level-list-container">
+                                <ul class="level-list" id="level3List">
+                                    <li class="level-no-results">Loading...</li>
+                                </ul>
+                            </div>
+                            <div class="selection-chips" id="level3Chips"></div>
+                        </div>
+                    </div>
+                    <div class="generated-roles-section" id="generatedRolesSection" style="display: none;">
+                        <div class="roles-header">
+                            <h3 id="generatedRolesCount">Generated Roles</h3>
+                            <button class="copy-all-btn" onclick="copyAllGeneratedRoles()"
+                                title="Copy all generated roles">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path
+                                        d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
+                                </svg>
+                                Copy All
+                            </button>
+                        </div>
+                        <ul class="roles-list" id="generatedRolesList"></ul>
+                    </div>
                 </div>
             </div>
         </aside>
@@ -489,6 +879,11 @@
             if (tabName === 'Roles') {
                 updateRolesList();
             }
+
+            // If Role Builder tab is opened, populate the dropdowns
+            if (tabName === 'RoleBuilder') {
+                populateRoleBuilderSelects();
+            }
         }
 
         function copyToClipboard(text, button) {
@@ -506,41 +901,799 @@
             });
         }
 
+        // Cached chart data received from iframe via postMessage
+        let cachedChartData = null;
+        let lastClickedData = null;
+
+        // Role hierarchy data - auto-generated by generate_chart.py
+        // Maps Level 1 -> Level 2 -> [Level 3 values]
+        const roleHierarchy = {
+        "AP1": {
+                "Approver": [
+                        "Railhead"
+                ],
+                "BIM Lead/Information Manager": [
+                        "Railhead"
+                ],
+                "Checker": [
+                        "Railhead"
+                ],
+                "Design/Project Manager": [
+                        "Railhead"
+                ],
+                "Document Controller": [
+                        "Railhead"
+                ],
+                "General": [
+                        "All",
+                        "Railhead"
+                ]
+        },
+        "Consent": {
+                "Approver": [
+                        "All"
+                ],
+                "Checker": [
+                        "All"
+                ],
+                "Document Controller": [
+                        "All"
+                ],
+                "General": [
+                        "All"
+                ]
+        },
+        "Delivery Planning": {
+                "Approver": [
+                        "Active Travel",
+                        "Airfield Systems",
+                        "Airport Related Development (ARD)",
+                        "Airport Support Facilities",
+                        "Airside Roads",
+                        "Aprons",
+                        "Baggage",
+                        "Bus and Coach",
+                        "Communication Networks",
+                        "Compliance",
+                        "Connectivity (Airside PTS)",
+                        "Connectivity (Landside PTS)",
+                        "Consent Support",
+                        "Decants & Relocations",
+                        "Displacements",
+                        "Earthworks",
+                        "Fuel Networks",
+                        "Green Loop",
+                        "Heathrow Interface",
+                        "Land Use",
+                        "Landscaping",
+                        "Landside Roads (LHR Owned)",
+                        "Landside Terminal Zone",
+                        "Logistics",
+                        "Maintenance Repair Overhaul",
+                        "Motorways",
+                        "Open Space",
+                        "PAX Buildings Architecture",
+                        "PAX Buildings Structure",
+                        "Parking",
+                        "Power Networks",
+                        "Rail",
+                        "Railhead",
+                        "Roads",
+                        "Roads LTZ",
+                        "Runways",
+                        "Runways & Taxiways",
+                        "Scheme Integration",
+                        "Southern Rail",
+                        "Systems",
+                        "Taxiways",
+                        "Utilities Diversions",
+                        "Water Networks",
+                        "Water Systems",
+                        "Western Rail"
+                ],
+                "BIM Lead/Information Manager": [
+                        "Active Travel",
+                        "Airfield Systems",
+                        "Airport Related Development (ARD)",
+                        "Airport Support Facilities",
+                        "Airside Roads",
+                        "Aprons",
+                        "Baggage",
+                        "Bus and Coach",
+                        "Communication Networks",
+                        "Compliance",
+                        "Connectivity (Airside PTS)",
+                        "Connectivity (Landside PTS)",
+                        "Consent Support",
+                        "Decants & Relocations",
+                        "Displacements",
+                        "Earthworks",
+                        "Fuel Networks",
+                        "Green Loop",
+                        "Heathrow Interface",
+                        "Land Use",
+                        "Landscaping",
+                        "Landside Roads (LHR Owned)",
+                        "Landside Terminal Zone",
+                        "Logistics",
+                        "Maintenance Repair Overhaul",
+                        "Motorways",
+                        "Open Space",
+                        "PAX Buildings Architecture",
+                        "PAX Buildings Structure",
+                        "Parking",
+                        "Power Networks",
+                        "Rail",
+                        "Railhead",
+                        "Roads",
+                        "Roads LTZ",
+                        "Runways",
+                        "Runways & Taxiways",
+                        "Scheme Integration",
+                        "Southern Rail",
+                        "Systems",
+                        "Taxiways",
+                        "Utilities Diversions",
+                        "Water Networks",
+                        "Water Systems",
+                        "Western Rail"
+                ],
+                "Checker": [
+                        "Active Travel",
+                        "Airfield Systems",
+                        "Airport Related Development (ARD)",
+                        "Airport Support Facilities",
+                        "Airside Roads",
+                        "Aprons",
+                        "Baggage",
+                        "Bus and Coach",
+                        "Communication Networks",
+                        "Compliance",
+                        "Connectivity (Airside PTS)",
+                        "Connectivity (Landside PTS)",
+                        "Consent Support",
+                        "Decants & Relocations",
+                        "Displacements",
+                        "Earthworks",
+                        "Fuel Networks",
+                        "Green Loop",
+                        "Heathrow Interface",
+                        "Land Use",
+                        "Landscaping",
+                        "Landside Roads (LHR Owned)",
+                        "Landside Terminal Zone",
+                        "Logistics",
+                        "Maintenance Repair Overhaul",
+                        "Motorways",
+                        "Open Space",
+                        "PAX Buildings Architecture",
+                        "PAX Buildings Structure",
+                        "Parking",
+                        "Power Networks",
+                        "Rail",
+                        "Railhead",
+                        "Roads",
+                        "Roads LTZ",
+                        "Runways",
+                        "Runways & Taxiways",
+                        "Scheme Integration",
+                        "Southern Rail",
+                        "Systems",
+                        "Taxiways",
+                        "Utilities Diversions",
+                        "Water Networks",
+                        "Water Systems",
+                        "Western Rail"
+                ],
+                "Design/Project Manager": [
+                        "Active Travel",
+                        "Airfield Systems",
+                        "Airport Related Development (ARD)",
+                        "Airport Support Facilities",
+                        "Airside Roads",
+                        "Aprons",
+                        "Baggage",
+                        "Bus and Coach",
+                        "Communication Networks",
+                        "Compliance",
+                        "Connectivity (Airside PTS)",
+                        "Connectivity (Landside PTS)",
+                        "Consent Support",
+                        "Decants & Relocations",
+                        "Displacements",
+                        "Earthworks",
+                        "Fuel Networks",
+                        "Green Loop",
+                        "Heathrow Interface",
+                        "Land Use",
+                        "Landscaping",
+                        "Landside Roads (LHR Owned)",
+                        "Landside Terminal Zone",
+                        "Logistics",
+                        "Maintenance Repair Overhaul",
+                        "Motorways",
+                        "Open Space",
+                        "PAX Buildings Architecture",
+                        "PAX Buildings Structure",
+                        "Parking",
+                        "Power Networks",
+                        "Rail",
+                        "Railhead",
+                        "Roads",
+                        "Roads LTZ",
+                        "Runways",
+                        "Runways & Taxiways",
+                        "Scheme Integration",
+                        "Southern Rail",
+                        "Systems",
+                        "Taxiways",
+                        "Utilities Diversions",
+                        "Water Networks",
+                        "Water Systems",
+                        "Western Rail"
+                ],
+                "Document Controller": [
+                        "Active Travel",
+                        "Airfield Systems",
+                        "Airport Related Development (ARD)",
+                        "Airport Support Facilities",
+                        "Airside Roads",
+                        "Aprons",
+                        "Baggage",
+                        "Bus and Coach",
+                        "Communication Networks",
+                        "Compliance",
+                        "Connectivity (Airside PTS)",
+                        "Connectivity (Landside PTS)",
+                        "Consent Support",
+                        "Decants & Relocations",
+                        "Displacements",
+                        "Earthworks",
+                        "Fuel Networks",
+                        "Green Loop",
+                        "Heathrow Interface",
+                        "Land Use",
+                        "Landscaping",
+                        "Landside Roads (LHR Owned)",
+                        "Landside Terminal Zone",
+                        "Logistics",
+                        "Maintenance Repair Overhaul",
+                        "Motorways",
+                        "Open Space",
+                        "PAX Buildings Architecture",
+                        "PAX Buildings Structure",
+                        "Parking",
+                        "Power Networks",
+                        "Rail",
+                        "Railhead",
+                        "Roads",
+                        "Roads LTZ",
+                        "Runways",
+                        "Runways & Taxiways",
+                        "Scheme Integration",
+                        "Southern Rail",
+                        "Systems",
+                        "Taxiways",
+                        "Utilities Diversions",
+                        "Water Networks",
+                        "Water Systems",
+                        "Western Rail"
+                ],
+                "General": [
+                        "Active Travel",
+                        "Airfield Systems",
+                        "Airport Related Development (ARD)",
+                        "Airport Support Facilities",
+                        "Airside Roads",
+                        "All",
+                        "Aprons",
+                        "Baggage",
+                        "Bus and Coach",
+                        "Communication Networks",
+                        "Compliance",
+                        "Connectivity (Airside PTS)",
+                        "Connectivity (Landside PTS)",
+                        "Consent Support",
+                        "Decants & Relocations",
+                        "Displacements",
+                        "Earthworks",
+                        "Fuel Networks",
+                        "Green Loop",
+                        "Heathrow Interface",
+                        "Land Use",
+                        "Landscaping",
+                        "Landside Roads (LHR Owned)",
+                        "Landside Terminal Zone",
+                        "Logistics",
+                        "Maintenance Repair Overhaul",
+                        "Motorways",
+                        "Open Space",
+                        "PAX Buildings Architecture",
+                        "PAX Buildings Structure",
+                        "Parking",
+                        "Power Networks",
+                        "Rail",
+                        "Railhead",
+                        "Roads",
+                        "Roads LTZ",
+                        "Runways",
+                        "Runways & Taxiways",
+                        "Scheme Integration",
+                        "Southern Rail",
+                        "Systems",
+                        "Taxiways",
+                        "Utilities Diversions",
+                        "Water Networks",
+                        "Water Systems",
+                        "Western Rail"
+                ]
+        },
+        "Environment": {
+                "Approver": [
+                        "All"
+                ],
+                "BIM Lead/Information Manager": [
+                        "All"
+                ],
+                "Checker": [
+                        "All"
+                ],
+                "Design/Project Manager": [
+                        "All"
+                ],
+                "Document Controller": [
+                        "All"
+                ],
+                "General": [
+                        "All"
+                ]
+        },
+        "HAL": {
+                "Approver": [
+                        "Consent",
+                        "Delivery Planning",
+                        "Design and Engineering",
+                        "Environment",
+                        "Land and Property",
+                        "Legal and Advisory",
+                        "Masterplanning",
+                        "Programme Management",
+                        "Surface Access"
+                ],
+                "BIM Lead/Information Manager": [
+                        "Consent",
+                        "Delivery Planning",
+                        "Design and Engineering",
+                        "Environment",
+                        "Land and Property",
+                        "Legal and Advisory",
+                        "Masterplanning",
+                        "Programme Management",
+                        "Surface Access"
+                ],
+                "Checker": [
+                        "Consent",
+                        "Delivery Planning",
+                        "Design and Engineering",
+                        "Environment",
+                        "Land and Property",
+                        "Legal and Advisory",
+                        "Masterplanning",
+                        "Programme Management",
+                        "Surface Access"
+                ],
+                "Design/Project Manager": [
+                        "Consent",
+                        "Delivery Planning",
+                        "Design and Engineering",
+                        "Environment",
+                        "Land and Property",
+                        "Legal and Advisory",
+                        "Masterplanning",
+                        "Programme Management",
+                        "Surface Access"
+                ],
+                "Document Controller": [
+                        "Consent",
+                        "Delivery Planning",
+                        "Design and Engineering",
+                        "Environment",
+                        "Land and Property",
+                        "Legal and Advisory",
+                        "Masterplanning",
+                        "Programme Management",
+                        "Surface Access"
+                ],
+                "General": [
+                        "All",
+                        "Consent",
+                        "Delivery Planning",
+                        "Design and Engineering",
+                        "Environment",
+                        "Land and Property",
+                        "Legal and Advisory",
+                        "Masterplanning",
+                        "Programme Management",
+                        "Surface Access"
+                ]
+        },
+        "Land and Property": {
+                "Approver": [
+                        "All"
+                ],
+                "BIM Lead/Information Manager": [
+                        "All"
+                ],
+                "Checker": [
+                        "All"
+                ],
+                "Design/Project Manager": [
+                        "All"
+                ],
+                "Document Controller": [
+                        "All"
+                ],
+                "General": [
+                        "All"
+                ]
+        },
+        "Lead Designer": {
+                "Approver": [
+                        "Active Travel",
+                        "Airfield Systems",
+                        "Airport Related Development (ARD)",
+                        "Airport Support Facilities",
+                        "Airside Roads",
+                        "Aprons",
+                        "Baggage",
+                        "Bus and Coach",
+                        "Communication Networks",
+                        "Compliance",
+                        "Connectivity (Airside PTS)",
+                        "Connectivity (Landside PTS)",
+                        "Consent Support",
+                        "Decants & Relocations",
+                        "Displacements",
+                        "Earthworks",
+                        "Fuel Networks",
+                        "Green Loop",
+                        "Heathrow Interface",
+                        "Land Use",
+                        "Landscaping",
+                        "Landside Roads (LHR Owned)",
+                        "Landside Terminal Zone",
+                        "Logistics",
+                        "Maintenance Repair Overhaul",
+                        "Motorways",
+                        "Open Space",
+                        "PAX Buildings Architecture",
+                        "PAX Buildings Structure",
+                        "Parking",
+                        "Power Networks",
+                        "Rail",
+                        "Railhead",
+                        "Roads",
+                        "Roads LTZ",
+                        "Runways",
+                        "Runways & Taxiways",
+                        "Scheme Integration",
+                        "Southern Rail",
+                        "Systems",
+                        "Taxiways",
+                        "Utilities Diversions",
+                        "Water Networks",
+                        "Water Systems",
+                        "Western Rail"
+                ],
+                "BIM Lead/Information Manager": [
+                        "Active Travel",
+                        "Airfield Systems",
+                        "Airport Related Development (ARD)",
+                        "Airport Support Facilities",
+                        "Airside Roads",
+                        "Aprons",
+                        "Baggage",
+                        "Bus and Coach",
+                        "Communication Networks",
+                        "Compliance",
+                        "Connectivity (Airside PTS)",
+                        "Connectivity (Landside PTS)",
+                        "Consent Support",
+                        "Decants & Relocations",
+                        "Displacements",
+                        "Earthworks",
+                        "Fuel Networks",
+                        "Green Loop",
+                        "Heathrow Interface",
+                        "Land Use",
+                        "Landscaping",
+                        "Landside Roads (LHR Owned)",
+                        "Landside Terminal Zone",
+                        "Logistics",
+                        "Maintenance Repair Overhaul",
+                        "Motorways",
+                        "Open Space",
+                        "PAX Buildings Architecture",
+                        "PAX Buildings Structure",
+                        "Parking",
+                        "Power Networks",
+                        "Rail",
+                        "Railhead",
+                        "Roads",
+                        "Roads LTZ",
+                        "Runways",
+                        "Runways & Taxiways",
+                        "Scheme Integration",
+                        "Southern Rail",
+                        "Systems",
+                        "Taxiways",
+                        "Utilities Diversions",
+                        "Water Networks",
+                        "Water Systems",
+                        "Western Rail"
+                ],
+                "Checker": [
+                        "Active Travel",
+                        "Airfield Systems",
+                        "Airport Related Development (ARD)",
+                        "Airport Support Facilities",
+                        "Airside Roads",
+                        "Aprons",
+                        "Baggage",
+                        "Bus and Coach",
+                        "Communication Networks",
+                        "Compliance",
+                        "Connectivity (Airside PTS)",
+                        "Connectivity (Landside PTS)",
+                        "Consent Support",
+                        "Decants & Relocations",
+                        "Displacements",
+                        "Earthworks",
+                        "Fuel Networks",
+                        "Green Loop",
+                        "Heathrow Interface",
+                        "Land Use",
+                        "Landscaping",
+                        "Landside Roads (LHR Owned)",
+                        "Landside Terminal Zone",
+                        "Logistics",
+                        "Maintenance Repair Overhaul",
+                        "Motorways",
+                        "Open Space",
+                        "PAX Buildings Architecture",
+                        "PAX Buildings Structure",
+                        "Parking",
+                        "Power Networks",
+                        "Rail",
+                        "Railhead",
+                        "Roads",
+                        "Roads LTZ",
+                        "Runways",
+                        "Runways & Taxiways",
+                        "Scheme Integration",
+                        "Southern Rail",
+                        "Systems",
+                        "Taxiways",
+                        "Utilities Diversions",
+                        "Water Networks",
+                        "Water Systems",
+                        "Western Rail"
+                ],
+                "Design/Project Manager": [
+                        "Active Travel",
+                        "Airfield Systems",
+                        "Airport Related Development (ARD)",
+                        "Airport Support Facilities",
+                        "Airside Roads",
+                        "Aprons",
+                        "Baggage",
+                        "Bus and Coach",
+                        "Communication Networks",
+                        "Compliance",
+                        "Connectivity (Airside PTS)",
+                        "Connectivity (Landside PTS)",
+                        "Consent Support",
+                        "Decants & Relocations",
+                        "Displacements",
+                        "Earthworks",
+                        "Fuel Networks",
+                        "Green Loop",
+                        "Heathrow Interface",
+                        "Land Use",
+                        "Landscaping",
+                        "Landside Roads (LHR Owned)",
+                        "Landside Terminal Zone",
+                        "Logistics",
+                        "Maintenance Repair Overhaul",
+                        "Motorways",
+                        "Open Space",
+                        "PAX Buildings Architecture",
+                        "PAX Buildings Structure",
+                        "Parking",
+                        "Power Networks",
+                        "Rail",
+                        "Railhead",
+                        "Roads",
+                        "Roads LTZ",
+                        "Runways",
+                        "Runways & Taxiways",
+                        "Scheme Integration",
+                        "Southern Rail",
+                        "Systems",
+                        "Taxiways",
+                        "Utilities Diversions",
+                        "Water Networks",
+                        "Water Systems",
+                        "Western Rail"
+                ],
+                "Document Controller": [
+                        "Active Travel",
+                        "Airfield Systems",
+                        "Airport Related Development (ARD)",
+                        "Airport Support Facilities",
+                        "Airside Roads",
+                        "Aprons",
+                        "Baggage",
+                        "Bus and Coach",
+                        "Communication Networks",
+                        "Compliance",
+                        "Connectivity (Airside PTS)",
+                        "Connectivity (Landside PTS)",
+                        "Consent Support",
+                        "Decants & Relocations",
+                        "Displacements",
+                        "Earthworks",
+                        "Fuel Networks",
+                        "Green Loop",
+                        "Heathrow Interface",
+                        "Land Use",
+                        "Landscaping",
+                        "Landside Roads (LHR Owned)",
+                        "Landside Terminal Zone",
+                        "Logistics",
+                        "Maintenance Repair Overhaul",
+                        "Motorways",
+                        "Open Space",
+                        "PAX Buildings Architecture",
+                        "PAX Buildings Structure",
+                        "Parking",
+                        "Power Networks",
+                        "Rail",
+                        "Railhead",
+                        "Roads",
+                        "Roads LTZ",
+                        "Runways",
+                        "Runways & Taxiways",
+                        "Scheme Integration",
+                        "Southern Rail",
+                        "Systems",
+                        "Taxiways",
+                        "Utilities Diversions",
+                        "Water Networks",
+                        "Water Systems",
+                        "Western Rail"
+                ],
+                "General": [
+                        "Active Travel",
+                        "Airfield Systems",
+                        "Airport Related Development (ARD)",
+                        "Airport Support Facilities",
+                        "Airside Roads",
+                        "All",
+                        "Aprons",
+                        "Baggage",
+                        "Bus and Coach",
+                        "Communication Networks",
+                        "Compliance",
+                        "Connectivity (Airside PTS)",
+                        "Connectivity (Landside PTS)",
+                        "Consent Support",
+                        "Decants & Relocations",
+                        "Displacements",
+                        "Earthworks",
+                        "Fuel Networks",
+                        "Green Loop",
+                        "Heathrow Interface",
+                        "Land Use",
+                        "Landscaping",
+                        "Landside Roads (LHR Owned)",
+                        "Landside Terminal Zone",
+                        "Logistics",
+                        "Maintenance Repair Overhaul",
+                        "Motorways",
+                        "Open Space",
+                        "PAX Buildings Architecture",
+                        "PAX Buildings Structure",
+                        "Parking",
+                        "Power Networks",
+                        "Rail",
+                        "Railhead",
+                        "Roads",
+                        "Roads LTZ",
+                        "Runways",
+                        "Runways & Taxiways",
+                        "Scheme Integration",
+                        "Southern Rail",
+                        "Systems",
+                        "Taxiways",
+                        "Utilities Diversions",
+                        "Water Networks",
+                        "Water Systems",
+                        "Western Rail"
+                ]
+        },
+        "Legal and Advisory": {
+                "Approver": [
+                        "All"
+                ],
+                "Checker": [
+                        "All"
+                ],
+                "General": [
+                        "All"
+                ]
+        },
+        "Surface Access": {
+                "Approver": [
+                        "All"
+                ],
+                "BIM Lead/Information Manager": [
+                        "All"
+                ],
+                "Checker": [
+                        "All"
+                ],
+                "Design/Project Manager": [
+                        "All"
+                ],
+                "Document Controller": [
+                        "All"
+                ],
+                "General": [
+                        "All"
+                ]
+        }
+}; // ROLE_HIERARCHY_PLACEHOLDER
+
         function extractOuterRingRoles() {
             try {
-                const iframe = document.querySelector('.chart-iframe');
-                if (!iframe || !iframe.contentWindow) {
-                    return [];
-                }
+                // First, try to use cached chart data from iframe
+                if (cachedChartData) {
+                    const labels = cachedChartData.labels;
+                    const ids = cachedChartData.ids;
+                    const parents = cachedChartData.parents;
 
-                const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                const plotlyDiv = iframeDoc.querySelector('.plotly-graph-div');
+                    // Find outer ring roles (those with parents that are not empty and have grandparents)
+                    const outerRoles = [];
+                    for (let i = 0; i < labels.length; i++) {
+                        const parent = parents[i];
 
-                if (!plotlyDiv || !plotlyDiv.data || !plotlyDiv.data[0]) {
-                    return [];
-                }
-
-                const chartData = plotlyDiv.data[0];
-                const labels = chartData.labels;
-                const ids = chartData.ids;
-                const parents = chartData.parents;
-
-                // Find outer ring roles (those with parents that are not empty and have grandparents)
-                const outerRoles = [];
-                for (let i = 0; i < labels.length; i++) {
-                    const id = ids[i];
-                    const parent = parents[i];
-
-                    // Check if this is an outer ring (has a parent and that parent has a parent)
-                    if (parent && parent !== '') {
-                        const parentIndex = ids.indexOf(parent);
-                        if (parentIndex !== -1 && parents[parentIndex] && parents[parentIndex] !== '') {
-                            outerRoles.push(labels[i]);
+                        // Check if this is an outer ring (has a parent and that parent has a parent)
+                        if (parent && parent !== '') {
+                            const parentIndex = ids.indexOf(parent);
+                            if (parentIndex !== -1 && parents[parentIndex] && parents[parentIndex] !== '') {
+                                outerRoles.push(labels[i]);
+                            }
                         }
                     }
+
+                    return [...new Set(outerRoles)].sort();
                 }
 
-                return [...new Set(outerRoles)].sort();
+                // Fallback: Extract all roles from roleHierarchy
+                if (Object.keys(roleHierarchy).length > 0) {
+                    const roles = [];
+                    for (const l1 of Object.keys(roleHierarchy)) {
+                        for (const l2 of Object.keys(roleHierarchy[l1])) {
+                            for (const l3 of roleHierarchy[l1][l2]) {
+                                roles.push(`${l1} - ${l2} - ${l3}`);
+                            }
+                        }
+                    }
+                    return roles.sort();
+                }
+
+                return [];
             } catch (error) {
                 console.error('Error extracting roles:', error);
                 return [];
@@ -552,68 +1705,48 @@
 
         function getSelectedRoles() {
             try {
-                const iframe = document.querySelector('.chart-iframe');
-                if (!iframe || !iframe.contentWindow) {
+                if (!cachedChartData) {
                     return null;
                 }
-
-                const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                const plotlyDiv = iframeDoc.querySelector('.plotly-graph-div');
-
-                if (!plotlyDiv || !plotlyDiv.data || !plotlyDiv.data[0]) {
-                    return null;
-                }
-
-                const chartData = plotlyDiv.data[0];
 
                 // Check if there's a clicked point
-                if (plotlyDiv._fullLayout && plotlyDiv._fullLayout.clickmode) {
-                    // Get the last clicked point data
-                    const lastClicked = plotlyDiv._lastClicked;
-                    if (lastClicked && lastClicked.points && lastClicked.points.length > 0) {
-                        const clickedId = lastClicked.points[0].id;
-                        const clickedParent = lastClicked.points[0].parent;
+                if (lastClickedData) {
+                    const clickedId = lastClickedData.id;
+                    const clickedParent = lastClickedData.parent;
 
-                        let targetFilterId = clickedId;
+                    let targetFilterId = clickedId;
 
-                        // If we clicked the same ID twice, we're going back
-                        if (previousClickedId === clickedId) {
-                            // console.log('Same ID clicked again - going back');
-
-                            if (clickedParent && clickedParent !== '') {
-                                // If there is a parent, we are going back to the parent level
-                                // console.log('Going back to parent:', clickedParent);
-                                targetFilterId = clickedParent;
-                                previousClickedId = clickedParent;
-                            } else {
-                                // No parent, going back to root
-                                // console.log('No parent - going back to root');
-                                previousClickedId = null;
-                                return null;
-                            }
+                    // If we clicked the same ID twice, we're going back
+                    if (previousClickedId === clickedId) {
+                        if (clickedParent && clickedParent !== '') {
+                            targetFilterId = clickedParent;
+                            previousClickedId = clickedParent;
                         } else {
-                            previousClickedId = clickedId;
+                            previousClickedId = null;
+                            return null;
                         }
+                    } else {
+                        previousClickedId = clickedId;
+                    }
 
-                        // Get all descendants of the clicked segment that are outer ring roles
-                        const selectedRoles = [];
-                        for (let i = 0; i < chartData.ids.length; i++) {
-                            // Check if this node is a descendant of the target segment
-                            if (isDescendant(chartData.ids[i], targetFilterId, chartData.ids, chartData.parents)) {
-                                // Only add outer ring roles (roles that have a parent with a parent)
-                                const nodeParent = chartData.parents[i];
-                                if (nodeParent && nodeParent !== '') {
-                                    const parentIndex = chartData.ids.indexOf(nodeParent);
-                                    if (parentIndex !== -1 && chartData.parents[parentIndex] && chartData.parents[parentIndex] !== '') {
-                                        selectedRoles.push(chartData.labels[i]);
-                                    }
+                    // Get all descendants of the clicked segment that are outer ring roles
+                    const selectedRoles = [];
+                    for (let i = 0; i < cachedChartData.ids.length; i++) {
+                        // Check if this node is a descendant of the target segment
+                        if (isDescendant(cachedChartData.ids[i], targetFilterId, cachedChartData.ids, cachedChartData.parents)) {
+                            // Only add outer ring roles (roles that have a parent with a parent)
+                            const nodeParent = cachedChartData.parents[i];
+                            if (nodeParent && nodeParent !== '') {
+                                const parentIndex = cachedChartData.ids.indexOf(nodeParent);
+                                if (parentIndex !== -1 && cachedChartData.parents[parentIndex] && cachedChartData.parents[parentIndex] !== '') {
+                                    selectedRoles.push(cachedChartData.labels[i]);
                                 }
                             }
                         }
-
-                        // If no roles found for this selection, show all roles instead
-                        return selectedRoles.length > 0 ? [...new Set(selectedRoles)].sort() : null;
                     }
+
+                    // If no roles found for this selection, show all roles instead
+                    return selectedRoles.length > 0 ? [...new Set(selectedRoles)].sort() : null;
                 }
 
                 return null;
@@ -661,7 +1794,8 @@
             }
 
             if (roles.length === 0) {
-                rolesList.innerHTML = '<li class="no-roles">No roles found. Please wait for chart to load.</li>';
+                const rolesTableBody = document.getElementById('rolesTableBody');
+                rolesTableBody.innerHTML = '<tr><td colspan="4" class="no-roles">No roles found. Please wait for chart to load.</td></tr>';
                 rolesCount.textContent = 'No roles available';
                 currentRolesList = [];
                 return;
@@ -679,8 +1813,19 @@
             }
         }
 
+        // Parse a role name into L1, L2, L3 components
+        function parseRoleParts(roleName) {
+            const parts = roleName.split(' - ');
+            return {
+                level1: parts[0] || '',
+                level2: parts[1] || '',
+                level3: parts[2] || '',
+                fullRole: roleName
+            };
+        }
+
         function displayRoles(roles, isFiltered) {
-            const rolesList = document.getElementById('rolesList');
+            const rolesTableBody = document.getElementById('rolesTableBody');
             const rolesCount = document.getElementById('rolesCount');
 
             // Store currently displayed roles for copy all functionality
@@ -691,21 +1836,28 @@
                 : `Showing all ${roles.length} role${roles.length !== 1 ? 's' : ''}`;
             rolesCount.textContent = countText;
 
-            rolesList.innerHTML = roles.map(role => `
-                <li class="role-item">
-                    <span class="role-name">${role}</span>
-                    <button class="copy-btn" onclick="copyToClipboard('${role.replace(/'/g, "\\'")}', this)" title="Copy to clipboard">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
-                        </svg>
-                    </button>
-                </li>
-            `).join('');
+            rolesTableBody.innerHTML = roles.map(role => {
+                const parts = parseRoleParts(role);
+                return `
+                    <tr>
+                        <td class="level-cell">${parts.level1}</td>
+                        <td class="level-cell">${parts.level2}</td>
+                        <td class="level-cell">${parts.level3}</td>
+                        <td>
+                            <button class="copy-btn" onclick="copyToClipboard('${role.replace(/'/g, "\\'")}', this)" title="Copy full role name">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                                </svg>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
         }
 
         function filterRoles() {
             const searchBox = document.getElementById('roleSearch');
-            const rolesList = document.getElementById('rolesList');
+            const rolesTableBody = document.getElementById('rolesTableBody');
             const rolesCount = document.getElementById('rolesCount');
             const clearBtn = document.getElementById('clearSearchBtn');
             const searchTerm = searchBox.value.toLowerCase().trim();
@@ -746,7 +1898,7 @@
             currentlyDisplayedRoles = filteredRoles;
 
             if (filteredRoles.length === 0) {
-                rolesList.innerHTML = '<li class="no-roles">No roles match your search</li>';
+                rolesTableBody.innerHTML = '<tr><td colspan="4" class="no-roles">No roles match your search</td></tr>';
                 rolesCount.textContent = 'No matches found';
                 return;
             }
@@ -755,20 +1907,27 @@
             const baseText = isCurrentlyFiltered ? '(filtered by selection)' : '';
             rolesCount.textContent = `Showing ${filteredRoles.length} of ${currentRolesList.length} role${currentRolesList.length !== 1 ? 's' : ''} ${baseText}`.trim();
 
-            rolesList.innerHTML = filteredRoles.map(role => {
-                // Highlight the search term in the role name
+            rolesTableBody.innerHTML = filteredRoles.map(role => {
+                const parts = parseRoleParts(role);
+                // Highlight the search term in each part
                 const regex = new RegExp(`(${searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
-                const highlightedRole = role.replace(regex, '<mark>$1</mark>');
+                const highlightL1 = parts.level1.replace(regex, '<mark>$1</mark>');
+                const highlightL2 = parts.level2.replace(regex, '<mark>$1</mark>');
+                const highlightL3 = parts.level3.replace(regex, '<mark>$1</mark>');
 
                 return `
-                    <li class="role-item">
-                        <span class="role-name">${highlightedRole}</span>
-                        <button class="copy-btn" onclick="copyToClipboard('${role.replace(/'/g, "\\'")}', this)" title="Copy to clipboard">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
-                            </svg>
-                        </button>
-                    </li>
+                    <tr>
+                        <td class="level-cell">${highlightL1}</td>
+                        <td class="level-cell">${highlightL2}</td>
+                        <td class="level-cell">${highlightL3}</td>
+                        <td>
+                            <button class="copy-btn" onclick="copyToClipboard('${role.replace(/'/g, "\\'")}', this)" title="Copy full role name">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                                </svg>
+                            </button>
+                        </td>
+                    </tr>
                 `;
             }).join('');
         }
@@ -812,53 +1971,455 @@
             });
         }
 
-        // Listen for chart clicks
-        function setupChartListener() {
-            const iframe = document.querySelector('.chart-iframe');
-            if (!iframe) return;
+        // ========== ROLE BUILDER FUNCTIONS ==========
 
-            iframe.addEventListener('load', function () {
-                try {
-                    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                    const plotlyDiv = iframeDoc.querySelector('.plotly-graph-div');
+        // Store generated roles for copy functionality
+        let generatedRolesList = [];
 
-                    if (plotlyDiv) {
-                        // Listen for plotly click events
-                        plotlyDiv.on('plotly_click', function (data) {
-                            // Store the clicked data for later retrieval
-                            plotlyDiv._lastClicked = data;
+        // Store selected values for each level
+        const levelSelections = {
+            1: new Set(),
+            2: new Set(),
+            3: new Set()
+        };
 
-                            // Debug logging
-                            // console.log('Clicked ID:', data.points[0].id);
-                            // console.log('Clicked Label:', data.points[0].label);
-                            // console.log('Clicked Parent:', data.points[0].parent);
+        // Get available Level 1 values from hierarchy
+        function getAvailableLevel1() {
+            return Object.keys(roleHierarchy).sort();
+        }
 
-                            // Update roles list if Roles tab is active
-                            const rolesTab = document.getElementById('Roles');
-                            if (rolesTab && rolesTab.style.display !== 'none') {
-                                updateRolesList();
-                            }
-                        });
+        // Get available Level 2 values based on selected Level 1 values
+        function getAvailableLevel2() {
+            if (levelSelections[1].size === 0) {
+                return [];
+            }
 
-                        // Also listen for double-click events (which navigate back)
-                        plotlyDiv.on('plotly_doubleclick', function (data) {
-                            // console.log('Double clicked - resetting to root');
-                            plotlyDiv._lastClicked = null;
-
-                            // Update roles list if Roles tab is active
-                            const rolesTab = document.getElementById('Roles');
-                            if (rolesTab && rolesTab.style.display !== 'none') {
-                                updateRolesList();
-                            }
-                        });
-
-                        // Initial load of roles list
-                        updateRolesList();
-                    }
-                } catch (error) {
-                    console.error('Error setting up chart listener:', error);
+            const level2Set = new Set();
+            levelSelections[1].forEach(l1 => {
+                if (roleHierarchy[l1]) {
+                    Object.keys(roleHierarchy[l1]).forEach(l2 => level2Set.add(l2));
                 }
             });
+
+            return [...level2Set].sort();
+        }
+
+        // Get available Level 3 values based on selected Level 1 and Level 2 values
+        function getAvailableLevel3() {
+            if (levelSelections[1].size === 0 || levelSelections[2].size === 0) {
+                return [];
+            }
+
+            const level3Set = new Set();
+            levelSelections[1].forEach(l1 => {
+                if (roleHierarchy[l1]) {
+                    levelSelections[2].forEach(l2 => {
+                        if (roleHierarchy[l1][l2]) {
+                            roleHierarchy[l1][l2].forEach(l3 => level3Set.add(l3));
+                        }
+                    });
+                }
+            });
+
+            return [...level3Set].sort();
+        }
+
+        // Populate the Role Builder searchable lists
+        function populateRoleBuilderSelects() {
+            if (Object.keys(roleHierarchy).length === 0) {
+                // Hierarchy not loaded yet
+                return;
+            }
+
+            renderLevelList(1, getAvailableLevel1());
+            renderLevelList(2, getAvailableLevel2());
+            renderLevelList(3, getAvailableLevel3());
+        }
+
+        // Render a level list with clickable items
+        function renderLevelList(level, values) {
+            const listEl = document.getElementById(`level${level}List`);
+            const searchBox = document.getElementById(`level${level}Search`);
+            const searchTerm = searchBox ? searchBox.value.toLowerCase().trim() : '';
+
+            // Handle empty state based on parent selections
+            if (level === 2 && levelSelections[1].size === 0) {
+                listEl.innerHTML = '<li class="level-no-results">Select Level 1 (Party) first</li>';
+                return;
+            }
+            if (level === 3 && (levelSelections[1].size === 0 || levelSelections[2].size === 0)) {
+                const message = levelSelections[1].size === 0
+                    ? 'Select Level 1 (Party) first'
+                    : 'Select Level 2 (Function) first';
+                listEl.innerHTML = `<li class="level-no-results">${message}</li>`;
+                return;
+            }
+
+            // Filter values based on search
+            const filteredValues = searchTerm
+                ? values.filter(v => v.toLowerCase().includes(searchTerm))
+                : values;
+
+            if (filteredValues.length === 0) {
+                listEl.innerHTML = '<li class="level-no-results">No matches found</li>';
+                return;
+            }
+
+            // Determine input type
+            let inputType = 'checkbox';
+            if (level === 1) {
+                const isMultiSelect = document.getElementById('level1MultiSelect')
+                    ? document.getElementById('level1MultiSelect').checked
+                    : false; // default to false if element missing (though it shouldn't be)
+                if (!isMultiSelect) {
+                    inputType = 'radio';
+                }
+            }
+
+            listEl.innerHTML = filteredValues.map(val => {
+                const isSelected = levelSelections[level].has(val);
+                return `
+                    <li class="level-list-item ${isSelected ? 'selected' : ''}" 
+                        onclick="toggleLevelSelection(${level}, '${val.replace(/'/g, "\\'")}')">
+                        <input type="${inputType}" class="level-checkbox" ${isSelected ? 'checked' : ''} disabled>
+                        <span>${val}</span>
+                    </li>
+                `;
+            }).join('');
+        }
+
+        // Check if all levels have at least one selection
+        function hasValidSelections() {
+            return levelSelections[1].size > 0 &&
+                levelSelections[2].size > 0 &&
+                levelSelections[3].size > 0;
+        }
+
+        // Auto-update generated roles based on current selections
+        function updateGeneratedRoles() {
+            if (hasValidSelections()) {
+                generateRoles();
+            } else {
+                // Hide the generated section when selections are incomplete
+                const section = document.getElementById('generatedRolesSection');
+                section.style.display = 'none';
+                generatedRolesList = [];
+            }
+        }
+
+        // Multi-select toggle handler
+        function onMultiSelectToggle() {
+            const isMultiSelect = document.getElementById('level1MultiSelect').checked;
+
+            // If turning off multi-select and we have multiple selections, keep only the first one
+            if (!isMultiSelect && levelSelections[1].size > 1) {
+                // Get the most recently added item (last in the set iteration usually, but Set order is insertion order)
+                // However, user interaction implies the last clicked one is most relevant, or we can just keep the first one.
+                // Let's keep the last one added to be consistent with "current selection".
+                const selections = Array.from(levelSelections[1]);
+                const lastSelection = selections[selections.length - 1];
+
+                levelSelections[1].clear();
+                levelSelections[1].add(lastSelection);
+
+                // Trigger cascading updates since we removed items
+                const availableL2 = getAvailableLevel2();
+                levelSelections[2].forEach(l2 => {
+                    if (!availableL2.includes(l2)) {
+                        levelSelections[2].delete(l2);
+                    }
+                });
+
+                const availableL3 = getAvailableLevel3();
+                levelSelections[3].forEach(l3 => {
+                    if (!availableL3.includes(l3)) {
+                        levelSelections[3].delete(l3);
+                    }
+                });
+
+                renderLevelList(1, getAvailableLevel1());
+                renderLevelList(2, getAvailableLevel2());
+                renderLevelList(3, getAvailableLevel3());
+                updateSelectionChips(1);
+                updateSelectionChips(2);
+                updateSelectionChips(3);
+                updateGeneratedRoles();
+            }
+        }
+
+        // Toggle selection for an item
+        function toggleLevelSelection(level, value) {
+            // Handle single-select for Level 1
+            if (level === 1) {
+                const isMultiSelect = document.getElementById('level1MultiSelect').checked;
+                if (!isMultiSelect && !levelSelections[1].has(value)) {
+                    // In single select mode, clear other selections before adding new one
+                    levelSelections[1].clear();
+                }
+            }
+
+            if (levelSelections[level].has(value)) {
+                levelSelections[level].delete(value);
+            } else {
+                levelSelections[level].add(value);
+            }
+
+            // When Level 1 changes, clear invalid Level 2 selections
+            if (level === 1) {
+                const availableL2 = getAvailableLevel2();
+                // Check if any selected L2 are no longer invalid
+                levelSelections[2].forEach(l2 => {
+                    if (!availableL2.includes(l2)) {
+                        levelSelections[2].delete(l2);
+                    }
+                });
+                updateSelectionChips(2);
+
+                // Also check L3 which depends on L2
+                const availableL3 = getAvailableLevel3();
+                levelSelections[3].forEach(l3 => {
+                    if (!availableL3.includes(l3)) {
+                        levelSelections[3].delete(l3);
+                    }
+                });
+                updateSelectionChips(3);
+            }
+
+            // When Level 2 changes, clear invalid Level 3 selections
+            if (level === 2) {
+                const availableL3 = getAvailableLevel3();
+                levelSelections[3].forEach(l3 => {
+                    if (!availableL3.includes(l3)) {
+                        levelSelections[3].delete(l3);
+                    }
+                });
+                updateSelectionChips(3);
+            }
+
+            // Re-render all lists to update availability
+            renderLevelList(1, getAvailableLevel1());
+            renderLevelList(2, getAvailableLevel2());
+            renderLevelList(3, getAvailableLevel3());
+
+            updateSelectionChips(level);
+
+            // Auto-generate roles when valid
+            updateGeneratedRoles();
+        }
+
+        // Update selection chips display
+        function updateSelectionChips(level) {
+            const chipsEl = document.getElementById(`level${level}Chips`);
+            const selections = Array.from(levelSelections[level]);
+
+            if (selections.length === 0) {
+                chipsEl.innerHTML = '';
+                return;
+            }
+
+            chipsEl.innerHTML = selections.map(val => `
+                <span class="selection-chip">
+                    ${val}
+                    <span class="remove-chip" onclick="event.stopPropagation(); removeSelection(${level}, '${val.replace(/'/g, "\\'")}')">✕</span>
+                </span>
+            `).join('');
+        }
+
+        // Remove a selection
+        function removeSelection(level, value) {
+            levelSelections[level].delete(value);
+
+            // Cascade: when removing L1, clean up L2 and L3
+            if (level === 1) {
+                const availableL2 = getAvailableLevel2();
+                levelSelections[2].forEach(l2 => {
+                    if (!availableL2.includes(l2)) {
+                        levelSelections[2].delete(l2);
+                    }
+                });
+                updateSelectionChips(2);
+
+                const availableL3 = getAvailableLevel3();
+                levelSelections[3].forEach(l3 => {
+                    if (!availableL3.includes(l3)) {
+                        levelSelections[3].delete(l3);
+                    }
+                });
+                updateSelectionChips(3);
+            }
+
+            // When removing L2, clean up L3
+            if (level === 2) {
+                const availableL3 = getAvailableLevel3();
+                levelSelections[3].forEach(l3 => {
+                    if (!availableL3.includes(l3)) {
+                        levelSelections[3].delete(l3);
+                    }
+                });
+                updateSelectionChips(3);
+            }
+
+            renderLevelList(1, getAvailableLevel1());
+            renderLevelList(2, getAvailableLevel2());
+            renderLevelList(3, getAvailableLevel3());
+            updateSelectionChips(level);
+
+            // Auto-update generated roles
+            updateGeneratedRoles();
+        }
+
+        // Filter level options based on search input
+        function filterLevelOptions(level) {
+            const searchBox = document.getElementById(`level${level}Search`);
+            const clearBtn = document.getElementById(`level${level}ClearBtn`);
+
+            // Show/hide clear button
+            if (searchBox.value.length > 0) {
+                clearBtn.classList.add('visible');
+            } else {
+                clearBtn.classList.remove('visible');
+            }
+
+            const values = level === 1 ? getAvailableLevel1()
+                : level === 2 ? getAvailableLevel2()
+                    : getAvailableLevel3();
+            renderLevelList(level, values);
+        }
+
+        // Clear search for a level
+        function clearLevelSearch(level) {
+            const searchBox = document.getElementById(`level${level}Search`);
+            const clearBtn = document.getElementById(`level${level}ClearBtn`);
+            searchBox.value = '';
+            clearBtn.classList.remove('visible');
+            filterLevelOptions(level);
+            searchBox.focus();
+        }
+
+        // Generate roles using the same logic as TarmacApp's RoleResolverService.Resolve()
+        function generateRoles() {
+            // Get selected values from our selection sets
+            const selectedL1 = Array.from(levelSelections[1]);
+            const selectedL2 = Array.from(levelSelections[2]);
+            const selectedL3 = Array.from(levelSelections[3]);
+
+            // Early return if no valid selections (no alert needed since UI updates reactively)
+            if (selectedL1.length === 0 || selectedL3.length === 0) {
+                return;
+            }
+
+            // Apply Resolve() logic: always add "General" to L2 set
+            const l2Set = new Set(selectedL2);
+            l2Set.add('General');
+            const l2Array = [...l2Set];
+
+            // Check if L3 only contains "All"
+            const includeAllForAnyL2 = selectedL3.length === 1 && selectedL3[0].toLowerCase() === 'all';
+
+            // Generate cross-product of L1 × L2 × L3
+            const roles = [];
+            for (const l1 of selectedL1) {
+                for (const l2 of l2Array) {
+                    for (const l3 of selectedL3) {
+                        // Apply the same logic as Resolve()
+                        if (includeAllForAnyL2 ||
+                            l2.toLowerCase() === 'general' ||
+                            l3.toLowerCase() !== 'all') {
+                            const roleName = `${l1} - ${l2} - ${l3}`;
+                            roles.push(roleName);
+                        }
+                    }
+                }
+            }
+
+            // Store and display generated roles
+            generatedRolesList = [...new Set(roles)].sort();
+            displayGeneratedRoles(generatedRolesList);
+        }
+
+        // Display generated roles in the results section
+        function displayGeneratedRoles(roles) {
+            const section = document.getElementById('generatedRolesSection');
+            const countEl = document.getElementById('generatedRolesCount');
+            const listEl = document.getElementById('generatedRolesList');
+
+            if (roles.length === 0) {
+                section.style.display = 'none';
+                return;
+            }
+
+            section.style.display = 'block';
+            countEl.textContent = `Generated ${roles.length} role${roles.length !== 1 ? 's' : ''}`;
+
+            listEl.innerHTML = roles.map(role => `
+                <li class="role-item">
+                    <span class="role-name">${role}</span>
+                    <button class="copy-btn" onclick="copyToClipboard('${role.replace(/'/g, "\\'")}', this)" title="Copy to clipboard">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                        </svg>
+                    </button>
+                </li>
+            `).join('');
+        }
+
+        // Copy all generated roles
+        function copyAllGeneratedRoles() {
+            if (generatedRolesList.length === 0) {
+                alert('No generated roles to copy');
+                return;
+            }
+
+            const allRolesText = generatedRolesList.join('\n');
+            navigator.clipboard.writeText(allRolesText).then(function () {
+                alert(`Copied ${generatedRolesList.length} roles to clipboard`);
+            }).catch(function (err) {
+                console.error('Failed to copy generated roles: ', err);
+                alert('Failed to copy to clipboard');
+            });
+        }
+
+        // ========== END ROLE BUILDER FUNCTIONS ==========
+
+        // Listen for chart clicks
+        // Listen for messages from iframe (cross-origin safe)
+        window.addEventListener('message', function (event) {
+            // Handle chart data
+            if (event.data && event.data.type === 'chartData') {
+                cachedChartData = event.data.data;
+                // Initial load of roles list
+                updateRolesList();
+                // Also populate Role Builder selects
+                populateRoleBuilderSelects();
+            }
+
+            // Handle chart click
+            if (event.data && event.data.type === 'chartClick') {
+                lastClickedData = event.data.data;
+
+                // Update roles list if Roles tab is active
+                const rolesTab = document.getElementById('Roles');
+                if (rolesTab && rolesTab.style.display !== 'none') {
+                    updateRolesList();
+                }
+            }
+
+            // Handle chart double-click (reset)
+            if (event.data && event.data.type === 'chartDoubleClick') {
+                lastClickedData = null;
+                previousClickedId = null;
+
+                // Update roles list if Roles tab is active
+                const rolesTab = document.getElementById('Roles');
+                if (rolesTab && rolesTab.style.display !== 'none') {
+                    updateRolesList();
+                }
+            }
+        });
+
+        function setupChartListener() {
+            // This function is now a no-op as we use postMessage for cross-origin communication
+            // The message listener above handles all the chart communication
         }
 
         // Ensure the first tab is opened on load or based on URL
