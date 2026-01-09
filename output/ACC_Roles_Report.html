@@ -44,15 +44,19 @@
 
         .chart-container {
             flex: 1;
-            padding: 2rem;
+            padding: 1rem;
+            /* Reduced padding for mobile */
             min-height: 600px;
             background-color: #fff;
+            display: flex;
+            flex-direction: column;
         }
 
         .chart-iframe {
             width: 100%;
             height: 100%;
             border: none;
+            flex: 1;
         }
 
         .explanation-container {
@@ -792,9 +796,13 @@
             <div class="tab-content-container">
                 <div id="About" class="tab-content active">
                     <h2>About This Chart</h2>
-                    <p style="color: #666; font-size: 0.9em; margin-bottom: 1.5rem;"><strong>Last Generated:</strong>
+                    <p style="color: #666; font-size: 0.9em; margin-bottom: 0.5rem;"><strong>Last Generated:</strong>
                         <span id="chartGeneratedDate">January 08, 2026 at 04:09 PM</span>
                     </p>
+                    <p style="margin-top: 0rem; border-top: 1px solid #eee; padding-top: 0rem;">For further information
+                        about this chart and underlying roles, reach out to <strong>Dodzi
+                            Agbenorku, Digital Asset Information Lead, Long Term Growth, Heathrow Airport
+                            Limited.</strong></p>
 
                     <h3>1. What It Is: "The Big Picture"</h3>
                     <p>This sunburst chart is an interactive, hierarchical map of every role in Autodesk Construction
@@ -880,14 +888,7 @@
                     <p>The long-term success of this strategy depends on strict governance and consistent application.
                     </p>
 
-                    <h2>Automation and Future State</h2>
-                    <p>This highly structured naming convention is designed to enable automation via the Autodesk
-                        Platform Services (APS) API.</p>
 
-                    <p style="margin-top: 2rem; border-top: 1px solid #eee; padding-top: 1rem;">For further information
-                        about this chart and underlying roles, reach out to <strong>Dodzi
-                            Agbenorku, Digital Asset Information Lead, Long Term Growth, Heathrow Airport
-                            Limited.</strong></p>
                 </div>
                 <div id="Roles" class="tab-content">
                     <div class="roles-header">
