@@ -734,12 +734,18 @@
         }
 
         .roles-table th {
-            background-color: #f2f2f2;
-            font-weight: 600;
+            background-color: #ffffff;
             color: var(--header-color);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+            padding: 16px 12px;
             position: sticky;
             top: 0;
-            z-index: 1;
+            z-index: 10;
+            border-bottom: 2px solid var(--border-color);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
         }
 
         .roles-table tr:hover {
@@ -756,11 +762,56 @@
         }
 
         .roles-table-container {
-            max-height: 600px;
+            flex: 1;
+            min-height: 0;
             overflow-y: auto;
             border: 1px solid var(--border-color);
             background-color: white;
             border-radius: 4px;
+        }
+
+        #Roles {
+            display: none;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        #Roles.active {
+            display: flex;
+        }
+
+        #RoleBuilder {
+            display: none;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        #RoleBuilder.active {
+            display: flex;
+        }
+
+        .role-builder-container {
+            flex: 1;
+            min-height: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .builder-step {
+            flex: 1;
+            display: none;
+            flex-direction: column;
+            min-height: 0;
+        }
+
+        .builder-step.active {
+            display: flex;
+        }
+
+        .level-list-container {
+            flex: 1;
+            min-height: 0;
+            overflow-y: auto;
         }
 
         @media (min-width: 1200px) {
@@ -997,6 +1048,10 @@
                             <div id="step2Summary" class="selection-summary" style="display:none;"></div>
                             <p style="color: #666; margin-bottom: 0.5rem; font-size: 0.9em;">What is the role's
                                 function? (e.g., Checker, Approver)</p>
+                            <p id="generalDefaultNote"
+                                style="color: #17a2b8; margin-bottom: 0.5rem; font-size: 0.85em; font-style: italic; display: none;">
+                                <strong>Note:</strong> "General" is included by default when available.
+                            </p>
 
                             <div class="level-selector">
                                 <label>Level 2 (Function)</label>
@@ -1027,6 +1082,10 @@
                             <div id="step3Summary" class="selection-summary" style="display:none;"></div>
                             <p style="color: #666; margin-bottom: 0.5rem; font-size: 0.9em;">What is the specific
                                 discipline? (e.g., Architecture, Fire)</p>
+                            <p id="allDefaultNote"
+                                style="color: #17a2b8; margin-bottom: 0.5rem; font-size: 0.85em; font-style: italic; display: none;">
+                                <strong>Note:</strong> "All" is included by default when available.
+                            </p>
 
                             <div class="level-selector">
                                 <label>Level 3 (Discipline)</label>
@@ -2777,6 +2836,44 @@
                 setTimeout(() => {
                     renderLevelList(step, step === 1 ? getAvailableLevel1() : (step === 2 ? getAvailableLevel2() : getAvailableLevel3()));
                 }, 50);
+            }
+
+            // Auto-select "General" when entering Step 2 if it's available
+            if (step === 2) {
+                const availableL2 = getAvailableLevel2();
+                const generalNote = document.getElementById('generalDefaultNote');
+                if (availableL2.includes('General')) {
+                    // Add "General" to selections if not already selected
+                    if (!levelSelections[2].has('General')) {
+                        levelSelections[2].add('General');
+                        updateSelectionChips(2);
+                        renderLevelList(2, availableL2);
+                    }
+                    // Show the note
+                    if (generalNote) generalNote.style.display = 'block';
+                } else {
+                    // Hide the note if General is not available
+                    if (generalNote) generalNote.style.display = 'none';
+                }
+            }
+
+            // Auto-select "All" when entering Step 3 if it's available
+            if (step === 3) {
+                const availableL3 = getAvailableLevel3();
+                const allNote = document.getElementById('allDefaultNote');
+                if (availableL3.includes('All')) {
+                    // Add "All" to selections if not already selected
+                    if (!levelSelections[3].has('All')) {
+                        levelSelections[3].add('All');
+                        updateSelectionChips(3);
+                        renderLevelList(3, availableL3);
+                    }
+                    // Show the note
+                    if (allNote) allNote.style.display = 'block';
+                } else {
+                    // Hide the note if All is not available
+                    if (allNote) allNote.style.display = 'none';
+                }
             }
         }
 
