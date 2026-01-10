@@ -830,10 +830,97 @@
                 /* Constrain height to viewport */
             }
         }
+
+        /* Snackbar notification styles */
+        .snackbar {
+            visibility: hidden;
+            min-width: 280px;
+            max-width: 90%;
+            background-color: #323232;
+            color: #fff;
+            text-align: left;
+            border-radius: 8px;
+            padding: 14px 20px;
+            position: fixed;
+            z-index: 9999;
+            left: 50%;
+            bottom: 30px;
+            transform: translateX(-50%);
+            font-size: 14px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .snackbar.show {
+            visibility: visible;
+            animation: snackbar-fadein 0.3s, snackbar-fadeout 0.3s 4.7s;
+        }
+
+        .snackbar-icon {
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+        }
+
+        .snackbar-message {
+            flex: 1;
+        }
+
+        .snackbar-action {
+            background: none;
+            border: none;
+            color: #4fc3f7;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 4px 8px;
+            font-size: 13px;
+            text-transform: uppercase;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        .snackbar-action:hover {
+            background-color: rgba(79, 195, 247, 0.15);
+        }
+
+        @keyframes snackbar-fadein {
+            from {
+                bottom: 0;
+                opacity: 0;
+            }
+
+            to {
+                bottom: 30px;
+                opacity: 1;
+            }
+        }
+
+        @keyframes snackbar-fadeout {
+            from {
+                bottom: 30px;
+                opacity: 1;
+            }
+
+            to {
+                bottom: 0;
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 
 <body>
+    <!-- Snackbar notification -->
+    <div id="snackbar" class="snackbar">
+        <svg class="snackbar-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" />
+        </svg>
+        <span class="snackbar-message" id="snackbarMessage">Roles filtered! Click the Roles tab to view.</span>
+        <button class="snackbar-action" onclick="navigateToRolesTab()">View</button>
+    </div>
     <main class="main-container">
         <section class="chart-container">
             <iframe class="chart-iframe" src="_chart_only.html"></iframe>
@@ -1131,6 +1218,27 @@
                                     </button>
                                 </div>
                                 <ul class="roles-list" id="generatedRolesList" style="max-height: 50vh;"></ul>
+
+                                <!-- Shareable URL Section -->
+                                <div class="shareable-url-section" id="shareableUrlSection"
+                                    style="margin-top: 1rem; padding: 0.75rem; background: #f8f9fa; border-radius: 6px; border: 1px solid #e9ecef;">
+                                    <p style="margin: 0 0 0.5rem 0; font-size: 0.85em; color: #666;">
+                                        <strong>💡 Share this selection:</strong> Copy the URL below to share this role
+                                        configuration with others.
+                                    </p>
+                                    <div style="display: flex; gap: 8px; align-items: center;">
+                                        <input type="text" id="shareableUrl" readonly
+                                            style="flex: 1; padding: 8px 10px; border: 1px solid #dee2e6; border-radius: 4px; font-size: 0.8em; background: #fff; color: #495057;">
+                                        <button class="copy-btn" onclick="copyShareableUrl()" title="Copy URL"
+                                            style="padding: 8px 12px;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                style="width: 16px; height: 16px;">
+                                                <path
+                                                    d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="step-navigation">
@@ -1994,6 +2102,8 @@
 
         // Store the previous clicked ID to detect when we click the same item again (going back)
         let previousClickedId = null;
+        // Store the current filter ID (computed at click time, not during render)
+        let currentFilterId = null;
 
         function getSelectedRoles() {
             try {
@@ -2001,47 +2111,29 @@
                     return null;
                 }
 
-                // Check if there's a clicked point
-                if (lastClickedData) {
-                    const clickedId = lastClickedData.id;
-                    const clickedParent = lastClickedData.parent;
+                // Use the pre-computed filter ID (set at click time)
+                if (!currentFilterId) {
+                    return null;
+                }
 
-                    let targetFilterId = clickedId;
-
-                    // If we clicked the same ID twice, we're going back
-                    if (previousClickedId === clickedId) {
-                        if (clickedParent && clickedParent !== '') {
-                            targetFilterId = clickedParent;
-                            previousClickedId = clickedParent;
-                        } else {
-                            previousClickedId = null;
-                            return null;
-                        }
-                    } else {
-                        previousClickedId = clickedId;
-                    }
-
-                    // Get all descendants of the clicked segment that are outer ring roles
-                    const selectedRoles = [];
-                    for (let i = 0; i < cachedChartData.ids.length; i++) {
-                        // Check if this node is a descendant of the target segment
-                        if (isDescendant(cachedChartData.ids[i], targetFilterId, cachedChartData.ids, cachedChartData.parents)) {
-                            // Only add outer ring roles (roles that have a parent with a parent)
-                            const nodeParent = cachedChartData.parents[i];
-                            if (nodeParent && nodeParent !== '') {
-                                const parentIndex = cachedChartData.ids.indexOf(nodeParent);
-                                if (parentIndex !== -1 && cachedChartData.parents[parentIndex] && cachedChartData.parents[parentIndex] !== '') {
-                                    selectedRoles.push(cachedChartData.labels[i]);
-                                }
+                // Get all descendants of the filter segment that are outer ring roles
+                const selectedRoles = [];
+                for (let i = 0; i < cachedChartData.ids.length; i++) {
+                    // Check if this node is a descendant of the target segment
+                    if (isDescendant(cachedChartData.ids[i], currentFilterId, cachedChartData.ids, cachedChartData.parents)) {
+                        // Only add outer ring roles (roles that have a parent with a parent)
+                        const nodeParent = cachedChartData.parents[i];
+                        if (nodeParent && nodeParent !== '') {
+                            const parentIndex = cachedChartData.ids.indexOf(nodeParent);
+                            if (parentIndex !== -1 && cachedChartData.parents[parentIndex] && cachedChartData.parents[parentIndex] !== '') {
+                                selectedRoles.push(cachedChartData.labels[i]);
                             }
                         }
                     }
-
-                    // If no roles found for this selection, show all roles instead
-                    return selectedRoles.length > 0 ? [...new Set(selectedRoles)].sort() : null;
                 }
 
-                return null;
+                // If no roles found for this selection, return null to show all roles
+                return selectedRoles.length > 0 ? [...new Set(selectedRoles)].sort() : null;
             } catch (error) {
                 console.error('Error getting selected roles:', error);
                 return null;
@@ -2441,6 +2533,21 @@
             }
         }
 
+        // Helper to apply defaults (General/All) when appropriate
+        function ensureDefaultsSelected() {
+            // Add "General" to L2 if available and not already selected
+            const availableL2 = getAvailableLevel2();
+            if (availableL2.includes('General') && !levelSelections[2].has('General')) {
+                levelSelections[2].add('General');
+            }
+
+            // Add "All" to L3 if available and not already selected
+            const availableL3 = getAvailableLevel3();
+            if (availableL3.includes('All') && !levelSelections[3].has('All')) {
+                levelSelections[3].add('All');
+            }
+        }
+
         // Toggle selection for an item
         function toggleLevelSelection(level, value) {
             // Handle single-select for Level 1
@@ -2490,6 +2597,9 @@
                 updateSelectionChips(3);
             }
 
+            // Apply defaults to new valid selections (ensure General/All are selected if available)
+            ensureDefaultsSelected();
+
             // Re-render all lists to update availability
             renderLevelList(1, getAvailableLevel1());
             renderLevelList(2, getAvailableLevel2());
@@ -2514,9 +2624,48 @@
             chipsEl.innerHTML = selections.map(val => `
                 <span class="selection-chip">
                     ${val}
-                    <span class="remove-chip" onclick="event.stopPropagation(); removeSelection(${level}, '${val.replace(/'/g, "\\'")}')">✕</span>
+                    <span class="remove-chip" onclick="event.stopPropagation(); removeSelection(${level}, '${val.replace(/'/g, "\\'")}')">&times;</span>
                 </span>
             `).join('');
+
+            // Update URL with current selections
+            updateUrlWithSelections();
+        }
+
+        // Update URL query parameters with current Role Builder selections
+        function updateUrlWithSelections() {
+            const url = new URL(window.location.href);
+
+            // Get current selections
+            const l1 = Array.from(levelSelections[1]);
+            const l2 = Array.from(levelSelections[2]);
+            const l3 = Array.from(levelSelections[3]);
+
+            // Update or remove l1 param
+            if (l1.length > 0) {
+                url.searchParams.set('l1', l1.join(','));
+            } else {
+                url.searchParams.delete('l1');
+            }
+
+            // Update or remove l2 param (exclude "General" as it's auto-added)
+            const l2WithoutDefault = l2.filter(v => v !== 'General');
+            if (l2WithoutDefault.length > 0) {
+                url.searchParams.set('l2', l2WithoutDefault.join(','));
+            } else {
+                url.searchParams.delete('l2');
+            }
+
+            // Update or remove l3 param (exclude "All" as it's auto-added)
+            const l3WithoutDefault = l3.filter(v => v !== 'All');
+            if (l3WithoutDefault.length > 0) {
+                url.searchParams.set('l3', l3WithoutDefault.join(','));
+            } else {
+                url.searchParams.delete('l3');
+            }
+
+            // Update browser URL without reloading the page
+            window.history.replaceState({}, '', url.toString());
         }
 
         // Remove a selection
@@ -2602,10 +2751,8 @@
                 return;
             }
 
-            // Apply Resolve() logic: always add "General" to L2 set
-            const l2Set = new Set(selectedL2);
-            l2Set.add('General');
-            const l2Array = [...l2Set];
+            // Apply Resolve() logic: L2 set is whatever is selected (defaults are now explicit in selection)
+            const l2Array = selectedL2;
 
             // Check if L3 only contains "All"
             const includeAllForAnyL2 = selectedL3.length === 1 && selectedL3[0].toLowerCase() === 'all';
@@ -2655,6 +2802,56 @@
                     </button>
                 </li>
             `).join('');
+
+            // Update shareable URL
+            updateShareableUrl();
+        }
+
+        // Generate and update the shareable URL
+        function updateShareableUrl() {
+            const urlInput = document.getElementById('shareableUrl');
+            if (!urlInput) return;
+
+            const selectedL1 = Array.from(levelSelections[1]);
+            const selectedL2 = Array.from(levelSelections[2]);
+            const selectedL3 = Array.from(levelSelections[3]);
+
+            // Build URL with current selections
+            const baseUrl = window.location.origin + window.location.pathname;
+            const params = new URLSearchParams();
+
+            if (selectedL1.length > 0) params.set('l1', selectedL1.join(','));
+            if (selectedL2.length > 0) params.set('l2', selectedL2.join(','));
+            if (selectedL3.length > 0) params.set('l3', selectedL3.join(','));
+
+            const newUrl = baseUrl + '?' + params.toString() + '#RoleBuilder';
+            urlInput.value = newUrl;
+
+            // Sync browser URL without reloading
+            window.history.replaceState(null, '', newUrl);
+        }
+
+        // Copy shareable URL to clipboard
+        function copyShareableUrl() {
+            const urlInput = document.getElementById('shareableUrl');
+            if (!urlInput || !urlInput.value) return;
+
+            navigator.clipboard.writeText(urlInput.value).then(function () {
+                // Show brief feedback
+                const btn = urlInput.nextElementSibling;
+                if (btn) {
+                    const originalHTML = btn.innerHTML;
+                    btn.innerHTML = '✓';
+                    btn.style.color = '#28a745';
+                    setTimeout(function () {
+                        btn.innerHTML = originalHTML;
+                        btn.style.color = '';
+                    }, 1500);
+                }
+            }).catch(function (err) {
+                console.error('Failed to copy URL: ', err);
+                alert('Failed to copy URL');
+            });
         }
 
         // Copy all generated roles
@@ -2675,6 +2872,46 @@
 
         // ========== END ROLE BUILDER FUNCTIONS ==========
 
+        // Snackbar notification system
+        let snackbarTimeout = null;
+
+        function showSnackbar(message) {
+            const snackbar = document.getElementById('snackbar');
+            const messageEl = document.getElementById('snackbarMessage');
+
+            // Don't show if Roles tab is already active
+            const rolesTab = document.getElementById('Roles');
+            if (rolesTab && rolesTab.style.display !== 'none') {
+                return;
+            }
+
+            // Clear any existing timeout
+            if (snackbarTimeout) {
+                clearTimeout(snackbarTimeout);
+                snackbar.classList.remove('show');
+            }
+
+            messageEl.textContent = message;
+            snackbar.classList.add('show');
+
+            snackbarTimeout = setTimeout(function () {
+                snackbar.classList.remove('show');
+            }, 5000);
+        }
+
+        function navigateToRolesTab() {
+            const rolesTabBtn = document.querySelector('.tab-link[onclick*="Roles"]');
+            if (rolesTabBtn) {
+                rolesTabBtn.click();
+            }
+            // Hide snackbar immediately
+            const snackbar = document.getElementById('snackbar');
+            snackbar.classList.remove('show');
+            if (snackbarTimeout) {
+                clearTimeout(snackbarTimeout);
+            }
+        }
+
         // Listen for chart clicks
         // Listen for messages from iframe (cross-origin safe)
         window.addEventListener('message', function (event) {
@@ -2690,11 +2927,33 @@
             // Handle chart click
             if (event.data && event.data.type === 'chartClick') {
                 lastClickedData = event.data.data;
+                const clickedId = event.data.data.id;
+                const clickedParent = event.data.data.parent;
 
-                // Update roles list if Roles tab is active
-                const rolesTab = document.getElementById('Roles');
-                if (rolesTab && rolesTab.style.display !== 'none') {
-                    updateRolesList();
+                // Compute the filter ID at click time (handles go-back logic)
+                if (previousClickedId === clickedId) {
+                    // Clicked same item - go back up to parent
+                    if (clickedParent && clickedParent !== '') {
+                        currentFilterId = clickedParent;
+                        previousClickedId = clickedParent;
+                    } else {
+                        // At root level, reset filter
+                        currentFilterId = null;
+                        previousClickedId = null;
+                    }
+                } else {
+                    // New item clicked - set as filter
+                    currentFilterId = clickedId;
+                    previousClickedId = clickedId;
+                }
+
+                // Update roles list in background and show notification
+                updateRolesList();
+                const label = currentFilterId ? event.data.data.label : 'all';
+                if (currentFilterId) {
+                    showSnackbar(`Roles filtered by "${label}". Click the Roles tab to view.`);
+                } else {
+                    showSnackbar('Roles reset to show all. Click the Roles tab to view.');
                 }
             }
 
@@ -2702,12 +2961,11 @@
             if (event.data && event.data.type === 'chartDoubleClick') {
                 lastClickedData = null;
                 previousClickedId = null;
+                currentFilterId = null;
 
-                // Update roles list if Roles tab is active
-                const rolesTab = document.getElementById('Roles');
-                if (rolesTab && rolesTab.style.display !== 'none') {
-                    updateRolesList();
-                }
+                // Update roles list in background and show notification
+                updateRolesList();
+                showSnackbar('Roles reset to show all. Click the Roles tab to view.');
             }
         });
 
@@ -2736,13 +2994,104 @@
                 searchHasRoleTarget = true;
             }
 
+            // Handle Role Builder URL parameters (l1, l2, l3)
+            const l1Param = urlParams.get('l1');
+            const l2Param = urlParams.get('l2');
+            const l3Param = urlParams.get('l3');
+            // noDefaults parameter is deprecated and ignored
+            let roleBuilderFromUrl = false;
+
+            if (l1Param) {
+                // Parse comma-separated values for Level 1
+                const l1Values = l1Param.split(',').map(v => v.trim()).filter(v => v);
+                const availableL1 = getAvailableLevel1();
+
+                l1Values.forEach(val => {
+                    if (availableL1.includes(val)) {
+                        levelSelections[1].add(val);
+                    }
+                });
+
+                if (levelSelections[1].size > 0) {
+                    // Parse Level 2 values if provided
+                    if (l2Param) {
+                        const l2Values = l2Param.split(',').map(v => v.trim()).filter(v => v);
+                        const availableL2 = getAvailableLevel2();
+
+                        l2Values.forEach(val => {
+                            if (availableL2.includes(val)) {
+                                levelSelections[2].add(val);
+                            }
+                        });
+                    }
+
+                    // Auto-add "General" to Level 2 if available and not set (only if L2 param was missing)
+                    // If L2 param exists, we assume it's explicit. 
+                    // However, old links without explicit "General" might need it.
+                    // Let's stick to explicit behavior: if L2 param is present, key off that.
+                    // But for first load, ensuring standard defaults (General/All) is good behavior if they're missing.
+                    if (levelSelections[2].size === 0) {
+                        const availableL2 = getAvailableLevel2();
+                        if (availableL2.includes('General')) {
+                            levelSelections[2].add('General');
+                        }
+                    } else {
+                        // Ensure General is there if available (implicit default behavior we had before)
+                        // Actually the user request is "include all possible selections... in the URL".
+                        // So if the URL loads, we trust the URL. If the URL misses "General", we effectively don't select it?
+                        // BUT, the system logic strongly prefers General/All being present.
+                        // Let's ensure they are added if valid options, to be safe.
+                        const availableL2 = getAvailableLevel2();
+                        if (availableL2.includes('General') && !levelSelections[2].has('General')) {
+                            // If user explicitly crafted a URL without General, should we force it?
+                            // Yes, based on current app logic where General is standard.
+                            levelSelections[2].add('General');
+                        }
+                    }
+
+                    if (levelSelections[2].size > 0) {
+                        // Parse Level 3 values if provided
+                        if (l3Param) {
+                            const l3Values = l3Param.split(',').map(v => v.trim()).filter(v => v);
+                            const availableL3 = getAvailableLevel3();
+
+                            l3Values.forEach(val => {
+                                if (availableL3.includes(val)) {
+                                    levelSelections[3].add(val);
+                                }
+                            });
+                        }
+
+                        // Auto-add "All" to Level 3 if available
+                        const availableL3 = getAvailableLevel3();
+                        if (availableL3.includes('All') && !levelSelections[3].has('All')) {
+                            levelSelections[3].add('All');
+                        }
+
+                        if (levelSelections[3].size > 0) {
+                            roleBuilderFromUrl = true;
+                        }
+                    }
+                }
+            }
+
             // Handle Tab Hash
             const hash = window.location.hash.substring(1);
             const tabLinks = document.getElementsByClassName("tab-link");
             let tabToOpen = tabLinks[0]; // Default to first
 
+            // If Role Builder params were provided, go to Role Builder tab
+            if (roleBuilderFromUrl) {
+                for (let i = 0; i < tabLinks.length; i++) {
+                    const onclickAttr = tabLinks[i].getAttribute('onclick');
+                    if (onclickAttr && onclickAttr.includes(`'RoleBuilder'`)) {
+                        tabToOpen = tabLinks[i];
+                        break;
+                    }
+                }
+            }
             // If hash is present, try to find matching tab
-            if (hash) {
+            else if (hash) {
                 for (let i = 0; i < tabLinks.length; i++) {
                     // Extract tab name from onclick attribute: openTab(event, 'TabName')
                     const onclickAttr = tabLinks[i].getAttribute('onclick');
@@ -2765,6 +3114,21 @@
             // Click the determined tab
             if (tabToOpen) {
                 tabToOpen.click();
+            }
+
+            // If Role Builder from URL, generate roles and go to Step 4
+            if (roleBuilderFromUrl) {
+                // Update all chips and lists
+                renderLevelList(1, getAvailableLevel1());
+                renderLevelList(2, getAvailableLevel2());
+                renderLevelList(3, getAvailableLevel3());
+                updateSelectionChips(1);
+                updateSelectionChips(2);
+                updateSelectionChips(3);
+
+                // Generate roles and go to results
+                generateRoles();
+                goToStep(4);
             }
         });
 
