@@ -1208,7 +1208,7 @@
                                 style="display: block; border-top: none; margin-top: 0;">
                                 <div class="roles-header">
                                     <h3 id="generatedRolesCount">Generated Roles</h3>
-                                    <button class="copy-all-btn" onclick="copyAllGeneratedRoles()"
+                                    <button class="copy-all-btn" onclick="copyAllGeneratedRoles(this)"
                                         title="Copy all generated roles">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                                             <path
@@ -1286,15 +1286,39 @@
             }
         }
 
+        // Track the currently active copy button to maintain check state
+        let activeCopyButton = null;
+
         function copyToClipboard(text, button) {
+            // If clicking the same button that is already active/checked, just re-copy but don't toggle visual state
+            if (activeCopyButton === button) {
+                navigator.clipboard.writeText(text).catch(err => console.error('Failed to copy text: ', err));
+                return;
+            }
+
             navigator.clipboard.writeText(text).then(function () {
-                const originalIcon = button.innerHTML;
+                // If there is another button currently showing "Copied", reset it
+                if (activeCopyButton && activeCopyButton !== button) {
+                    const originalContent = activeCopyButton.getAttribute('data-original-content');
+                    if (originalContent) {
+                        activeCopyButton.innerHTML = originalContent;
+                    }
+                    activeCopyButton.classList.remove('copied');
+                    activeCopyButton = null;
+                }
+
+                // Save original content for the clicked button if not already saved
+                if (!button.getAttribute('data-original-content')) {
+                    button.setAttribute('data-original-content', button.innerHTML);
+                }
+
+                // Set new state
                 button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>';
                 button.classList.add('copied');
-                setTimeout(function () {
-                    button.innerHTML = originalIcon;
-                    button.classList.remove('copied');
-                }, 2000);
+
+                // Update global reference
+                activeCopyButton = button;
+
             }).catch(function (err) {
                 console.error('Failed to copy text: ', err);
                 alert('Failed to copy to clipboard');
@@ -2855,15 +2879,36 @@
         }
 
         // Copy all generated roles
-        function copyAllGeneratedRoles() {
+        function copyAllGeneratedRoles(copyAllBtn) {
             if (generatedRolesList.length === 0) {
                 alert('No generated roles to copy');
                 return;
             }
 
+            // Fallback if button not passed (though we updated HTML)
+            if (!copyAllBtn) {
+                // Try to find it in DOM or just use alert
+                copyAllBtn = document.querySelector('#generatedRolesSection .copy-all-btn');
+            }
+
             const allRolesText = generatedRolesList.join('\n');
             navigator.clipboard.writeText(allRolesText).then(function () {
-                alert(`Copied ${generatedRolesList.length} roles to clipboard`);
+                if (copyAllBtn) {
+                    const originalHTML = copyAllBtn.innerHTML;
+                    copyAllBtn.innerHTML = `
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+                        </svg>
+                        Copied!
+                    `;
+                    copyAllBtn.classList.add('copied');
+                    setTimeout(function () {
+                        copyAllBtn.innerHTML = originalHTML;
+                        copyAllBtn.classList.remove('copied');
+                    }, 2000);
+                } else {
+                    alert(`Copied ${generatedRolesList.length} roles to clipboard`);
+                }
             }).catch(function (err) {
                 console.error('Failed to copy generated roles: ', err);
                 alert('Failed to copy to clipboard');
