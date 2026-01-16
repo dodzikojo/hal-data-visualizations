@@ -2797,6 +2797,9 @@
                 }
             }
 
+            // Always include "All Members" role
+            roles.push("All Members");
+
             // Store and display generated roles
             generatedRolesList = [...new Set(roles)].sort();
             displayGeneratedRoles(generatedRolesList);
