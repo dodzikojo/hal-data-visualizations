@@ -469,6 +469,40 @@
             margin-right: 4px;
         }
 
+        .summary-copy-btn {
+            padding: 2px 6px;
+            margin-left: 6px;
+            background-color: transparent;
+            color: var(--tab-active-border);
+            border: 1px solid var(--tab-active-border);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            vertical-align: middle;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+        }
+
+        .summary-copy-btn:hover {
+            background-color: var(--tab-active-border);
+            color: white;
+        }
+
+        .summary-copy-btn.copied {
+            background-color: #27ae60;
+            border-color: #27ae60;
+            color: white;
+        }
+
+        .summary-copy-btn svg {
+            width: 14px;
+            height: 14px;
+            fill: currentColor;
+        }
+
 
         .level-selector {
             display: flex;
@@ -3189,22 +3223,35 @@
 
             let html = '';
 
+            // Helper to create summary item with copy button
+            const createSummaryItem = (label, values) => {
+                return `
+                    <span class="summary-item">
+                        <span class="summary-label">${label}:</span> ${values}
+                        <button class="summary-copy-btn" onclick="copyToClipboard('${values.replace(/'/g, "\\'")}', this)" title="Copy ${label} values">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                            </svg>
+                        </button>
+                    </span>`;
+            };
+
             // For Step 2, show Level 1 selection
             if (step >= 2) {
                 const l1 = Array.from(levelSelections[1]).join(', ');
-                if (l1) html += `<span class="summary-item"><span class="summary-label">Party:</span> ${l1}</span>`;
+                if (l1) html += createSummaryItem('Party', l1);
             }
 
             // For Step 3, show Level 1 & 2
             if (step >= 3) {
                 const l2 = Array.from(levelSelections[2]).join(', ');
-                if (l2) html += `<span class="summary-item"><span class="summary-label">Function:</span> ${l2}</span>`;
+                if (l2) html += createSummaryItem('Function', l2);
             }
 
             // For Step 4, show Level 1, 2 & 3
             if (step >= 4) {
                 const l3 = Array.from(levelSelections[3]).join(', ');
-                if (l3) html += `<span class="summary-item"><span class="summary-label">Discipline:</span> ${l3}</span>`;
+                if (l3) html += createSummaryItem('Discipline', l3);
             }
 
             summaryEl.innerHTML = html;
