@@ -1121,6 +1121,9 @@
                         <div class="breadcrumb-item" id="crumb4" onclick="if(canGoToStep(4)) goToStep(4)">
                             <span>4. Results</span>
                         </div>
+                        <div class="breadcrumb-item" id="crumb5" onclick="if(canGoToStep(5)) goToStep(5)">
+                            <span>5. Request Access</span>
+                        </div>
                     </div>
 
                     <div class="role-builder-container">
@@ -1278,7 +1281,55 @@
                             <div class="step-navigation">
                                 <button class="nav-btn btn-secondary" onclick="goToStep(3)">&larr; Back to
                                     Disciplines</button>
-                                <button class="nav-btn btn-primary" onclick="resetWizard()">Start Over ↺</button>
+                                <button class="nav-btn btn-primary" onclick="goToStep(5)">Next: Request Access
+                                    &rarr;</button>
+                            </div>
+                        </div>
+
+                        <!-- STEP 5: EMAIL REQUEST -->
+                        <div class="builder-step" id="step5">
+                            <h3>Step 5: Request Access</h3>
+                            <div id="step5Summary" class="selection-summary" style="display:none;"></div>
+                            <p style="color: #666; margin-bottom: 0.5rem; font-size: 0.9em;">
+                                Enter the email addresses of the people who need these roles.
+                            </p>
+
+                            <div class="email-request-container" style="margin-top: 1rem;">
+                                <label
+                                    style="font-weight: 600; color: var(--header-color); display: block; margin-bottom: 0.5rem;">
+                                    Assignee Emails (CC)
+                                </label>
+                                <p style="font-size: 0.85em; color: #666; margin-bottom: 0.5rem;">
+                                    Separate multiple emails with commas or semicolons.
+                                </p>
+                                <textarea id="assigneeEmails" rows="4"
+                                    style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 4px; font-family: inherit;"
+                                    placeholder="e.g. john.doe@example.com, jane.smith@example.com"></textarea>
+
+                                <div
+                                    style="margin-top: 1.5rem; background-color: #e3f2fd; padding: 1rem; border-radius: 4px; border: 1px solid #90caf9;">
+                                    <h4 style="margin-top: 0; margin-bottom: 0.5rem; color: #1565c0;">What happens next?
+                                    </h4>
+                                    <p style="margin: 0; font-size: 0.9em; color: #1565c0;">
+                                        Clicking "Send Request" will open your default email client with a pre-formatted
+                                        email to the
+                                        <strong>Digital Asset Information Lead, Long-Term Growth</strong>. The email
+                                        will include your role
+                                        selections and the list of assignees.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="step-navigation">
+                                <button class="nav-btn btn-secondary" onclick="goToStep(4)">&larr; Back to
+                                    Results</button>
+                                <button class="nav-btn btn-success" onclick="composeEmail()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                        style="width: 16px; height: 16px; fill: currentColor; vertical-align: middle; margin-right: 4px;">
+                                        <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+                                    </svg>
+                                    Send Request
+                                </button>
                             </div>
                         </div>
 
@@ -3254,6 +3305,11 @@
                 if (l3) html += createSummaryItem('Discipline', l3);
             }
 
+            // For Step 5, show role count
+            if (step >= 5) {
+                html += `<span class="summary-item"><span class="summary-label">Roles Generated:</span> ${generatedRolesList.length}</span>`;
+            }
+
             summaryEl.innerHTML = html;
             summaryEl.style.display = html ? 'block' : 'none';
         }
@@ -3278,7 +3334,7 @@
 
             // Update Breadcrumbs
             currentStep = step;
-            for (let i = 1; i <= 4; i++) {
+            for (let i = 1; i <= 5; i++) {
                 const crumb = document.getElementById(`crumb${i}`);
                 if (crumb) {
                     crumb.classList.remove('active', 'completed');
@@ -3340,7 +3396,9 @@
             if (step === 1) return true;
             if (step === 2) return levelSelections[1].size > 0;
             if (step === 3) return levelSelections[1].size > 0 && levelSelections[2].size > 0;
+            if (step === 3) return levelSelections[1].size > 0 && levelSelections[2].size > 0;
             if (step === 4) return hasValidSelections();
+            if (step === 5) return hasValidSelections() && generatedRolesList.length > 0;
             return false;
         }
 
@@ -3367,6 +3425,55 @@
             updateSelectionChips(3);
 
             goToStep(1);
+        }
+
+        function composeEmail() {
+            const assigneeEmails = document.getElementById('assigneeEmails').value.trim();
+            if (!assigneeEmails) {
+                alert("Please enter at least one email address for assignment.");
+                return;
+            }
+
+            const recipient = "dodzi.agbenorku1@heathrow.com";
+            // Sanitize emails (basic check)
+            const cleanCC = assigneeEmails.replace(/[\n\r]/g, ',').replace(/\s+/g, '');
+            const subject = encodeURIComponent("ACC DCO User Access Request");
+
+            // Format Body
+            const party = Array.from(levelSelections[1]).join(', ');
+            const func = Array.from(levelSelections[2]).join(', ');
+            const discipline = Array.from(levelSelections[3]).join(', ');
+
+            const rolesFormatted = generatedRolesList.map(r => `• ${r}`).join('\n');
+            const assigneesFormatted = assigneeEmails.split(/[,;]/).map(e => e.trim()).filter(e => e).join('\n');
+
+            const bodyContent = `Hi Dodzi,
+
+Please process the following ACC User Access Request.
+
+SELECTIONS:
+Level 1 (Party): ${party}
+Level 2 (Function): ${func}
+Level 3 (Discipline): ${discipline}
+
+ASSIGN TO USERS:
+${assigneesFormatted}
+
+GENERATED ROLES (${generatedRolesList.length}):
+${rolesFormatted}
+
+Reference URL:
+${window.location.href}
+
+Thanks.`;
+
+            const body = encodeURIComponent(bodyContent);
+
+            // Construct mailto link
+            // Note: CC is supported by most clients in mailto
+            const mailtoLink = `mailto:${recipient}?cc=${cleanCC}&subject=${subject}&body=${body}`;
+
+            window.location.href = mailtoLink;
         }
     </script>
 </body>
